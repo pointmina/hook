@@ -2,57 +2,67 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toorbar_home"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="68dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="@string/app_name"
         app:titleTextAppearance="@style/AppTexTitle.S18" />
 
-    <View
+    <ImageView
+        android:layout_width="28.5dp"
+        android:layout_height="28.5dp"
+        android:layout_marginEnd="28dp"
+        android:src="@drawable/ic_setting"
+        app:layout_constraintBottom_toBottomOf="@id/toorbar_home"
+        app:layout_constraintEnd_toEndOf="@id/toorbar_home"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        android:id="@+id/view_card_area"
+    <View
+        android:id="@+id/view_tag_area"
         android:layout_width="0dp"
-        android:layout_height="180dp"
+        android:layout_height="55dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="20dp"
         android:layout_marginRight="16dp"
-        android:background="@drawable/background_blue200"
+        android:background="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toorbar_home" />
 
-    <ImageView
-        android:id="@+id/iv_add_card"
+<!--    요기에 태그 한개만 나온다함..-->
+    <TextView
+        android:id="@+id/tv_selected_tag"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contentDescription="@string/description_add_card"
-        android:src="@drawable/ic_plus"
-        app:layout_constraintBottom_toTopOf="@id/tv_add_card"
-        app:layout_constraintEnd_toEndOf="@id/view_card_area"
-        app:layout_constraintStart_toStartOf="@id/view_card_area"
-        app:layout_constraintTop_toTopOf="@id/view_card_area"
-        app:layout_constraintVertical_chainStyle="packed" />
+        android:contentDescription="@string/description_select_tag"
+        android:text="#태그"
+        android:textSize="24dp"
+        android:background="#F4F4F4"
+        android:textStyle="bold"
+        android:layout_marginStart="24dp"
+        app:layout_constraintBottom_toBottomOf="@id/view_tag_area"
+        app:layout_constraintStart_toStartOf="@id/view_tag_area"
+        app:layout_constraintTop_toTopOf="@id/view_tag_area" />
 
-    <TextView
-        android:id="@+id/tv_add_card"
-        style="@style/AppTextPrimary"
-        android:layout_width="0dp"
+    <ImageView
+        android:id="@+id/tv_view_all"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="11dp"
-        android:gravity="center"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:text="@string/label_add_card"
-        app:layout_constraintBottom_toBottomOf="@id/view_card_area"
-        app:layout_constraintEnd_toEndOf="@id/view_card_area"
-        app:layout_constraintStart_toStartOf="@id/view_card_area"
-        app:layout_constraintTop_toBottomOf="@id/iv_add_card" />
+        android:contentDescription="@string/description_select_tag"
+        android:src="@drawable/ic_view_all"
+        android:textColor="#8E8D93"
+        android:textStyle="bold"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintBottom_toBottomOf="@id/view_tag_area"
+        app:layout_constraintTop_toTopOf="@id/view_tag_area"
+        app:layout_constraintEnd_toEndOf="@id/view_tag_area"/>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

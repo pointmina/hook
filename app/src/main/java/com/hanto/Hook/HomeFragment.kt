@@ -1,4 +1,4 @@
-package com.hanto.payapp
+package com.hanto.Hook
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.hanto.payapp.databinding.FragmentHomeBinding
+import com.hanto.Hook.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
 
@@ -31,7 +31,7 @@ class HomeFragment : Fragment() {
 
         //네비게이션 그래프 액션 내부 컨트롤러가 이 네비게이션 라이브러리 내부에서 실제로 화면에 이동을 제어하는 기능을 하고 있는 컨트롤러
         //기존에는 액션의 아이디로 전달하고 있었는데 safeargs는 action을 함수로 제공됨
-        binding.viewCardArea.setOnClickListener{
+        binding.tvViewAll.setOnClickListener{
             val action = HomeFragmentDirections.actionHomeToPaymentMethodFragment()
 //            findNavController().navigate(R.id.action_home_to_paymentMethodFragment)
             findNavController().navigate(action)

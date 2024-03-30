@@ -7,11 +7,11 @@ plugins {
 }
 
 android {
-    namespace = "com.hanto.payapp"
+    namespace = "com.hanto.Hook"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.hanto.payapp"
+        applicationId = "com.hanto.Hook"
         minSdk = 24
         targetSdk = 34
         versionCode = 1

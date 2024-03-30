@@ -1,17 +1,19 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="app_name">한토페이</string>
+    <string name="app_name">Hook</string>
 
     <!-- home -->
-    <string name="label_home_screen">홈</string>
-    <string name="label_transfer_screen">송금</string>
+    <string name="label_tag">홈</string>
+    <string name="label_folder">폴더</string>
+    <string name="label_star">모아보기</string>
     <string name="label_add_card">결제 수단을 등록해주세요</string>
 
     <!-- Transfer-->
     <string name="appbar_title_transfer_screen">누구에게 보낼까요?</string>
-    <string name="description_add_card">카드 추가를 안내하는 이미지</string>
+    <string name="description_select_tag">선택 태그 값</string>
 
 
     <!--    payment method-->
     <string name="appbar_title_payment_method_screen" tools:ignore="ExtraTranslation">결제 수단 등록</string>
-    <string name="description_transfer_account_profile">송금 계좌 프로필</string>
+    <string name="app_title">Hook</string>
+    <string name="label_splah_title">h o o k!</string>
 </resources>

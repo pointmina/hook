@@ -3,8 +3,10 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="gray_700">#474F5A</color>
-    <color name="gray_300">#8897AE</color>
+    <color name="gray_300">#8E8D93</color>
     <color name="blue_500">#337CFF</color>
     <color name="blue_200">#EEF4FF</color>
+    <color name="purple">#6230F2</color>
+
 
 </resources>

@@ -1,12 +1,11 @@
-package com.hanto.payapp
+package com.hanto.Hook
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.hanto.payapp.databinding.FragmentHomeBinding
-import com.hanto.payapp.databinding.FragmentPaymentMethodBinding
+import com.hanto.Hook.databinding.FragmentPaymentMethodBinding
 
 class PaymentMethodFragment :Fragment() {
     private var _binding: FragmentPaymentMethodBinding? = null

@@ -1,11 +1,10 @@
-package com.hanto.payapp
+package com.hanto.Hook
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.Adapter
-import com.hanto.payapp.databinding.ItemTransferAccountBinding
+import com.hanto.Hook.databinding.ItemTransferAccountBinding
 
 
 class TransferAccountListAdapter(

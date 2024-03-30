@@ -13,6 +13,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "PayApp"
+rootProject.name = "Hook"
 include(":app")
  

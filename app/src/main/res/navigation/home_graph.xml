@@ -8,21 +8,22 @@
     <!--첫번째 진입점은 homeFragment-->
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.hanto.payapp.HomeFragment"
-        android:label="@string/label_home_screen"
+        android:name="com.hanto.Hook.HomeFragment"
+        android:label="@string/label_tag"
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_home_to_paymentMethodFragment"
             app:destination="@id/navigation_payment_method" />
     </fragment>
+
     <fragment
         android:id="@+id/navigation_transfer"
-        android:name="com.hanto.payapp.TransferAccountFragment"
-        android:label="@string/label_transfer_screen"
+        android:name="com.hanto.Hook.TransferAccountFragment"
+        android:label="@string/label_folder"
         tools:layout="@layout/fragment_account_transfer" />
     <fragment
         android:id="@+id/navigation_payment_method"
-        android:name="com.hanto.payapp.PaymentMethodFragment"
+        android:name="com.hanto.Hook.PaymentMethodFragment"
         android:label="PaymentMethodFragment"
         tools:layout="@layout/fragment_payment_method" />
 </navigation>

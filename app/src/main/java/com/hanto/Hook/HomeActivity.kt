@@ -1,13 +1,11 @@
-package com.hanto.payapp
+package com.hanto.Hook
 
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toolbar
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.hanto.payapp.databinding.ActivityHomeBinding
+import com.hanto.Hook.databinding.ActivityHomeBinding
 
 class HomeActivity : AppCompatActivity() {
     @SuppressLint("CommitTransaction")
