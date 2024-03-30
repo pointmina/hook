@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="16dp"
+    android:paddingTop="15dp"
+    android:paddingEnd="16dp"
+    android:paddingBottom="15dp">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/iv_transfer_account_profile"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        app:shapeAppearance="@style/AppRoundedImg"
+        android:contentDescription="@string/description_transfer_account_profile"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/tv_transfer_account_name"
+        style="@style/AppTexTitle.S14"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="2.5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/iv_transfer_account_profile"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="김민아" />
+
+    <TextView
+        android:id="@+id/tv_bank"
+        style="@style/AppTextCaption.S12"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
+        app:layout_constraintBottom_toBottomOf="@id/iv_transfer_account_profile"
+        app:layout_constraintStart_toEndOf="@id/iv_transfer_account_profile"
+        app:layout_constraintTop_toBottomOf="@id/tv_transfer_account_name"
+        tools:text="국민은행" />
+
+
+    <TextView
+        android:id="@+id/tv_account_number"
+        style="@style/AppTextCaption.S12"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        app:layout_constraintBottom_toBottomOf="@id/tv_bank"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tv_bank"
+        app:layout_constraintTop_toTopOf="@id/tv_bank"
+        tools:text="01024474520007" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

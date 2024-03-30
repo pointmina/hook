@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toorbar_home"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="@string/app_name"
+        app:titleTextAppearance="@style/AppTexTitle.S18" />
+
+    <View
+
+        android:id="@+id/view_card_area"
+        android:layout_width="0dp"
+        android:layout_height="180dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="16dp"
+        android:background="@drawable/background_blue200"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toorbar_home" />
+
+    <ImageView
+        android:id="@+id/iv_add_card"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/description_add_card"
+        android:src="@drawable/ic_plus"
+        app:layout_constraintBottom_toTopOf="@id/tv_add_card"
+        app:layout_constraintEnd_toEndOf="@id/view_card_area"
+        app:layout_constraintStart_toStartOf="@id/view_card_area"
+        app:layout_constraintTop_toTopOf="@id/view_card_area"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <TextView
+        android:id="@+id/tv_add_card"
+        style="@style/AppTextPrimary"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="11dp"
+        android:gravity="center"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:text="@string/label_add_card"
+        app:layout_constraintBottom_toBottomOf="@id/view_card_area"
+        app:layout_constraintEnd_toEndOf="@id/view_card_area"
+        app:layout_constraintStart_toStartOf="@id/view_card_area"
+        app:layout_constraintTop_toBottomOf="@id/iv_add_card" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
