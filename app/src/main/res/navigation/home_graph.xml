@@ -16,14 +16,23 @@
             app:destination="@id/navigation_payment_method" />
     </fragment>
 
+<!--    폴더 네이게이션 바 눌렀을 때 나오는 뷰-->
     <fragment
-        android:id="@+id/navigation_transfer"
+        android:id="@+id/navigation_folder"
         android:name="com.hanto.Hook.TransferAccountFragment"
         android:label="@string/label_folder"
         tools:layout="@layout/fragment_account_transfer" />
+
+<!--    모두보기 눌렀을 때 나오는 뷰-->
     <fragment
         android:id="@+id/navigation_payment_method"
         android:name="com.hanto.Hook.PaymentMethodFragment"
         android:label="PaymentMethodFragment"
         tools:layout="@layout/fragment_payment_method" />
+
+    <fragment
+        android:id="@+id/navigation_star"
+        android:name="com.hanto.Hook.StarFragment"
+        android:label="StarFragment"
+        tools:layout="@layout/fragment_star"/>
 </navigation>

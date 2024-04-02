@@ -16,4 +16,8 @@
     <string name="appbar_title_payment_method_screen" tools:ignore="ExtraTranslation">결제 수단 등록</string>
     <string name="app_title">Hook</string>
     <string name="label_splah_title">h o o k!</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="label_setting">setting</string>
+    <string name="label_recent_tag">최근에 추가한 훅</string>
 </resources>

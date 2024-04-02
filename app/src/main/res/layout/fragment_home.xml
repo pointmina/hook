@@ -15,9 +15,21 @@
         app:titleTextAppearance="@style/AppTexTitle.S18" />
 
     <ImageView
+        android:id="@+id/iv_appbar_logo"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="28dp"
+        android:src="@drawable/ic_hook_black"
+        app:layout_constraintBottom_toBottomOf="@id/toorbar_home"
+        app:layout_constraintStart_toStartOf="@id/toorbar_home"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_appbar_setting"
         android:layout_width="28.5dp"
         android:layout_height="28.5dp"
         android:layout_marginEnd="28dp"
+        android:contentDescription="@string/label_setting"
         android:src="@drawable/ic_setting"
         app:layout_constraintBottom_toBottomOf="@id/toorbar_home"
         app:layout_constraintEnd_toEndOf="@id/toorbar_home"
@@ -35,17 +47,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toorbar_home" />
 
-<!--    요기에 태그 한개만 나온다함..-->
+    <!--    요기에 태그 한개만 나온다함..-->
     <TextView
         android:id="@+id/tv_selected_tag"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/description_select_tag"
-        android:text="#태그"
-        android:textSize="24dp"
-        android:background="#F4F4F4"
-        android:textStyle="bold"
+        android:layout_height="38dp"
         android:layout_marginStart="24dp"
+        android:background="#F4F4F4"
+        android:contentDescription="@string/description_select_tag"
+        android:text="#종합설계"
+        android:textColor="@color/black"
+        android:fontFamily="@font/notosans_r"
+        android:textSize="24dp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@id/view_tag_area"
         app:layout_constraintStart_toStartOf="@id/view_tag_area"
         app:layout_constraintTop_toTopOf="@id/view_tag_area" />
@@ -54,14 +68,31 @@
         android:id="@+id/tv_view_all"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
         android:contentDescription="@string/description_select_tag"
         android:src="@drawable/ic_view_all"
         android:textColor="#8E8D93"
         android:textStyle="bold"
-        android:layout_marginEnd="24dp"
         app:layout_constraintBottom_toBottomOf="@id/view_tag_area"
-        app:layout_constraintTop_toTopOf="@id/view_tag_area"
-        app:layout_constraintEnd_toEndOf="@id/view_tag_area"/>
+        app:layout_constraintEnd_toEndOf="@id/view_tag_area"
+        app:layout_constraintTop_toTopOf="@id/view_tag_area" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="28dp"
+        android:id="@+id/tv_recent_hooks"
+        android:textColor="@color/gray_300"
+        android:text="@string/label_recent_tag"
+        app:layout_constraintStart_toStartOf="@id/tv_selected_tag"
+        app:layout_constraintTop_toBottomOf="@id/tv_selected_tag"
+        android:layout_marginTop="12dp"
+        android:textSize="14dp"
+        android:fontFamily="@font/notosans_m"
+        />
+
+
+
+
 
 
 
