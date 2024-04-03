@@ -5,14 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import com.hanto.Hook.databinding.FragmentHomeBinding
 
+@Suppress("DEPRECATION")
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
-    //호출될 때마다 현재에 저장되어 있는 값이 반환된다.
-    private  val binding get() = _binding!!
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -23,25 +22,40 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
-    //onViewCreated => 실제 onCreateView에서 inflate 성공을 하게 되면 호출이 되는 callback
-    //라이브러리로 화면 구현
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //네비게이션 그래프 액션 내부 컨트롤러가 이 네비게이션 라이브러리 내부에서 실제로 화면에 이동을 제어하는 기능을 하고 있는 컨트롤러
-        //기존에는 액션의 아이디로 전달하고 있었는데 safeargs는 action을 함수로 제공됨
-        binding.tvViewAll.setOnClickListener{
-            val action = HomeFragmentDirections.actionHomeToPaymentMethodFragment()
-//            findNavController().navigate(R.id.action_home_to_paymentMethodFragment)
-            findNavController().navigate(action)
+        // "전체 보기" 텍스트를 클릭했을 때 ViewAllTagsFragment를 추가하는 코드
+        binding.tvViewAll.setOnClickListener {
+            addViewAllTagsFragment()
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    private fun addViewAllTagsFragment() {
+        childFragmentManager.beginTransaction()
+            .add(R.id.fragment_container, ViewAllTagsFragment())
+            .setReorderingAllowed(true)
+            .addToBackStack("ViewAllTagsFragment") // 백 스택에 추가할 때 태그를 지정합니다.
+            .commit()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 
+    fun onBackPressed() {
+        // 현재 백 스택의 상단에 있는 프래그먼트를 가져옵니다.
+        val fragment = childFragmentManager.findFragmentByTag("ViewAllTagsFragment")
 
+        // ViewAllTagFragment가 있다면 제거합니다.
+        if (fragment != null) {
+            childFragmentManager.beginTransaction()
+                .remove(fragment)
+                .commit()
+        } else {
+            // ViewAllTagFragment가 없다면 기본 뒤로가기 동작을 수행합니다.
+            requireActivity().onBackPressed()
+        }
+    }
 }

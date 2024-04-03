@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
@@ -11,8 +12,7 @@
         android:layout_height="68dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:titleTextAppearance="@style/AppTexTitle.S18" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/iv_appbar_logo"
@@ -55,9 +55,9 @@
         android:layout_marginStart="24dp"
         android:background="#F4F4F4"
         android:contentDescription="@string/description_select_tag"
+        android:fontFamily="@font/notosan_r"
         android:text="#종합설계"
         android:textColor="@color/black"
-        android:fontFamily="@font/notosans_r"
         android:textSize="24dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@id/view_tag_area"
@@ -78,22 +78,36 @@
         app:layout_constraintTop_toTopOf="@id/view_tag_area" />
 
     <TextView
+        android:id="@+id/tv_recent_hooks"
         android:layout_width="wrap_content"
         android:layout_height="28dp"
-        android:id="@+id/tv_recent_hooks"
-        android:textColor="@color/gray_300"
-        android:text="@string/label_recent_tag"
-        app:layout_constraintStart_toStartOf="@id/tv_selected_tag"
-        app:layout_constraintTop_toBottomOf="@id/tv_selected_tag"
         android:layout_marginTop="12dp"
-        android:textSize="14dp"
         android:fontFamily="@font/notosans_m"
-        />
+        android:text="@string/label_recent_tag"
+        android:textColor="@color/gray_300"
+        android:textSize="14dp"
+        app:layout_constraintStart_toStartOf="@id/tv_selected_tag"
+        app:layout_constraintTop_toBottomOf="@id/tv_selected_tag" />
 
 
+    <!-- HomeFragment의 XML 레이아웃에 fragment_container 추가 -->
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_recent_hooks" />
 
-
-
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_url_hook_list"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_recent_hooks"
+        tools:listitem="@layout/item_url_hook" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

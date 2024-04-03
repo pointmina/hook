@@ -17,5 +17,4 @@
         app:navigationIcon="@drawable/ic_arrow_back"
         app:title="@string/appbar_title_payment_method_screen"
         app:titleTextAppearance="@style/AppTexTitle" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

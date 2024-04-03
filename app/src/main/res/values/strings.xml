@@ -8,7 +8,7 @@
     <string name="label_add_card">결제 수단을 등록해주세요</string>
 
     <!-- Transfer-->
-    <string name="appbar_title_transfer_screen">누구에게 보낼까요?</string>
+    <string name="appbar_title_folder_screen">폴더</string>
     <string name="description_select_tag">선택 태그 값</string>
 
 

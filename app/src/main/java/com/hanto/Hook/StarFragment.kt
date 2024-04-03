@@ -6,13 +6,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.hanto.Hook.databinding.FragmentAccountTransferBinding
 import com.hanto.Hook.databinding.FragmentHomeBinding
 import com.hanto.Hook.databinding.FragmentStarBinding
 
 
 class StarFragment : Fragment() {
-    // TODO: Rename and change types of parameters
 
     private var _binding: FragmentStarBinding? = null
 
