@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <style name="TextStyle" parent="@android:style/TextAppearance.Widget.IconMenu.Item">
+        <item name="android:fontFamily">@font/notosan_r</item>
+    </style>
+
     <style name="AppToolbar" parent="Widget.MaterialComponents.Toolbar">
         <item name="titleTextAppearance">@style/AppTexTitle.S16</item>
     </style>
