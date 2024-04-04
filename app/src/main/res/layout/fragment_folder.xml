@@ -11,19 +11,11 @@
         android:layout_height="68dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="@string/appbar_title_folder_screen"
+        app:titleCentered="true"
+        app:titleTextAppearance="@style/AppTexTitle.S16"/>
 
-    <TextView
-        android:id="@+id/textview_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/appbar_title_folder_screen"
-        android:textAppearance="@style/AppTexTitle.S16"
-        app:layout_constraintBottom_toBottomOf="@+id/toolbar_folder_transfer"
-        app:layout_constraintEnd_toEndOf="@+id/toolbar_folder_transfer"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/toolbar_folder_transfer" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

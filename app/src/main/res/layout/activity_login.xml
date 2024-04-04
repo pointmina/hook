@@ -5,7 +5,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".HomeActivity">
+
+    <!--    android:fontFamily="@font/futura_medium"-->
 
     <ImageView
         android:id="@+id/iv_splash_icon"
@@ -13,24 +16,38 @@
         android:layout_height="150dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.4"
+        app:layout_constraintVertical_bias="0.33"
         app:layout_constraintVertical_chainStyle="packed"
         app:srcCompat="@drawable/ic_hook_black" />
 
-    <!--    android:fontFamily="@font/futura_medium"-->
+    <ImageButton
+        android:id="@+id/ib_kakao_login"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_marginTop="32dp"
+        android:background="@color/white"
+        android:src="@drawable/kakao_login_medium_wide"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        android:contentDescription="@string/label_kakao_login" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="@font/futura_medium_condensed"
         android:text="@string/label_splah_title"
         android:textColor="#000000"
         android:textSize="70sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/iv_splash_icon" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toorbar_home"
+        android:layout_width="0dp"
+        android:layout_height="68dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="@string/appbar_title_tag_screen"
+        app:titleCentered="true"
+        app:titleTextAppearance="@style/AppTexTitle.S16" />
+
+
+    <ImageView
+        android:id="@+id/iv_appbar_setting"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:layout_marginEnd="28dp"
+        android:contentDescription="@string/label_setting"
+        android:src="@drawable/ic_add_tag"
+        app:layout_constraintBottom_toBottomOf="@id/toorbar_home"
+        app:layout_constraintEnd_toEndOf="@id/toorbar_home"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <GridView
+        android:id="@+id/gv_tag_tag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:numColumns="auto_fit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toorbar_home" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

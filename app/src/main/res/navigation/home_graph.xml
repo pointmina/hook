@@ -29,5 +29,11 @@
         android:label="StarFragment"
         tools:layout="@layout/fragment_star" />
 
+    <fragment
+        android:id="@+id/navigation_tag"
+        android:name="com.hanto.Hook.TagFragment"
+        android:label="TagFragment"
+        tools:layout="@layout/fragment_tag"/>
+
 
 </navigation>

@@ -2,22 +2,40 @@
     <string name="app_name">Hook</string>
 
     <!-- home -->
-    <string name="label_tag">홈</string>
+    <string name="label_home">홈</string>
+    <string name="label_tag">태그</string>
     <string name="label_folder">폴더</string>
     <string name="label_star">모아보기</string>
+
+
     <string name="label_add_card">결제 수단을 등록해주세요</string>
 
-    <!-- Transfer-->
-    <string name="appbar_title_folder_screen">폴더</string>
+    <!--    folder -->
+    <string name="appbar_title_folder_screen">폴 더</string>
+
     <string name="description_select_tag">선택 태그 값</string>
 
-
-    <!--    payment method-->
-    <string name="appbar_title_payment_method_screen" tools:ignore="ExtraTranslation">결제 수단 등록</string>
     <string name="app_title">Hook</string>
+
+    <!--    Splashview-->
     <string name="label_splah_title">h o o k!</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
     <string name="label_setting">setting</string>
-    <string name="label_recent_tag">최근에 추가한 훅</string>
+    <string name="label_tag_count">28개의 훅</string>
+
+
+    <string name="label_kakao_login">카카오톡 로그인 버튼</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="label_recent_tag">최근에 저장한 훅</string>
+
+
+    <!--    url_hook_detail-->
+    <string name="description_back_button">back button</string>
+    <string name="description_link">링크</string>
+    <string name="label_url_hook_detail_folder">폴더</string>
+    <string name="label_url_hook_detail_tag">태그</string>
+    <string name="description_save_changes">태그 수정하기</string>
+    <string name="appbar_title_tag_screen">태 그</string>
+    <string name="appbar_title_home_fragment">H o o k !</string>
+
 </resources>

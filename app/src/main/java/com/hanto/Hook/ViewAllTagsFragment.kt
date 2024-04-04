@@ -8,12 +8,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
-import com.hanto.Hook.databinding.FragmentViewAllTagsBinding
+import com.hanto.Hook.databinding.FragmentChangeTagBinding
 
 
 class ViewAllTagsFragment : DialogFragment() {
 
-    private var _binding: FragmentViewAllTagsBinding? = null
+    private var _binding: FragmentChangeTagBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -21,13 +21,13 @@ class ViewAllTagsFragment : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentViewAllTagsBinding.inflate(inflater, container, false)
+        _binding = FragmentChangeTagBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.frameLayout.setOnClickListener {
+        binding.viewBack.setOnClickListener {
             dismiss()
         }
 

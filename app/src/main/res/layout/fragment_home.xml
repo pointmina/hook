@@ -12,17 +12,11 @@
         android:layout_height="68dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="@string/appbar_title_home_fragment"
+        app:titleCentered="true"
+        app:titleTextAppearance="@style/AppTexTitle.S16.Bold" />
 
-    <ImageView
-        android:id="@+id/iv_appbar_logo"
-        android:layout_width="38dp"
-        android:layout_height="38dp"
-        android:layout_marginStart="28dp"
-        android:src="@drawable/ic_hook_black"
-        app:layout_constraintBottom_toBottomOf="@id/toorbar_home"
-        app:layout_constraintStart_toStartOf="@id/toorbar_home"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/iv_appbar_setting"
@@ -47,47 +41,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toorbar_home" />
 
-    <!--    요기에 태그 한개만 나온다함..-->
-    <TextView
-        android:id="@+id/tv_selected_tag"
-        android:layout_width="wrap_content"
-        android:layout_height="38dp"
-        android:layout_marginStart="24dp"
-        android:background="#F4F4F4"
-        android:contentDescription="@string/description_select_tag"
-        android:fontFamily="@font/notosan_r"
-        android:text="#종합설계"
-        android:textColor="@color/black"
-        android:textSize="24dp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@id/view_tag_area"
-        app:layout_constraintStart_toStartOf="@id/view_tag_area"
-        app:layout_constraintTop_toTopOf="@id/view_tag_area" />
-
-    <ImageView
-        android:id="@+id/tv_view_all"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:contentDescription="@string/description_select_tag"
-        android:src="@drawable/ic_view_all"
-        android:textColor="#8E8D93"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@id/view_tag_area"
-        app:layout_constraintEnd_toEndOf="@id/view_tag_area"
-        app:layout_constraintTop_toTopOf="@id/view_tag_area" />
-
     <TextView
         android:id="@+id/tv_recent_hooks"
         android:layout_width="wrap_content"
         android:layout_height="28dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="12dp"
         android:fontFamily="@font/notosans_m"
         android:text="@string/label_recent_tag"
         android:textColor="@color/gray_300"
         android:textSize="14dp"
-        app:layout_constraintStart_toStartOf="@id/tv_selected_tag"
-        app:layout_constraintTop_toBottomOf="@id/tv_selected_tag" />
+        app:layout_constraintBottom_toBottomOf="@id/view_tag_area"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
     <!-- HomeFragment의 XML 레이아웃에 fragment_container 추가 -->
