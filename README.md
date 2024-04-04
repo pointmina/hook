@@ -5,7 +5,8 @@
 
 2. 로그인 페이지 구현
 - 카카오 로그인 : https://developers.kakao.com/docs/latest/ko/kakaologin/design-guide
-  
+- https://jdroid.tistory.com/10#google_vignette
+    
 3. 리사이클 뷰 삽입..
 - search view
 - https://velog.io/@simsubeen/Android-Kotlin-SearchView%EC%99%80-Filter%EB%A1%9C-RecyclerView-%EA%B2%80%EC%83%89%ED%95%98%EA%B8%B0
