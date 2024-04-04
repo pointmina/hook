@@ -20,6 +20,8 @@
 - https://wormwlrm.github.io/2020/05/09/Web-Share-API.html
 - https://boxfoxs.tistory.com/390
 
+8. 상세페이지
+
 추가 기능 
 
 1. 모션으로 바텀 네비게이션 넘기기
