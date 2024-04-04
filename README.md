@@ -4,7 +4,7 @@
 - main icon은 무슨색 할거임?
 
 2. 로그인 페이지 구현
-- 카카오 로그인
+- 카카오 로그인 : https://developers.kakao.com/docs/latest/ko/kakaologin/design-guide
   
 3. 리사이클 뷰 삽입..
 
