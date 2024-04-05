@@ -10,7 +10,6 @@
 3. 태그뷰 태그 모음 tag_fragment  clear ☑️
 - 그리드 뷰 사용
 
-
 4. 태그뷰 선택 태그 selected_tag_fragment clear☑️
 - 태그 수정? : 바텀 시트 or fragment, 커스텀 알림 😵
 
@@ -18,6 +17,7 @@
 -
 
 1. Dummy Data 만들고 home에 리사이클 뷰 뿌리기
+- 레이아웃 매니저
 
 2. 리사이클 클릭스 상세 activity 뿌리기
 
