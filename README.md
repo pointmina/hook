@@ -16,8 +16,9 @@
 2024 04 05
 -
 
-1. Dummy Data 만들고 home에 리사이클 뷰 뿌리기
+1. Dummy Data 만들고 home에 리사이클 뷰 뿌리기☑️
 - 레이아웃 매니저
+- recyclerView Divider : https://youtu.be/esLQ7oEvfOs?si=kN0JCEpFoEIILt9W
 
 2. 리사이클 클릭스 상세 activity 뿌리기
 
