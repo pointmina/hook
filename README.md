@@ -25,6 +25,21 @@
 3. selected_tag fragment에서 수정 클릭스 -> 태그 수정 fragment 
 
 
+2024 04 07
+-
+
+1. kakao login -> google login ☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️ 하..
+- https://visualandroidblog.blogspot.com/2023/04/google-sign-in-firebase-android-kotlin-tutorial.html
+- https://developers.google.com/android/guides/setup?hl=ko
+- https://www.youtube.com/watch?v=H_maapn4Q3Q
+- https://firebase.google.com/docs/auth/android/start?hl=ko&_gl=1*tfveyn*_up*MQ..*_ga*Nzk2MDYxODgwLjE3MTI0MjI2ODI.*_ga_CW55HF8NVT*MTcxMjQyMjY4Mi4xLjAuMTcxMjQyMjY4Mi4wLjAuMA..
+
+
+2. 설정 버튼 누르면☑️
+- 로그아웃 버튼
+- 유저 정보 나오게
+  
+
 
 고민거리
 -
