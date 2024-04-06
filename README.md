@@ -1,4 +1,4 @@
-2024 04 04
+2024 04 04 -> 5th commit
 -
 
 1. 네비게이션바 홈 추가 clear☑️
@@ -13,7 +13,7 @@
 4. 태그뷰 선택 태그 selected_tag_fragment clear☑️
 - 태그 수정? : 바텀 시트 or fragment, 커스텀 알림 😵
 
-2024 04 05
+2024 04 05 -> 6th commit
 -
 
 1. Dummy Data 만들고 home에 리사이클 뷰 뿌리기☑️
@@ -25,7 +25,7 @@
 3. selected_tag fragment에서 수정 클릭스 -> 태그 수정 fragment 
 
 
-2024 04 07
+2024 04 07 -> 7th commit
 -
 
 1. kakao login -> google login ☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️ 하..
