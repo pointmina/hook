@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="162dp"
-    android:background="#FFFFFF"
+    android:layout_height="192dp"
+    android:background="@color/white"
     android:paddingStart="24dp"
     android:paddingTop="8dp"
     android:paddingEnd="24dp"
@@ -12,11 +12,14 @@
 
 
     <!--    요기를 음.. 리스트 뷰로? 해야할듯 -->
-    <View
-        android:id="@+id/view_tag_folder_container"
+    <GridView
+        android:id="@+id/gv_tag_folder_container"
         android:layout_width="0dp"
         android:layout_height="31dp"
         android:background="@color/white"
+        android:numColumns="4"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@id/view_content_container"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -29,41 +32,57 @@
         android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/view_tag_folder_container" />
+        app:layout_constraintTop_toBottomOf="@id/gv_tag_folder_container" />
 
     <TextView
-        android:id="@+id/tv_content"
+        android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_marginTop="4dp"
         android:background="@color/white"
-        android:text="DynamoDB를 사용하는 Go 서비스의 응답 시간 최적화"
+        android:text="뉴진스의 하입보이요"
         android:textColor="@color/black"
         android:textSize="16dp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@id/view_content_container"
         app:layout_constraintStart_toStartOf="@id/view_content_container"
         app:layout_constraintTop_toTopOf="@id/view_content_container" />
 
     <TextView
+
+        android:id="@+id/tv_url_link"
         android:layout_width="0dp"
-        android:layout_height="18dp"
-        android:layout_marginTop="4dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="5dp"
         android:textColor="@color/purple"
-        app:layout_constraintEnd_toEndOf="@id/tv_content"
-        app:layout_constraintStart_toStartOf="@id/tv_content"
-        app:layout_constraintTop_toBottomOf="@id/tv_content"
-        tools:text="@android:string/autofill" />
+        app:layout_constraintStart_toStartOf="@id/tv_title"
+        app:layout_constraintTop_toBottomOf="@id/tv_title"
+        tools:text="https://github.com/pointmina/Hook/blob/master/README.md" />
 
+    <TextView
+        android:id="@+id/tv_tag_description"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="5dp"
+        android:background="#FFFFFF"
+        android:text="미안하다 이거 보여주려고 어그로 끌었다."
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_url_link" />
 
-    <View
+    <GridView
         android:id="@+id/view_tag_container"
         android:layout_width="0dp"
         android:layout_height="31dp"
         android:background="#FFFFFF"
+        android:numColumns="4"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_tag_description" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

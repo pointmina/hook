@@ -3,11 +3,22 @@ package com.hanto.Hook
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.firebase.auth.FirebaseAuth
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.hanto.Hook.databinding.ActivityHomeBinding
 
 class HomeActivity : AppCompatActivity() {
+
+    private lateinit var mGoogleSignInClient: GoogleSignInClient
+    private lateinit var mAuth: FirebaseAuth
+
     @SuppressLint("CommitTransaction")
 
     private lateinit var binding: ActivityHomeBinding
@@ -15,36 +26,31 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        mAuth = FirebaseAuth.getInstance()
+
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+//            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
+
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
+
+        val auth = Firebase.auth
+        val user = auth.currentUser
+
+        if (user != null) {
+            val userName = user.displayName
+            Toast.makeText(this, "Welcome ${user?.displayName}", Toast.LENGTH_SHORT).show()
+        } else {
+            // Handle the case where the user is not signed in
+        }
+
+
         binding = ActivityHomeBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
         setBottomNavigation()
 
-//        findViewById<BottomNavigationView>(R.id.bottom_navigation_home).setupWithNavController(
-//            navController
-//        )
-
-//        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation_home)
-//        bottomNavigationView.setOnItemSelectedListener { item ->
-//            when (item.itemId) {
-//                R.id.navigation_home -> {
-//                    //프레그먼트로 전환, 커밋 필수;
-//                    val transaction = supportFragmentManager.beginTransaction()
-//                    transaction.replace(R.id.container_home, HomeFragment())
-//                    transaction.commit()
-//                    true
-//                }
-//
-//                R.id.navigation_transfer -> {
-//                    //프레그먼트로 전환
-//                    val transaction = supportFragmentManager.beginTransaction()
-//                    transaction.replace(R.id.container_home, TransferFragment())
-//                    transaction.commit()
-//                    true
-//                }
-//                else -> false
-//            }
-//        }
     }
 
     private fun setBottomNavigation() {

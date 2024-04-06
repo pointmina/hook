@@ -24,7 +24,7 @@
     <string name="label_tag_count">28개의 훅</string>
 
 
-    <string name="label_kakao_login">카카오톡 로그인 버튼</string>
+    <string name="label_google_login">로그인 버튼</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="label_recent_tag">최근에 저장한 훅</string>
 

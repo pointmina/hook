@@ -9,18 +9,15 @@ import com.hanto.Hook.databinding.ItemUrlHookBinding
 
 class TransferAccountListAdapter(
     //어뎁터를 생성을 할때 그 목록 데이터를 받아오도록 구현을 한다.
-    private val items: List<Account>
+    private val items: List<Hook>
 ) : RecyclerView.Adapter<UrlHookItemViewHolder>() {
 
 
     //반환타입이 뷰홀더
     override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
+        parent: ViewGroup, viewType: Int
     ): UrlHookItemViewHolder {
-        val binding =
-            ItemUrlHookBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return UrlHookItemViewHolder(binding.root)
+        return UrlHookItemViewHolder.from(parent)
     }
 
     //첫번째 인자가 뷰홀더
@@ -43,9 +40,27 @@ class TransferAccountListAdapter(
 //필요한 데이터를 전달받아야함
 //데이터를 그룹핑해서 클래스로 정의할 수 있는지?
 //목록형 레이아웃을 나타내기 위해서 사전에 레이아웃 구현
-class UrlHookItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    fun bind(account: Account) {
+class UrlHookItemViewHolder(val binding: ItemUrlHookBinding) :
+    RecyclerView.ViewHolder(binding.root) {
+    fun bind(hook: Hook) {
+        with(binding) {
+
+//            gvTagFolderContainer.setImageResource(hook.folderResourceId)
+            tvTitle.text = hook.urlTitle
+            tvUrlLink.text = hook.urlLink
+            tvTagDescription.text = hook.urlDescription
+        }
     }
+    companion object {
+        fun from(parent: ViewGroup): UrlHookItemViewHolder {
+            return UrlHookItemViewHolder(
+                ItemUrlHookBinding.inflate(
+                    LayoutInflater.from(parent.context), parent, false
+                )
+            )
+        }
+    }
+
 }
 
 

@@ -12,6 +12,7 @@
        네브호스트 자동완성 안됨; : androidx.navigation.fragment.NavHostFragment
        -->
 
+
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/container_home"
         android:name="androidx.navigation.fragment.NavHostFragment"
@@ -29,11 +30,12 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation_home"
         android:layout_width="0dp"
-        app:itemIconSize="38dp"
-        android:layout_height="80dp"
-        android:backgroundTint="@color/white"
+        android:layout_height="70dp"
         android:background="@drawable/shadow"
+        android:backgroundTint="@color/white"
         app:itemActiveIndicatorStyle="@null"
+        app:labelVisibilityMode="labeled"
+        app:itemIconSize="28dp"
         app:itemIconTint="@color/selector_botton_navigation_color"
         app:itemTextColor="@color/selector_botton_navigation_color"
         app:layout_constraintBottom_toBottomOf="parent"

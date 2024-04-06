@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "202781592840",
+    "project_id": "hook-882c5",
+    "storage_bucket": "hook-882c5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:202781592840:android:ad6db69487674b919570bd",
+        "android_client_info": {
+          "package_name": "com.hanto.Hook"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "202781592840-2mvlphb61elsp7rlk4du4aug4judqmnc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hanto.Hook",
+            "certificate_hash": "f021171d48cda33d2ec6346675a9312681618b9e"
+          }
+        },
+        {
+          "client_id": "202781592840-obgcl6rt72t00h3u8lmfbhdq009l2gfh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBofTjxHzSqz-v-6UfcCHg2Il65SHUqX0Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "202781592840-obgcl6rt72t00h3u8lmfbhdq009l2gfh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

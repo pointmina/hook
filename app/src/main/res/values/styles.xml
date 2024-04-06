@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <style name="BottomNavigation.ActiveItemTextAppearance" parent="Widget.Design.BottomNavigationView">
+        <item name="fontFamily">@font/notosan_r</item>
+    </style>
+
     <style name="TextStyle" parent="@android:style/TextAppearance.Widget.IconMenu.Item">
         <item name="android:fontFamily">@font/notosan_r</item>
     </style>
@@ -20,6 +24,12 @@
 
     </style>
 
+    <style name="FolderTitle">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="fontFamily">@font/notosan_r</item>
+        <item name="android:textSize">13sp</item>
+    </style>
 
     <style name="AppTexTitle.S16">
         <item name="android:textColor">@color/gray_700</item>
@@ -61,7 +71,6 @@
         <item name="fontFamily">@font/notosan_r</item>
         <item name="android:textSize">14sp</item>
     </style>
-
 
 
     <style name="Theme.Transparent" parent="android:Theme">

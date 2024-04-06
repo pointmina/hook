@@ -12,6 +12,9 @@
         android:label="@string/label_tag"
         tools:layout="@layout/fragment_home" >
 
+        <action
+            android:id="@+id/action_navigation_home_to_loginTestActivity"
+            app:destination="@id/loginTestActivity" />
     </fragment>
 
 
@@ -34,6 +37,11 @@
         android:name="com.hanto.Hook.TagFragment"
         android:label="TagFragment"
         tools:layout="@layout/fragment_tag"/>
+    <activity
+        android:id="@+id/loginTestActivity"
+        android:name="com.hanto.Hook.LoginTestActivity"
+        android:label="activity_login_test"
+        tools:layout="@layout/activity_login_test" />
 
 
 </navigation>

@@ -47,13 +47,13 @@
         android:layout_height="28dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="12dp"
+        android:layout_marginBottom="3dp"
         android:fontFamily="@font/notosans_m"
         android:text="@string/label_recent_tag"
         android:textColor="@color/gray_300"
         android:textSize="14dp"
         app:layout_constraintBottom_toBottomOf="@id/view_tag_area"
         app:layout_constraintStart_toStartOf="parent" />
-
 
     <!-- HomeFragment의 XML 레이아웃에 fragment_container 추가 -->
     <FrameLayout
@@ -68,6 +68,8 @@
         android:id="@+id/rv_url_hook_list"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

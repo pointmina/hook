@@ -41,7 +41,7 @@
         android:paddingTop="15dp"
         android:paddingEnd="16dp"
         android:paddingBottom="15dp"
-        android:text="DynamoDB를 사용하는 Go 서비스의 응답 시간 최적화"
+        android:text="뉴진스의 하입보이요"
         android:textAppearance="@style/AppTextPrimary.S16"
         android:textColor="@color/black"
         android:textStyle="bold"
