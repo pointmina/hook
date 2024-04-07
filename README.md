@@ -33,6 +33,7 @@
 - https://developers.google.com/android/guides/setup?hl=ko
 - https://www.youtube.com/watch?v=H_maapn4Q3Q
 - https://firebase.google.com/docs/auth/android/start?hl=ko&_gl=1*tfveyn*_up*MQ..*_ga*Nzk2MDYxODgwLjE3MTI0MjI2ODI.*_ga_CW55HF8NVT*MTcxMjQyMjY4Mi4xLjAuMTcxMjQyMjY4Mi4wLjAuMA..
+- https://console.firebase.google.com/u/0/project/hook-882c5/settings/general/android:com.hanto.Hook?hl=ko
 
 
 2. 설정 버튼 누르면☑️
