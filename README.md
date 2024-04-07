@@ -39,7 +39,9 @@
 2. 설정 버튼 누르면☑️
 - 로그아웃 버튼
 - 유저 정보 나오게
-  
+
+https://github.com/pointmina/Hook/assets/68779817/14745caf-0b3f-4546-bfee-3a9b5a55f393
+
 
 
 고민거리
