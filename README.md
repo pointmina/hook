@@ -45,7 +45,9 @@ https://github.com/pointmina/Hook/assets/68779817/14745caf-0b3f-4546-bfee-3a9b5a
 2024 04 08
 -
 
-1. ![image](https://github.com/pointmina/Hook/assets/68779817/8252ed3e-6185-425f-b675-a1a82247cad5)
+0. 레이아웃 만들기, 함수 만들기 ☑️
+
+2. ![image](https://github.com/pointmina/Hook/assets/68779817/8252ed3e-6185-425f-b675-a1a82247cad5)
 - 리사이클러뷰에 리사이클러뷰 삽입.. 에휴
 - https://velog.io/@simsubeen/Android-Kotlin-RecyclerView-%EA%B0%80%EB%A1%9C-%EC%A0%95%EB%A0%AC-GridLayoutManager
 
