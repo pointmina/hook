@@ -52,6 +52,7 @@ https://github.com/pointmina/Hook/assets/68779817/14745caf-0b3f-4546-bfee-3a9b5a
 - https://velog.io/@simsubeen/Android-Kotlin-RecyclerView-%EA%B0%80%EB%A1%9C-%EC%A0%95%EB%A0%AC-GridLayoutManager
 - https://notepad96.tistory.com/201
 - https://jinsangjin.tistory.com/25
+- https://developer.android.com/develop/ui/views/layout/recyclerview?hl=ko <---------------------------------------
 
 
 2. ![image](https://github.com/pointmina/Hook/assets/68779817/6ea96baf-456a-4a62-ad78-0b48cf506f49)
