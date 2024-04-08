@@ -19,6 +19,6 @@ class SplashView : AppCompatActivity() {
             startActivity(intent)
             // 현재 액티비티 닫기
             finish()
-        }, 2000) // 2초
+        }, 500) // 0.5초
     }
 }

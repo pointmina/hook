@@ -16,6 +16,8 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
+
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -27,7 +29,8 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.rvUrlHookList.adapter = TransferAccountListAdapter(getDummyData())
+        binding.rvUrlHookList.adapter = UrlHookListAdapter(getDummyData())
+        binding.rvUrlHookList.tag
 
         // DividerItemDecoration에 대한 설정을 수정
         val dividerItemDecoration =

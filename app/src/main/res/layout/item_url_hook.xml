@@ -11,18 +11,18 @@
     android:paddingBottom="8dp">
 
 
-    <!--    요기를 음.. 리스트 뷰로? 해야할듯 -->
-    <GridView
-        android:id="@+id/gv_tag_folder_container"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_folder_container"
         android:layout_width="0dp"
         android:layout_height="31dp"
         android:background="@color/white"
-        android:numColumns="4"
         android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@id/view_content_container"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 
     <View
         android:id="@+id/view_content_container"
@@ -32,7 +32,7 @@
         android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/gv_tag_folder_container" />
+        app:layout_constraintTop_toBottomOf="@id/rv_folder_container" />
 
     <TextView
         android:id="@+id/tv_title"
@@ -72,17 +72,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_url_link" />
 
-    <GridView
-        android:id="@+id/view_tag_container"
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_tag_container"
         android:layout_width="0dp"
         android:layout_height="31dp"
-        android:background="#FFFFFF"
-        android:numColumns="4"
-        android:orientation="horizontal"
+        android:background="@color/white"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_tag_description" />
+        app:layout_constraintTop_toBottomOf="@id/tv_tag_description"
+        tools:listitem="@layout/item_tag"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

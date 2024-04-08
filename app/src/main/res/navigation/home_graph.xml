@@ -37,6 +37,7 @@
         android:name="com.hanto.Hook.TagFragment"
         android:label="TagFragment"
         tools:layout="@layout/fragment_tag"/>
+
     <activity
         android:id="@+id/loginTestActivity"
         android:name="com.hanto.Hook.LoginTestActivity"

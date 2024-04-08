@@ -1,10 +1,14 @@
 package com.hanto.Hook
 
+import androidx.annotation.DrawableRes
+
+
+
 data class Hook(
-    val folderResourceId: Int? = null,
+    @DrawableRes val folderResourceId: Int? = null,
     val urlTitle: String = "",
     val urlLink: String = "",
-    val tagResourceId: Int? = null,
-    val urlDescription: String? = null,
+    val urlDescription: String? = "",
+    val tags: List<String> = emptyList()
 
 )
