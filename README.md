@@ -1,4 +1,4 @@
-2024 04 04
+2024 04 04 -> 5th commit
 -
 
 1. 네비게이션바 홈 추가 clear☑️
@@ -13,7 +13,7 @@
 4. 태그뷰 선택 태그 selected_tag_fragment clear☑️
 - 태그 수정? : 바텀 시트 or fragment, 커스텀 알림 😵
 
-2024 04 05
+2024 04 05 -> 6th commit
 -
 
 1. Dummy Data 만들고 home에 리사이클 뷰 뿌리기☑️
@@ -25,7 +25,7 @@
 3. selected_tag fragment에서 수정 클릭스 -> 태그 수정 fragment 
 
 
-2024 04 07
+2024 04 07 -> 7th commit
 -
 
 1. kakao login -> google login ☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️☑️ 하..
@@ -33,13 +33,34 @@
 - https://developers.google.com/android/guides/setup?hl=ko
 - https://www.youtube.com/watch?v=H_maapn4Q3Q
 - https://firebase.google.com/docs/auth/android/start?hl=ko&_gl=1*tfveyn*_up*MQ..*_ga*Nzk2MDYxODgwLjE3MTI0MjI2ODI.*_ga_CW55HF8NVT*MTcxMjQyMjY4Mi4xLjAuMTcxMjQyMjY4Mi4wLjAuMA..
+- https://console.firebase.google.com/u/0/project/hook-882c5/settings/general/android:com.hanto.Hook?hl=ko
 
 
 2. 설정 버튼 누르면☑️
 - 로그아웃 버튼
 - 유저 정보 나오게
-  
 
+https://github.com/pointmina/Hook/assets/68779817/14745caf-0b3f-4546-bfee-3a9b5a55f393
+
+2024 04 08 -> 8th commit
+-
+
+0. 레이아웃 만들기, 함수 만들기 ☑️
+
+2. ![image](https://github.com/pointmina/Hook/assets/68779817/8252ed3e-6185-425f-b675-a1a82247cad5)
+- 리사이클러뷰에 리사이클러뷰 삽입.. 에휴
+- https://velog.io/@simsubeen/Android-Kotlin-RecyclerView-%EA%B0%80%EB%A1%9C-%EC%A0%95%EB%A0%AC-GridLayoutManager
+- https://notepad96.tistory.com/201
+- https://jinsangjin.tistory.com/25
+- https://developer.android.com/develop/ui/views/layout/recyclerview?hl=ko <---------------------------------------
+
+
+2. ![image](https://github.com/pointmina/Hook/assets/68779817/6ea96baf-456a-4a62-ad78-0b48cf506f49)
+- 글자길이 수에따라 가로로 길어져야함.. 에흌ㅋㅋㅋ
+- 겉에 껍데기 가로 길이를 wrap_content로 만들고 text를 외부 데이터에서 받아오는 방식
+
+해결 못함..
+그럼 아예 따로 만들어야하나..? 하 멘붕 ㅜ
 
 고민거리
 -
