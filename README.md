@@ -42,7 +42,7 @@
 
 https://github.com/pointmina/Hook/assets/68779817/14745caf-0b3f-4546-bfee-3a9b5a55f393
 
-2024 04 08
+2024 04 08 -> 8th commit
 -
 
 0. 레이아웃 만들기, 함수 만들기 ☑️
