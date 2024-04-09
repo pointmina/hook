@@ -61,6 +61,13 @@ https://github.com/pointmina/Hook/assets/68779817/14745caf-0b3f-4546-bfee-3a9b5a
 
 ☑️클리어 문제는 tag_item layout에서 match_parent여서 한줄을 다 차지하고 있던거였음... ㅎr...☑️
 
+2024 04 09 -> 9th commit
+
+1. 8일꺼 나머지 ☑️
+
+해야할거? random color 
+- https://jminie.tistory.com/144
+
 
 페이로드
 -
