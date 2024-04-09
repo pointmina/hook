@@ -47,7 +47,7 @@ https://github.com/pointmina/Hook/assets/68779817/14745caf-0b3f-4546-bfee-3a9b5a
 
 0. 레이아웃 만들기, 함수 만들기 ☑️
 
-2. ![image](https://github.com/pointmina/Hook/assets/68779817/8252ed3e-6185-425f-b675-a1a82247cad5)
+2. ![image](https://github.com/pointmina/Hook/assets/68779817/8252ed3e-6185-425f-b675-a1a82247cad5)   ☑️
 - 리사이클러뷰에 리사이클러뷰 삽입.. 에휴
 - https://velog.io/@simsubeen/Android-Kotlin-RecyclerView-%EA%B0%80%EB%A1%9C-%EC%A0%95%EB%A0%AC-GridLayoutManager
 - https://notepad96.tistory.com/201
@@ -55,12 +55,29 @@ https://github.com/pointmina/Hook/assets/68779817/14745caf-0b3f-4546-bfee-3a9b5a
 - https://developer.android.com/develop/ui/views/layout/recyclerview?hl=ko <---------------------------------------
 
 
-2. ![image](https://github.com/pointmina/Hook/assets/68779817/6ea96baf-456a-4a62-ad78-0b48cf506f49)
+2. ![image](https://github.com/pointmina/Hook/assets/68779817/6ea96baf-456a-4a62-ad78-0b48cf506f49) ☑️
 - 글자길이 수에따라 가로로 길어져야함.. 에흌ㅋㅋㅋ
 - 겉에 껍데기 가로 길이를 wrap_content로 만들고 text를 외부 데이터에서 받아오는 방식
 
-해결 못함..
-그럼 아예 따로 만들어야하나..? 하 멘붕 ㅜ
+☑️클리어 문제는 tag_item layout에서 match_parent여서 한줄을 다 차지하고 있던거였음... ㅎr...☑️
+
+2024 04 09 -> 9th commit
+
+1. 8일꺼 나머지 ☑️
+
+해야할거? random color 
+- https://jminie.tistory.com/144
+
+
+페이로드
+-
+안녕하세요! 콘솔에 찍힌 페이로드 내용말씀이신걸까요? 코드상으론 없지만 log.info()를 통해서 Payload값을 직접 찍어서 확인했습니다!
+
+payload에서 값을 꺼내는 방법은 아래 링크 참고하시면 도움되실것 같아요!
+
+https://developers.google.com/identity/gsi/web/guides/verify-google-id-token?hl=ko#using-a-google-api-client-library [비밀댓글]
+
+
 
 고민거리
 -
