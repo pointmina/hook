@@ -30,7 +30,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.rvUrlHookList.adapter = UrlHookListAdapter(getDummyData())
-        binding.rvUrlHookList.tag
+//        binding.rvUrlHookList.tag
 
         // DividerItemDecoration에 대한 설정을 수정
         val dividerItemDecoration =

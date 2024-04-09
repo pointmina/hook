@@ -9,6 +9,8 @@ data class Hook(
     val urlTitle: String = "",
     val urlLink: String = "",
     val urlDescription: String? = "",
-    val tags: List<String> = emptyList()
+    val tags: Array<String> = arrayOf(),
+    val folderName: Array<String> = arrayOf(),
+
 
 )

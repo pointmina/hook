@@ -6,19 +6,33 @@ fun getDummyData(): List<Hook> {
             R.drawable.ic_folder_white,
             "미안하다 이거 보여주려고 어그로끌었다",
             "http://adqwknfqwnlnmnaopcoicoz.com",
-            "람쥐떤더!",listOf("블로그", "쇼핑", "취미")
+            "람쥐떤더!", arrayOf("블로그", "쇼핑", "취미"),
+            arrayOf("폴더1", "폴더2", "취미")
         ),
-        Hook(R.drawable.ic_folder_purple, "돌아와돌아와 다시돌아와", "http://wkdjqwkjdklqwjfmm/pointmina" , "뿡빵", listOf("빠끄", )),
+        Hook(
+            R.drawable.ic_folder_purple,
+            "돌아와돌아와 다시돌아와",
+            "http://wkdjqwkjdklqwjfmm/pointmina",
+            "뿡빵",
+            arrayOf("빠끄")
+        ),
         Hook(
             R.drawable.ic_folder_gray,
             "뉴진스 하입보이요",
             "https://youtu.be/T--6HBX2K4g?si=fMk-apX7nK4INkOT",
+            "스진뉴", arrayOf("노래", "뉴진스",)
         ),
-        Hook(R.drawable.ic_folder_green, "아이엠 그루트", "http://aelfelwkjknnmn,amdnmnsmnmsnd"),
-        Hook(R.drawable.ic__folder_add, "졸업하고싶다ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ", "http://hufs.ac.kr"),
+        Hook(
+            R.drawable.ic_folder_green,
+            "아이엠 그루트",
+            "http://aelfelwkjknnmn,amdnmnsmnmsnd",
+            "졸업하고 싶다ㅏㅏㅏㅏㅏㅏㅏㅏㅏ",
+            arrayOf("응애", "응애", "응애", "응애", "응애")
+        ),
+        Hook(R.drawable.ic__folder_add, "DynamoDB를 사용하는 Go 서비스의 응답 시간 최적화", "http://hufs.ac.kr"),
         Hook(
             R.drawable.ic_folder_white,
-            "미안하다 이거 보여주려고 어그로끌었다",
+            "물고기는 존재하지 않는다",
             "http://adqwknfqwnlnmnaopcoicoz.com",
         ),
         Hook(
@@ -57,9 +71,9 @@ fun getDummyData(): List<Hook> {
             R.drawable.ic_folder_gray,
             "뉴진스 하입보이요",
             "https://youtu.be/T--6HBX2K4g?si=fMk-apX7nK4INkOT",
-        ),)
+        ),
+    )
 }
-
 
 
 //Hook(

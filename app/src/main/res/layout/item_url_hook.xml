@@ -3,66 +3,55 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="192dp"
+    android:layout_height="wrap_content"
     android:background="@color/white"
     android:paddingStart="24dp"
     android:paddingTop="8dp"
     android:paddingEnd="24dp"
     android:paddingBottom="8dp">
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_folder_container"
         android:layout_width="0dp"
-        android:layout_height="31dp"
+        android:layout_height="wrap_content"
         android:background="@color/white"
         android:orientation="horizontal"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toTopOf="@id/view_content_container"
+        app:layout_constraintBottom_toTopOf="@id/tv_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <View
-        android:id="@+id/view_content_container"
-        android:layout_width="0dp"
-        android:layout_height="70dp"
-        android:layout_marginTop="8dp"
-        android:background="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/rv_folder_container" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:background="@color/white"
         android:text="뉴진스의 하입보이요"
         android:textColor="@color/black"
         android:textSize="16dp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@id/view_content_container"
-        app:layout_constraintTop_toTopOf="@id/view_content_container" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rv_folder_container" />
 
     <TextView
-
         android:id="@+id/tv_url_link"
         android:layout_width="0dp"
-        android:layout_height="20dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="3dp"
-        android:layout_marginBottom="5dp"
         android:textColor="@color/purple"
+        app:layout_constraintBottom_toTopOf="@id/tv_tag_description"
         app:layout_constraintStart_toStartOf="@id/tv_title"
         app:layout_constraintTop_toBottomOf="@id/tv_title"
         tools:text="https://github.com/pointmina/Hook/blob/master/README.md" />
 
     <TextView
         android:id="@+id/tv_tag_description"
+
         android:layout_width="0dp"
-        android:layout_height="30dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:background="#FFFFFF"
         android:text="미안하다 이거 보여주려고 어그로 끌었다."
@@ -76,14 +65,16 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_tag_container"
         android:layout_width="0dp"
-        android:layout_height="31dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:background="@color/white"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_tag_description"
-        tools:listitem="@layout/item_tag"/>
-
+        app:layout_constraintVertical_bias="1.0"
+        tools:listitem="@layout/item_tag" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

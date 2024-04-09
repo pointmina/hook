@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.hanto.Hook" />
+                  <option name="mobileSdkAppId" value="1:202781592840:android:ad6db69487674b919570bd" />
+                  <option name="projectId" value="hook-882c5" />
+                  <option name="projectNumber" value="202781592840" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

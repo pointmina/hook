@@ -34,20 +34,26 @@ class UrlHookListAdapter(
                 tvTitle.text = hook.urlTitle
                 tvUrlLink.text = hook.urlLink
                 tvTagDescription.text = hook.urlDescription
+
+                // RecyclerView에 TagAdapter와 LayoutManager 설정
                 rvTagContainer.apply {
+                    // 기존 adapter 대신에 새로운 TagAdapter 객체를 생성하여 사용
                     adapter = TagAdapter(hook.tags)
                     layoutManager =
                         LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                 }
-                // 이미지 리소스를 설정하는 코드가 주석 처리되어 있습니다.
-                // gvTagFolderContainer.setImageResource(hook.folderResourceId)
-            }
-        }
 
+                rvFolderContainer.apply {
+                    // FolderAdapter에 List<Hook>을 전달하여 사용
+                    adapter = FolderAdapter(hook.folderName)
+                    layoutManager =
+                        LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                }
+            }
+
+        }
     }
 }
-
-
 
 
 
