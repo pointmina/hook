@@ -65,7 +65,7 @@ https://github.com/pointmina/Hook/assets/68779817/14745caf-0b3f-4546-bfee-3a9b5a
 
 1. 8일꺼 나머지 ☑️
 
-2024 04 10
+2024 04 10 -> 9.5th
 -
 
 1) 홈뷰 -> setting 을 add hook으로 바꿈☑️
