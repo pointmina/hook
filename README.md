@@ -11,7 +11,7 @@
 - 그리드 뷰 사용
 
 4. 태그뷰 선택 태그 selected_tag_fragment clear☑️
-- 태그 수정? : 바텀 시트 or fragment, 커스텀 알림 😵
+
 
 2024 04 05 -> 6th commit
 -
@@ -68,6 +68,11 @@ https://github.com/pointmina/Hook/assets/68779817/14745caf-0b3f-4546-bfee-3a9b5a
 해야할거? random color 
 - https://jminie.tistory.com/144
 
+2024 04 10
+-
+
+1) 태그 수정? : 바텀 시트 or fragment, 커스텀 알림 😵
+- https://www.tutorialsbuzz.com/2019/09/android-multichoice-alertdialog-kotlin.html
 
 페이로드
 -
