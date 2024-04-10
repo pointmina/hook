@@ -11,7 +11,7 @@
 - 그리드 뷰 사용
 
 4. 태그뷰 선택 태그 selected_tag_fragment clear☑️
-- 태그 수정? : 바텀 시트 or fragment, 커스텀 알림 😵
+
 
 2024 04 05 -> 6th commit
 -
@@ -67,6 +67,24 @@ https://github.com/pointmina/Hook/assets/68779817/14745caf-0b3f-4546-bfee-3a9b5a
 
 해야할거? random color 
 - https://jminie.tistory.com/144
+
+2024 04 10
+-
+
+1) 홈뷰 -> setting 을 add hook으로 바꿈☑️
+- navigation loginTestActivity -> addHookActivity로 경로 변경
+  
+2) 새로운 hook 뷰 만들기 ☑️
+   
+3) down_arrow 버튼 누르면 기타 정보 나오고 up_arrow로 변경 그 반대도☑️
+
+
+5) 새로운 훅에서 링크 정보 누르면 키보드 자동으로 나오고 안에 정보 입력할 수 있게☑️
+   
+6) 태그 수정 : 바텀 시트 or fragment, 커스텀 알림 😵
+- https://www.tutorialsbuzz.com/2019/09/android-multichoice-alertdialog-kotlin.html
+
+7) 카카오 로그인으로 바꾸기
 
 
 페이로드
