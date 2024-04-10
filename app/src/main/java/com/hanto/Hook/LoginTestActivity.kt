@@ -53,7 +53,7 @@ class LoginTestActivity : AppCompatActivity() {
 
         mGoogleSignInClient.signOut().addOnCompleteListener(this) {
             // Optional: Update UI or show a message to the user
-            val intent = Intent(this@LoginTestActivity, LoginActivity::class.java)
+            val intent = Intent(this@LoginTestActivity, LoginActivity_google::class.java)
             startActivity(intent)
             finish()
         }

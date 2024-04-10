@@ -17,7 +17,6 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -40,11 +39,16 @@ android {
 
     buildFeatures{
         viewBinding = true
+        buildConfig = true
     }
 
 }
 
 dependencies {
+    //카카오 로그인
+    implementation ("com.kakao.sdk:v2-all:2.20.1") // 전체 모듈 설치, 2.11.0 버전부터 지원 헷갈려서 다 넣엇음 걍
+
+    //구글 로긴
     implementation(platform("com.google.firebase:firebase-bom:31.5.0"))
     implementation("com.google.firebase:firebase-auth-ktx")
     implementation ("com.google.android.gms:play-services-auth:20.5.0")

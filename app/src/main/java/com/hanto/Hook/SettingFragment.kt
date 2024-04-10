@@ -10,6 +10,7 @@ import com.hanto.Hook.databinding.FragmentSettingBinding
 
 class SettingFragment : Fragment() {
 
+
     private var _binding: FragmentSettingBinding? = null
 
     //호출될 때마다 현재에 저장되어 있는 값이 반환된다.

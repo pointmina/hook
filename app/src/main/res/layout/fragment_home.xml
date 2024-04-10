@@ -20,8 +20,8 @@
 
     <ImageView
         android:id="@+id/iv_appbar_add_hook"
-        android:layout_width="28.5dp"
-        android:layout_height="28.5dp"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
         android:layout_marginEnd="28dp"
         android:contentDescription="@string/add_new_hook"
         android:src="@drawable/ic_add_tag"
@@ -76,5 +76,5 @@
         app:layout_constraintTop_toBottomOf="@id/tv_recent_hooks"
         tools:listitem="@layout/item_url_hook" />
 
-
 </androidx.constraintlayout.widget.ConstraintLayout>
+

@@ -2,7 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
+        android:name=".GlobalApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -22,11 +25,15 @@
             android:name=".UrlHookDetailActivity"
             android:exported="false" />
         <activity
+            android:name=".LoginActivity"
+            android:exported="false" />
+        <activity
             android:name=".HomeActivity"
-            android:exported="false" /> <!-- <activity -->
-        <!-- android:name=".ui.login.LoginActivity" -->
-        <!-- android:exported="false" -->
-        <!-- android:label="@string/title_activity_login" /> -->
+            android:exported="false" />
+        <activity
+            android:name=".LoginActivity_google"
+            android:exported="false" />
+
         <activity
             android:name=".SplashView"
             android:exported="true">
@@ -36,7 +43,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity" />
+        <activity
+            android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="oauth"
+                    android:scheme="kakao9e323bbf72e71bd53ab75f947101fa0b" />
+            </intent-filter>
+        </activity>
+
     </application>
 
 </manifest>

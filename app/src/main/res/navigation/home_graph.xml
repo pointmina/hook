@@ -30,11 +30,15 @@
         android:label="TagFragment"
         tools:layout="@layout/fragment_tag"/>
 
-    <activity
-        android:id="@+id/loginTestActivity"
-        android:name="com.hanto.Hook.LoginTestActivity"
-        android:label="activity_login_test"
-        tools:layout="@layout/activity_login_test" />
+
+<!--    로그아웃때문에 setting에 잠깐걸어놈-->
+<!--    <activity-->
+<!--        android:id="@+id/navigation_setting"-->
+<!--        android:name="com.hanto.Hook.LoginTestActivity"-->
+<!--        android:label="activity_login_test"-->
+<!--        tools:layout="@layout/activity_login_test" />-->
+
+
     <activity
         android:id="@+id/addHookActivity"
         android:name="com.hanto.Hook.AddHookActivity"

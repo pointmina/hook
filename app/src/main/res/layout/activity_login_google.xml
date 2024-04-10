@@ -5,7 +5,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity_google">
+    android:background="@color/white"
+    tools:context=".HomeActivity">
+
+    <!--    android:fontFamily="@font/futura_medium"-->
 
     <ImageView
         android:id="@+id/iv_splash_icon"
@@ -13,24 +16,37 @@
         android:layout_height="150dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.4"
+        app:layout_constraintVertical_bias="0.309"
         app:layout_constraintVertical_chainStyle="packed"
         app:srcCompat="@drawable/ic_hook_black" />
 
-    <!--    android:fontFamily="@font/futura_medium"-->
+    <ImageButton
+        android:id="@+id/ic_google_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:background="@color/white"
+        android:contentDescription="@string/label_google_login"
+        android:src="@drawable/ic_google_svg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="@font/futura_medium_condensed"
         android:text="@string/label_splah_title"
         android:textColor="#000000"
         android:textSize="70sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/iv_splash_icon" />
 
