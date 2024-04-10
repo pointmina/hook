@@ -43,12 +43,13 @@ class UrlHookListAdapter(
                         LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                 }
 
-                rvFolderContainer.apply {
-                    // FolderAdapter에 List<Hook>을 전달하여 사용
-                    adapter = FolderAdapter(hook.folderName)
-                    layoutManager =
-                        LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                }
+//                //폴더 리사이클러뷰인데 뺌
+//                rvFolderContainer.apply {
+//                    // FolderAdapter에 List<Hook>을 전달하여 사용
+//                    adapter = FolderAdapter(hook.folderName)
+//                    layoutManager =
+//                        LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+//                }
             }
 
         }

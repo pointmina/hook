@@ -1,28 +1,26 @@
 package com.hanto.Hook
 
-import android.os.Build.VERSION_CODES.R
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.hanto.Hook.databinding.FragmentHomeBinding
-import com.hanto.Hook.databinding.FragmentStarBinding
+import com.hanto.Hook.databinding.FragmentSettingBinding
 
 
-class StarFragment : Fragment() {
+class SettingFragment : Fragment() {
 
-    private var _binding: FragmentStarBinding? = null
+    private var _binding: FragmentSettingBinding? = null
 
     //호출될 때마다 현재에 저장되어 있는 값이 반환된다.
-    private  val binding get() = _binding!!
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentStarBinding.inflate(inflater, container, false)
+        _binding = FragmentSettingBinding.inflate(inflater, container, false)
         return binding.root
     }
 

@@ -25,10 +25,6 @@ class TagFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        // "전체 보기" 텍스트를 클릭했을 때 ViewAllTagsFragment를 추가하는 코드
-//        binding.tvViewAll.setOnClickListener {
-//            addViewAllTagsFragment()
-//        }
     }
 
     private fun addViewAllTagsFragment() {

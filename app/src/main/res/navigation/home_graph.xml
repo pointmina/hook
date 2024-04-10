@@ -13,24 +13,16 @@
         tools:layout="@layout/fragment_home" >
 
         <action
-            android:id="@+id/action_navigation_home_to_loginTestActivity"
-            app:destination="@id/loginTestActivity" />
+            android:id="@+id/action_navigation_home_to_addHookActivity"
+            app:destination="@id/addHookActivity" />
     </fragment>
 
 
-    <!--    폴더 네이게이션 바 눌렀을 때 나오는 뷰-->
     <fragment
-        android:id="@+id/navigation_folder"
-        android:name="com.hanto.Hook.FolderFragment"
-        android:label="@string/label_folder"
-        tools:layout="@layout/fragment_folder" />
-
-    <!--    모두보기 눌렀을 때 나오는 뷰-->
-    <fragment
-        android:id="@+id/navigation_star"
-        android:name="com.hanto.Hook.StarFragment"
-        android:label="StarFragment"
-        tools:layout="@layout/fragment_star" />
+        android:id="@+id/navigation_setting"
+        android:name="com.hanto.Hook.SettingFragment"
+        android:label="SettingFragment"
+        tools:layout="@layout/fragment_setting" />
 
     <fragment
         android:id="@+id/navigation_tag"
@@ -43,6 +35,10 @@
         android:name="com.hanto.Hook.LoginTestActivity"
         android:label="activity_login_test"
         tools:layout="@layout/activity_login_test" />
+    <activity
+        android:id="@+id/addHookActivity"
+        android:name="com.hanto.Hook.AddHookActivity"
+        android:label="AddHookActivity" />
 
 
 </navigation>

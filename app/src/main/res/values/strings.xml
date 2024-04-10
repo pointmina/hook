@@ -5,7 +5,7 @@
     <string name="label_home">홈</string>
     <string name="label_tag">태그</string>
     <string name="label_folder">폴더</string>
-    <string name="label_star">모아보기</string>
+    <string name="label_setting">설정</string>
 
 
     <string name="label_add_card">결제 수단을 등록해주세요</string>
@@ -20,7 +20,6 @@
     <!--    Splashview-->
     <string name="label_splah_title">h o o k!</string>
 
-    <string name="label_setting">setting</string>
     <string name="label_tag_count">28개의 훅</string>
 
 
@@ -37,5 +36,8 @@
     <string name="description_save_changes">태그 수정하기</string>
     <string name="appbar_title_tag_screen">태 그</string>
     <string name="appbar_title_home_fragment">H o o k !</string>
+    <string name="add_new_hook">훅 추가</string>
+    <string name="etc_info">기타 정보 보기</string>
+    <string name="hint_url_link">https://</string>
 
 </resources>

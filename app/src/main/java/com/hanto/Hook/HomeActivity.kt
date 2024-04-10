@@ -19,7 +19,6 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var mGoogleSignInClient: GoogleSignInClient
     private lateinit var mAuth: FirebaseAuth
 
-    @SuppressLint("CommitTransaction")
 
     private lateinit var binding: ActivityHomeBinding
 

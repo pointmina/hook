@@ -11,12 +11,8 @@
         android:title="@string/label_tag" />
 
     <item
-        android:id="@+id/navigation_folder"
-        android:icon="@drawable/ic_navigation_folder"
-        android:title="@string/label_folder" />
-    <item
-        android:id="@+id/navigation_star"
-        android:icon="@drawable/ic_star"
-        android:title="@string/label_star" />
+        android:id="@+id/navigation_setting"
+        android:icon="@drawable/ic_setting_2"
+        android:title="@string/label_setting" />
 
 </menu>

@@ -17,7 +17,6 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
 
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -40,8 +39,8 @@ class HomeFragment : Fragment() {
         }
         // RecyclerView가 아닌 binding.rvUrlHookList를 사용해야 합니다.
         binding.rvUrlHookList.addItemDecoration(dividerItemDecoration)
-        binding.ivAppbarSetting.setOnClickListener{
-            val action = HomeFragmentDirections.actionNavigationHomeToLoginTestActivity()
+        binding.ivAppbarAddHook.setOnClickListener {
+            val action = HomeFragmentDirections.actionNavigationHomeToAddHookActivity()
             findNavController().navigate(action)
         }
 

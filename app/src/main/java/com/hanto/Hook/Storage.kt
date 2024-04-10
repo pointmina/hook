@@ -6,7 +6,7 @@ fun getDummyData(): List<Hook> {
             R.drawable.ic_folder_white,
             "미안하다 이거 보여주려고 어그로끌었다",
             "http://adqwknfqwnlnmnaopcoicoz.com",
-            "람쥐떤더!", arrayOf("블로그", "쇼핑", "취미"),
+            "람쥐떤더!", arrayOf("블로그", "쇼핑", "취미","블로그", "쇼핑", "취미","블로그", "쇼핑", "취미","블로그", "쇼핑", "취미","블로그", "쇼핑", "취미","블로그", "쇼핑", "취미","블로그", "쇼핑", "취미",),
             arrayOf("폴더1", "폴더2", "취미")
         ),
         Hook(

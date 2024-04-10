@@ -19,12 +19,12 @@
 
 
     <ImageView
-        android:id="@+id/iv_appbar_setting"
+        android:id="@+id/iv_appbar_add_hook"
         android:layout_width="28.5dp"
         android:layout_height="28.5dp"
         android:layout_marginEnd="28dp"
-        android:contentDescription="@string/label_setting"
-        android:src="@drawable/ic_setting"
+        android:contentDescription="@string/add_new_hook"
+        android:src="@drawable/ic_add_tag"
         app:layout_constraintBottom_toBottomOf="@id/toorbar_home"
         app:layout_constraintEnd_toEndOf="@id/toorbar_home"
         app:layout_constraintTop_toTopOf="parent" />
