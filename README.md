@@ -28,12 +28,18 @@
 2024 04 07 -> 7th commit
 -
 
-1. kakao login -> google login ☑️
-- https://visualandroidblog.blogspot.com/2023/04/google-sign-in-firebase-android-kotlin-tutorial.html
-- https://developers.google.com/android/guides/setup?hl=ko
-- https://www.youtube.com/watch?v=H_maapn4Q3Q
-- https://firebase.google.com/docs/auth/android/start?hl=ko&_gl=1*tfveyn*_up*MQ..*_ga*Nzk2MDYxODgwLjE3MTI0MjI2ODI.*_ga_CW55HF8NVT*MTcxMjQyMjY4Mi4xLjAuMTcxMjQyMjY4Mi4wLjAuMA..
-- https://console.firebase.google.com/u/0/project/hook-882c5/settings/general/android:com.hanto.Hook?hl=ko
+
+
+<details><summary>1. kakao login -> google login ☑️</summary> 
+    - https://visualandroidblog.blogspot.com/2023/04/google-sign-in-firebase-android-kotlin-tutorial.html <br> <br>
+    - https://developers.google.com/android/guides/setup?hl=ko <br> <br>
+    - https://www.youtube.com/watch?v=H_maapn4Q3Q <br> <br>
+    - https://firebase.google.com/docs/auth/android/start?hl=ko&_gl=1*tfveyn*_up*MQ..*_ga*Nzk2MDYxODgwLjE3MTI0MjI2ODI.*_ga_CW55HF8NVT*MTcxMjQyMjY4Mi4xLjAuMTcxMjQyMjY4Mi4wLjAuMA.. <br> <br>
+    - https://console.firebase.google.com/u/0/project/hook-882c5/settings/general/android:com.hanto.Hook?hl=ko <br> <br>
+
+</details>
+
+
 
 
 2. 설정 버튼 누르면☑️
@@ -48,12 +54,13 @@ https://github.com/pointmina/Hook/assets/68779817/14745caf-0b3f-4546-bfee-3a9b5a
 0. 레이아웃 만들기, 함수 만들기 ☑️
 
 2. ![image](https://github.com/pointmina/Hook/assets/68779817/8252ed3e-6185-425f-b675-a1a82247cad5)   ☑️
-- 리사이클러뷰에 리사이클러뷰 삽입.. 에휴
-- https://velog.io/@simsubeen/Android-Kotlin-RecyclerView-%EA%B0%80%EB%A1%9C-%EC%A0%95%EB%A0%AC-GridLayoutManager
-- https://notepad96.tistory.com/201
-- https://jinsangjin.tistory.com/25
-- https://developer.android.com/develop/ui/views/layout/recyclerview?hl=ko <---------------------------------------
+<details><summary>리사이클러뷰에 리사이클러뷰 삽입</summary> 
 
+- https://velog.io/@simsubeen/Android-Kotlin-RecyclerView-%EA%B0%80%EB%A1%9C-%EC%A0%95%EB%A0%AC-GridLayoutManager <br> <br>
+- https://notepad96.tistory.com/201 <br><br>
+- https://jinsangjin.tistory.com/25 <br><br>
+- https://developer.android.com/develop/ui/views/layout/recyclerview?hl=ko <br><br>
+ </details>
 
 2. ![image](https://github.com/pointmina/Hook/assets/68779817/6ea96baf-456a-4a62-ad78-0b48cf506f49) ☑️
 - 글자길이 수에따라 가로로 길어져야함
