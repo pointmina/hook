@@ -77,11 +77,13 @@ https://github.com/pointmina/Hook/assets/68779817/14745caf-0b3f-4546-bfee-3a9b5a
 
 4) 새로운 훅에서 링크 정보 누르면 키보드 자동으로 나오고 안에 정보 입력할 수 있게☑️
    
-5) 태그 수정 : 바텀 시트 or fragment, 커스텀 알림 😵 ✖️
+5) 버전 업글 ☑️
+- https://developer.android.com/build/agp-upgrade-assistant?hl=ko
+
+6) 태그 수정 : 바텀 시트 or fragment, 커스텀 알림 😵 ✖️
 - https://www.tutorialsbuzz.com/2019/09/android-multichoice-alertdialog-kotlin.html
 
-
-2024 04 11
+2024 04 11 -> 10th
 -
 
 1) 카카오 로그인으로 바꾸기
