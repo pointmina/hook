@@ -93,14 +93,18 @@ https://github.com/pointmina/Hook/assets/68779817/14745caf-0b3f-4546-bfee-3a9b5a
 2024 04 11 -> 10th
 -
 
-1) 카카오 로그인으로 바꾸기
-- https://velog.io/@mong7399/Android-StudioKotlin-%EC%B9%B4%EC%B9%B4%EC%98%A4-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%EA%B5%AC%ED%98%84
-- 해시키 오류
-- 일단 구글 로긴으로 걸어놈 (앱 진행사항 확인을 위해)
+<details><summary>1) 카카오 로그인으로 바꾸기</summary> 
+- https://velog.io/@mong7399/Android-StudioKotlin-%EC%B9%B4%EC%B9%B4%EC%98%A4-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%EA%B5%AC%ED%98%84 <br><br>
+- 해시키 오류 <br>
+- 일단 구글 로긴으로 걸어놈 (앱 진행사항 확인을 위해) <br>
+ </details>
+ 
+<details><summary>2) 훅 추가 뷰 : 태그 추가/ 수정 : Confirmation dialog </summary> ☑️
+- https://www.tutorialsbuzz.com/2019/09/android-multichoice-alertdialog-kotlin.html <br><br>
+- https://m2.material.io/components/dialogs#confirmation-dialog <br>
+- 선택한거 태그 뷰에 반영 <br>
+</details>
 
-2. 훅 추가 뷰 : 태그 수정 : Confirmation dialog 😵
-- https://www.tutorialsbuzz.com/2019/09/android-multichoice-alertdialog-kotlin.html
-- https://m2.material.io/components/dialogs#confirmation-dialog
 
 
 
