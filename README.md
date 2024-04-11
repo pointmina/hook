@@ -98,8 +98,9 @@ https://github.com/pointmina/Hook/assets/68779817/14745caf-0b3f-4546-bfee-3a9b5a
 - 해시키 오류
 - 일단 구글 로긴으로 걸어놈 (앱 진행사항 확인을 위해)
 
-2. 훅 추가 뷰 : 태그 수정 : 바텀 시트 or fragment, 커스텀 알림 😵
+2. 훅 추가 뷰 : 태그 수정 : Confirmation dialog 😵
 - https://www.tutorialsbuzz.com/2019/09/android-multichoice-alertdialog-kotlin.html
+- https://m2.material.io/components/dialogs#confirmation-dialog
 
 
 
