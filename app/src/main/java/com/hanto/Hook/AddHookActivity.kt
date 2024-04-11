@@ -1,12 +1,16 @@
 package com.hanto.Hook
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.DialogInterface
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import com.hanto.Hook.databinding.ActivityAddHookBinding
 
 class AddHookActivity : AppCompatActivity() {
@@ -14,31 +18,124 @@ class AddHookActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddHookBinding
     private var isExpanded = false
 
+    private val multiChoiceList = linkedMapOf(
+        "블로그" to false,
+        "음식" to false,
+        "학교" to false,
+        "응애" to false,
+        "게임" to false,
+        "모델" to false,
+        "시험" to false,
+        "프로젝트" to false,
+        "테크" to false,
+        "개발" to false,
+        "운동" to false,
+        "쇼핑" to false,
+        "여행" to false,
+        "정보" to false,
+        "강의" to false,
+        "자격증" to false,
+        "햄스터" to false
+    )
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = ActivityAddHookBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
 
-        // 뷰 바인딩을 통해 뷰들을 참조
         val downArrow = binding.ivDownArrow
         val tvUrlDescription = binding.tvUrlDescription
         val tvTag = binding.tvTag
         val containerTag = binding.containerTag
         val containerInfoEtc = binding.containerLinkInfoEtc
         val urlLink = binding.tvUrlLink
+        val tagSelect = binding.containerTag
+        val backButton = binding.ivAppbarBackButton
 
-        // down_arrow 이미지뷰 클릭 리스너 설정 -> containerInfoEtc로 바꿈 터치 부분이 너무 작아서 터치가 힘듦..
+        tagSelect.setOnClickListener {
+            val builder = AlertDialog.Builder(this)
+
+            //백버튼
+            backButton.setOnClickListener {
+                finish()
+                Log.d("MinaMina","AddHookActivity - backbutton() called")
+            }
+
+            builder.setTitle("태그 선택")
+
+            builder.setMultiChoiceItems(
+                multiChoiceList.keys.toTypedArray(),
+                multiChoiceList.values.toBooleanArray()
+            ) { dialogInterface: DialogInterface, which: Int, isChecked: Boolean ->
+                multiChoiceList[multiChoiceList.keys.toTypedArray()[which]] = isChecked
+            }
+
+            builder.setPositiveButton("ok") { dialog, id ->
+                val selectedTags = mutableListOf<String>()
+                for ((tag, selected) in multiChoiceList) {
+                    if (selected) {
+                        selectedTags.add(tag)
+                    }
+                }
+                tvTag.text = selectedTags.joinToString(", ")
+                // 추가: 선택된 태그를 containerTag에 표시
+                containerTag.text = selectedTags.joinToString(", ")
+                Log.d("Selected Items", multiChoiceList.toString())
+                dialog.dismiss()
+            }
+
+            builder.setNegativeButton("cancel") { dialog, id ->
+                dialog.dismiss()
+            }
+
+            val alertDialog = builder.create()
+            alertDialog.show()
+        }
+
+        containerTag.setOnClickListener {
+            val tags = multiChoiceList.keys.toTypedArray()
+            val tagArray = Array(tags.size) { i -> tags[i] }
+
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("태그 선택")
+
+            builder.setMultiChoiceItems(
+                tagArray,
+                multiChoiceList.values.toBooleanArray()
+            ) { dialogInterface: DialogInterface, which: Int, isChecked: Boolean ->
+                val selectedTag = multiChoiceList.keys.toTypedArray()[which]
+                multiChoiceList[selectedTag] = isChecked
+            }
+
+            builder.setPositiveButton("OK") { dialog, which ->
+                val selectedTags = mutableListOf<String>()
+                for ((tag, selected) in multiChoiceList) {
+                    if (selected) {
+                        selectedTags.add("#$tag") // #을 붙여 선택된 태그를 리스트에 추가합니다.
+                    }
+                }
+                // 추가: 선택된 태그를 containerTag에 표시
+                containerTag.text = selectedTags.joinToString("  ")
+                dialog.dismiss()
+            }
+
+            builder.setNegativeButton("Cancel") { dialog, which ->
+                dialog.dismiss()
+            }
+
+            val dialog = builder.create()
+            dialog.show()
+        }
+
         containerInfoEtc.setOnClickListener {
             toggleExpandCollapse(tvUrlDescription, tvTag, containerTag, downArrow)
         }
 
-        //urlLink 클릭 리스너 설정
         urlLink.setOnClickListener {
             showKeyboardAndFocus(urlLink)
         }
-
-
     }
 
     private fun toggleExpandCollapse(
@@ -50,23 +147,18 @@ class AddHookActivity : AppCompatActivity() {
         isExpanded = !isExpanded
 
         if (isExpanded) {
-            // 확장 상태일 때
             tvUrlDescription.visibility = View.VISIBLE
             tvTag.visibility = View.VISIBLE
             containerTag.visibility = View.VISIBLE
-
-            // down_arrow 이미지를 up_arrow 이미지로 변경
             downArrow.setImageResource(R.drawable.ic_up_arrow)
         } else {
-            // 축소 상태일 때
             tvUrlDescription.visibility = View.INVISIBLE
             tvTag.visibility = View.INVISIBLE
             containerTag.visibility = View.INVISIBLE
-
-            // up_arrow 이미지를 down_arrow 이미지로 변경
             downArrow.setImageResource(R.drawable.ic_down_arrow)
         }
     }
+
 
     private fun showKeyboardAndFocus(editText: EditText) {
         editText.requestFocus()

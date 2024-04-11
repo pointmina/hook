@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.content.Intent
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.Toast
 import com.kakao.sdk.user.UserApiClient
@@ -14,6 +15,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
         // 로그인 정보 확인
         UserApiClient.instance.accessTokenInfo { tokenInfo, error ->
             if (error != null) {
@@ -67,7 +69,7 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
-        val kakao_login_button = findViewById<ImageButton>(R.id.bt_kakaologin) // 로그인 버튼
+        val kakao_login_button = findViewById<Button>(R.id.bt_kakaologin) // 로그인 버튼
         kakao_login_button.setOnClickListener {
             if(UserApiClient.instance.isKakaoTalkLoginAvailable(this)){
                 UserApiClient.instance.loginWithKakaoTalk(this, callback = callback)

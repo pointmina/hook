@@ -17,7 +17,8 @@
         tools:targetApi="31">
         <activity
             android:name=".AddHookActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".HomeActivity"/>
         <activity
             android:name=".LoginTestActivity"
             android:exported="false" />
