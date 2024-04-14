@@ -105,7 +105,7 @@ https://github.com/pointmina/Hook/assets/68779817/14745caf-0b3f-4546-bfee-3a9b5a
 - 선택한거 태그 뷰에 반영 <br>
 </details>
 
-3) 백 버튼 누르면 뒤로가
+3) 백 버튼 누르면 뒤로가기 ☑️
 
 
 
