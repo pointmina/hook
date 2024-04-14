@@ -37,8 +37,10 @@ class HomeFragment : Fragment() {
         ResourcesCompat.getDrawable(resources, R.drawable.divider, null)?.let {
             dividerItemDecoration.setDrawable(it)
         }
-        // RecyclerView가 아닌 binding.rvUrlHookList를 사용해야 합니다.
+
         binding.rvUrlHookList.addItemDecoration(dividerItemDecoration)
+
+
         binding.ivAppbarAddHook.setOnClickListener {
             val action = HomeFragmentDirections.actionNavigationHomeToAddHookActivity()
             findNavController().navigate(action)

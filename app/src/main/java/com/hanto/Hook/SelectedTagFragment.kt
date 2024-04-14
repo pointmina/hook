@@ -19,7 +19,14 @@ class SelectedTagFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSelectedTagBinding.inflate(inflater, container, false)
-        return binding.root
+        val view = binding.root
+
+        val backButton = binding.ivAppbarSelectedTagBackButton
+        backButton.setOnClickListener {
+            requireActivity().onBackPressed() // 뒤로가기 실행
+        }
+
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -43,5 +50,4 @@ class SelectedTagFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
 }

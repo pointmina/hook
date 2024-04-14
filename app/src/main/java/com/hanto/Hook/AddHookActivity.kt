@@ -13,6 +13,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.hanto.Hook.databinding.ActivityAddHookBinding
 
+@Suppress("DEPRECATION")
 class AddHookActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAddHookBinding
@@ -53,6 +54,13 @@ class AddHookActivity : AppCompatActivity() {
         val urlLink = binding.tvUrlLink
         val tagSelect = binding.containerTag
         val backButton = binding.ivAppbarBackButton
+
+
+        backButton.setOnClickListener {
+            Log.d("BBBBBB", "onCreate: 백버튼 눌림")
+            onBackPressed()
+
+        }
 
         tagSelect.setOnClickListener {
             val builder = AlertDialog.Builder(this)
