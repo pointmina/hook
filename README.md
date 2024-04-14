@@ -111,8 +111,8 @@ https://github.com/pointmina/Hook/assets/68779817/14745caf-0b3f-4546-bfee-3a9b5a
 -
 
 1. Tag뷰 리사이클러 뷰 삽입
--> https://developer.android.com/reference/com/google/android/material/chip/Chip 으로 바꿔야 할듯
--> https://android-developers.googleblog.com/2017/02/build-flexible-layouts-with.html 아니면 이거 justify
+- https://developer.android.com/reference/com/google/android/material/chip/Chip 으로 바꿔야 할듯
+- https://android-developers.googleblog.com/2017/02/build-flexible-layouts-with.html 아니면 이거 justify
 
 
 
