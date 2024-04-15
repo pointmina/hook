@@ -7,6 +7,5 @@
         <item name="windowNoTitle">true</item>
 
     </style>
-
     <style name="Theme.Hook" parent="Base.Theme.Hook" />
 </resources>

@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <style name="MyDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:textColor">@color/purple</item>
+    </style>
+
     <style name="BottomNavigation.ActiveItemTextAppearance" parent="Widget.Design.BottomNavigationView">
         <item name="fontFamily">@font/notosan_r</item>
     </style>
@@ -23,6 +27,7 @@
         <item name="fontFamily">@font/notosan_r</item>
 
     </style>
+
 
     <style name="FolderTitle">
         <item name="android:textStyle">bold</item>

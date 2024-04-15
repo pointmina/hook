@@ -5,6 +5,7 @@ import android.content.Intent
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.Toast
 import com.kakao.sdk.user.UserApiClient
@@ -69,7 +70,7 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
-        val kakao_login_button = findViewById<Button>(R.id.bt_kakaologin) // 로그인 버튼
+        val kakao_login_button = findViewById<TextView>(R.id.bt_kakaologin) // 로그인 버튼
         kakao_login_button.setOnClickListener {
             if(UserApiClient.instance.isKakaoTalkLoginAvailable(this)){
                 UserApiClient.instance.loginWithKakaoTalk(this, callback = callback)
@@ -78,7 +79,7 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
-        val btnWithoutLogin : Button = findViewById(R.id.bt_withoutlogin)
+        val btnWithoutLogin : TextView = findViewById(R.id.bt_withoutlogin)
 
         btnWithoutLogin.setOnClickListener {
             // MainActivity로 이동하는 인텐트 생성

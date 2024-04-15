@@ -57,7 +57,6 @@ class AddHookActivity : AppCompatActivity() {
 
 
         backButton.setOnClickListener {
-            Log.d("BBBBBB", "onCreate: 백버튼 눌림")
             onBackPressed()
 
         }
@@ -65,13 +64,10 @@ class AddHookActivity : AppCompatActivity() {
         tagSelect.setOnClickListener {
             val builder = AlertDialog.Builder(this)
 
-            //백버튼
-            backButton.setOnClickListener {
-                finish()
-                Log.d("MinaMina","AddHookActivity - backbutton() called")
-            }
+
 
             builder.setTitle("태그 선택")
+
 
             builder.setMultiChoiceItems(
                 multiChoiceList.keys.toTypedArray(),
@@ -79,6 +75,9 @@ class AddHookActivity : AppCompatActivity() {
             ) { dialogInterface: DialogInterface, which: Int, isChecked: Boolean ->
                 multiChoiceList[multiChoiceList.keys.toTypedArray()[which]] = isChecked
             }
+
+
+
 
             builder.setPositiveButton("ok") { dialog, id ->
                 val selectedTags = mutableListOf<String>()
@@ -131,7 +130,11 @@ class AddHookActivity : AppCompatActivity() {
 
             builder.setNegativeButton("Cancel") { dialog, which ->
                 dialog.dismiss()
+
+
             }
+
+
 
             val dialog = builder.create()
             dialog.show()
