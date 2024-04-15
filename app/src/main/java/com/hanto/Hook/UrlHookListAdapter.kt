@@ -4,6 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.flexbox.FlexDirection
+import com.google.android.flexbox.FlexboxLayoutManager
+import com.google.android.flexbox.JustifyContent
 import com.hanto.Hook.databinding.ItemUrlHookBinding
 
 class UrlHookListAdapter(
@@ -39,8 +42,12 @@ class UrlHookListAdapter(
                 rvTagContainer.apply {
                     // 기존 adapter 대신에 새로운 TagAdapter 객체를 생성하여 사용
                     adapter = TagAdapter(hook.tags)
+                    val recyclerView = binding.rvTagContainer
                     layoutManager =
-                        LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                        FlexboxLayoutManager(context)
+                    (layoutManager as FlexboxLayoutManager).flexDirection = FlexDirection.ROW
+                    (layoutManager as FlexboxLayoutManager).justifyContent = JustifyContent.FLEX_START
+                    recyclerView.layoutManager = layoutManager
                 }
 
 

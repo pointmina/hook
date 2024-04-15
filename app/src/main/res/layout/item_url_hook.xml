@@ -10,18 +10,6 @@
     android:paddingEnd="24dp"
     android:paddingBottom="8dp">
 
-    <!--    <androidx.recyclerview.widget.RecyclerView-->
-    <!--        android:id="@+id/rv_folder_container"-->
-    <!--        android:layout_width="0dp"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:background="@color/white"-->
-    <!--        android:orientation="horizontal"-->
-    <!--        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
-    <!--        app:layout_constraintBottom_toTopOf="@id/tv_title"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent"-->
-    <!--        app:layout_constraintVertical_chainStyle="packed" />-->
 
     <TextView
         android:id="@+id/tv_title"
@@ -49,7 +37,6 @@
 
     <TextView
         android:id="@+id/tv_tag_description"
-
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
@@ -63,12 +50,13 @@
 
 
     <androidx.recyclerview.widget.RecyclerView
+        app:flexWrap="wrap"
+        app:layoutManager="com.google.android.flexbox.FlexboxLayoutManager"
         android:id="@+id/rv_tag_container"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:background="@color/white"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
