@@ -125,7 +125,7 @@ To Do
 -
 1. 서버에서 데이터 받아오기
 2. 새로운 훅 추가하면 리사이클러뷰에 데이터 반영하기
-3. 리사이클러뷰 위로 당기면 새로고침
+
 
 
 
@@ -143,4 +143,4 @@ https://developers.google.com/identity/gsi/web/guides/verify-google-id-token?hl=
 -
 
 1. 모션으로 바텀 네비게이션 넘기기
-2. 
+2. 리사이클러뷰 위로 당기면 새로고침
