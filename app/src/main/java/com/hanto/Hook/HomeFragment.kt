@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.hanto.Hook.databinding.FragmentHomeBinding
+import okhttp3.internal.notify
 
 class HomeFragment : Fragment() {
 
@@ -29,7 +30,6 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.rvUrlHookList.adapter = UrlHookListAdapter(getDummyData())
-//        binding.rvUrlHookList.tag
 
         // DividerItemDecoration에 대한 설정을 수정
         val dividerItemDecoration =
@@ -39,6 +39,12 @@ class HomeFragment : Fragment() {
         }
 
         binding.rvUrlHookList.addItemDecoration(dividerItemDecoration)
+
+        //리프레시 아이템 ㅇㅅㅇ 추가해야함
+//        binding.refreshLayout.setOnRefreshListener {
+//
+//        }
+
 
 
         binding.ivAppbarAddHook.setOnClickListener {

@@ -48,6 +48,12 @@ dependencies {
     //카카오 로그인
     implementation ("com.kakao.sdk:v2-all:2.20.1") // 전체 모듈 설치, 2.11.0 버전부터 지원 헷갈려서 다 넣엇음 걍
 
+    //recyclerView SwipeRefreshLayout
+    implementation ("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+
+    //flexBox
+    implementation ("com.google.android.flexbox:flexbox:3.0.0")
+    implementation ("com.google.android.material:material:1.11.0")
     //구글 로긴
     implementation(platform("com.google.firebase:firebase-bom:31.5.0"))
     implementation("com.google.firebase:firebase-auth-ktx")

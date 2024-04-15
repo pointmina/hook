@@ -23,6 +23,7 @@ class SettingFragment : Fragment() {
     ): View {
         _binding = FragmentSettingBinding.inflate(inflater, container, false)
         return binding.root
+
     }
 
     //온크리에이트뷰 함수가 호출됐을때 생성된 뷰는 온뷰크리에이트 라이프사이클 콜백의 인자로 들어오게됨
