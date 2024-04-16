@@ -128,6 +128,7 @@ https://github.com/pointmina/Hook/assets/68779817/14745caf-0b3f-4546-bfee-3a9b5a
 1. 태그 뷰에서 리사이클 뷰 누르면 전환 ☑️
 2. 태그 뷰 리사이클러 삽입 ☑️
 3. 수정하기 누르면 fragment ☑️
+4. 태그 선택창에 add 삽입 ☑️
 
 
 
