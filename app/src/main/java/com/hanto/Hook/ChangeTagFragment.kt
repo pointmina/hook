@@ -1,17 +1,17 @@
 package com.hanto.Hook
-
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.DialogFragment
 import com.hanto.Hook.databinding.FragmentChangeTagBinding
 
 
-class ViewAllTagsFragment : DialogFragment() {
+class ChangeTagFragment : DialogFragment() {
 
     private var _binding: FragmentChangeTagBinding? = null
     private val binding get() = _binding!!
@@ -27,11 +27,11 @@ class ViewAllTagsFragment : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.viewBack.setOnClickListener {
-            dismiss()
+
+        val changeTagName = binding.tvChangeTagName
+        changeTagName.setOnClickListener {
+            showKeyboardAndFocus(changeTagName)
         }
-
-
     }
 
     override fun onDestroy() {
@@ -39,8 +39,9 @@ class ViewAllTagsFragment : DialogFragment() {
         _binding = null
     }
 
-
+    private fun showKeyboardAndFocus(editText: EditText) {
+        editText.requestFocus()
+        val imm = activity?.getSystemService(AppCompatActivity.INPUT_METHOD_SERVICE) as InputMethodManager?
+        imm?.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT)
+    }
 }
-
-
-

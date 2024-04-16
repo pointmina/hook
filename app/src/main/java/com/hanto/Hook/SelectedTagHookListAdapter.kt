@@ -7,21 +7,22 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
+import com.hanto.Hook.databinding.ItemSelectedTagHookListBinding
 import com.hanto.Hook.databinding.ItemUrlHookBinding
 
-class UrlHookListAdapter(
+class SelectedTagHookListAdapter(
     private val items: List<Hook>
-) : RecyclerView.Adapter<UrlHookListAdapter.UrlHookItemViewHolder>() {
+) : RecyclerView.Adapter<SelectedTagHookListAdapter.SelectedTagHookViewHolder>() {
 
     // 뷰홀더 생성
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UrlHookItemViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SelectedTagHookViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemUrlHookBinding.inflate(inflater, parent, false)
-        return UrlHookItemViewHolder(binding)
+        val binding = ItemSelectedTagHookListBinding.inflate(inflater, parent, false)
+        return SelectedTagHookViewHolder(binding)
     }
 
     // 데이터와 뷰 바인딩
-    override fun onBindViewHolder(holder: UrlHookItemViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: SelectedTagHookViewHolder, position: Int) {
         holder.bind(items[position])
     }
 
@@ -29,9 +30,10 @@ class UrlHookListAdapter(
     override fun getItemCount(): Int = items.size
 
     // 뷰홀더 클래스
-    inner class UrlHookItemViewHolder(private val binding: ItemUrlHookBinding) :
+    inner class SelectedTagHookViewHolder(private val binding: ItemSelectedTagHookListBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
+        //추후에 수정해야됨 특정 태그를 포함하고 있는거만 띄워야함
         fun bind(hook: Hook) {
             with(binding) {
                 tvTitle.text = hook.urlTitle
@@ -51,7 +53,6 @@ class UrlHookListAdapter(
                     recyclerView.layoutManager = layoutManager
                 }
             }
-
         }
     }
 }

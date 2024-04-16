@@ -5,6 +5,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("androidx.navigation.safeargs.kotlin")
     id("com.google.gms.google-services")
+    id("kotlin-parcelize")
 }
 
 android {
@@ -42,6 +43,7 @@ android {
         buildConfig = true
     }
 
+
 }
 
 dependencies {
@@ -64,6 +66,7 @@ dependencies {
     implementation("androidx.annotation:annotation:1.6.0")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.1")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
+    implementation("androidx.activity:activity:1.8.0")
     val nav_version = "2.7.7"
     // Kotlin
     implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")

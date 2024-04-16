@@ -33,7 +33,6 @@
 
     <TextView
         android:id="@+id/tv_link_info"
-
         android:layout_width="match_parent"
         android:layout_height="28dp"
         android:layout_marginTop="8dp"
