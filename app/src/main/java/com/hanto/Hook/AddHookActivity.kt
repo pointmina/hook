@@ -130,10 +130,39 @@ class AddHookActivity : AppCompatActivity() {
 
             builder.setNegativeButton("Cancel") { dialog, which ->
                 dialog.dismiss()
-
-
             }
 
+            //add버튼 누르면 태그 항목에 추가
+            builder.setNeutralButton("Add") { dialog, which ->
+                // 추가: 새로운 항목 추가 기능 구현
+                val editText = EditText(this)
+                editText.hint = "태그 입력"
+                val dialogBuilder = AlertDialog.Builder(this)
+                    .setTitle("태그 추가")
+                    .setView(editText)
+                    .setPositiveButton("추가") { dialog, which ->
+                        val newTag = editText.text.toString().trim()
+                        if (newTag.isNotEmpty()) {
+                            multiChoiceList[newTag] = true
+                            val selectedTags = mutableListOf<String>()
+                            for ((tag, selected) in multiChoiceList) {
+                                if (selected) {
+                                    selectedTags.add("#$tag") // #을 붙여 선택된 태그를 리스트에 추가합니다.
+                                }
+                            }
+                            // 추가: 선택된 태그를 containerTag에 표시
+                            containerTag.text = selectedTags.joinToString("  ")
+                        } else {
+                            Toast.makeText(this, "태그를 입력하세요.", Toast.LENGTH_SHORT).show()
+                        }
+                        dialog.dismiss()
+                    }
+                    .setNegativeButton("취소") { dialog, which ->
+                        dialog.dismiss()
+                    }
+                val dialog = dialogBuilder.create()
+                dialog.show()
+            }
 
 
             val dialog = builder.create()

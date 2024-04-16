@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hanto.Hook.databinding.ActivitySelectedTagBinding
 
+@Suppress("DEPRECATION")
 class SelectedTagActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySelectedTagBinding
@@ -23,6 +24,12 @@ class SelectedTagActivity : AppCompatActivity() {
 
         // Intent로부터 데이터 받기
         val selectedTag = intent.getStringExtra("selectedTag")
+
+        val backButton = binding.ivAppbarSelectedTagBackButton
+
+        backButton.setOnClickListener {
+            onBackPressed()
+        }
 
         val ivTagChange = binding.ivTagChange
         ivTagChange.setOnClickListener {
@@ -43,6 +50,7 @@ class SelectedTagActivity : AppCompatActivity() {
         ResourcesCompat.getDrawable(resources, R.drawable.divider, null)?.let {
             dividerItemDecoration.setDrawable(it)
         }
+
 
         binding.rvUrlHookList.addItemDecoration(dividerItemDecoration)
     }
