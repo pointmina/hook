@@ -107,7 +107,7 @@ https://github.com/pointmina/Hook/assets/68779817/14745caf-0b3f-4546-bfee-3a9b5a
 
 3) 백 버튼 누르면 뒤로가기 ☑️
 
-2024 04 14 -> 11.5th
+2024 04 14 -> 11th
 -
 
 <details><summary>1. Tag뷰 리사이클러 뷰 삽입</summary> ☑️
@@ -128,6 +128,7 @@ https://github.com/pointmina/Hook/assets/68779817/14745caf-0b3f-4546-bfee-3a9b5a
 1. 태그 뷰에서 리사이클 뷰 누르면 전환 ☑️
 2. 태그 뷰 리사이클러 삽입 ☑️
 3. 수정하기 누르면 fragment ☑️
+4. 태그 선택창에 add 삽입 ☑️
 
 
 
