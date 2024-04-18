@@ -107,7 +107,7 @@ https://github.com/pointmina/Hook/assets/68779817/14745caf-0b3f-4546-bfee-3a9b5a
 
 3) 백 버튼 누르면 뒤로가기 ☑️
 
-2024 04 14 -> 11.5th
+2024 04 14 -> 11th
 -
 
 <details><summary>1. Tag뷰 리사이클러 뷰 삽입</summary> ☑️
