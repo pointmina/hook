@@ -32,6 +32,9 @@ Tech Stacks
 -
 - MVVM
 - Jetpack Compose
+- Android App Architecture
+- App Modularization
+- Material 3
 
 
 
