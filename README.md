@@ -28,7 +28,7 @@ Features
 - 주제별로 훅 정리 및 관리
 - 훅 별 주석기능 제공 -> 추후 저장 맥락 확인
 
-Texh Stacks
+Tech Stacks
 -
 - MVVM
 - Jetpack Compose
