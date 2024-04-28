@@ -1,4 +1,32 @@
+2024 04 04 -> 5th commit
+-
 
+1. 네비게이션바 홈 추가 clear☑️
+    
+2. 홈 상세 뷰 구현
+- 클릭하면 -> 상세 뷰 구현 clear☑️
+
+
+3. 태그뷰 태그 모음 tag_fragment  clear ☑️
+- 그리드 뷰 사용
+
+4. 태그뷰 선택 태그 selected_tag_fragment clear☑️
+
+
+2024 04 05 -> 6th commit
+-
+
+1. Dummy Data 만들고 home에 리사이클 뷰 뿌리기☑️
+- 레이아웃 매니저
+- recyclerView Divider : https://youtu.be/esLQ7oEvfOs?si=kN0JCEpFoEIILt9W
+
+2. 리사이클 클릭스 상세 activity 뿌리기
+
+3. selected_tag fragment에서 수정 클릭스 -> 태그 수정 fragment 
+
+
+2024 04 07 -> 7th commit
+-
 <details><summary>1. kakao login -> google login ☑️</summary> 
     - https://visualandroidblog.blogspot.com/2023/04/google-sign-in-firebase-android-kotlin-tutorial.html <br> <br>
     - https://developers.google.com/android/guides/setup?hl=ko <br> <br>
