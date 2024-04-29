@@ -8,7 +8,7 @@
     "title": "Example Title",
     "description": "This is an example description.",
     "url": "https://example.com",
-    "tag": ["example", "json", "data", "블로그", "쇼핑", "취미","커피", "사이드 프로젝트", "종합설계","학교", "응애", "배구파","컴퓨터", "알고리즘", "자료구조","동물"]
+    "tag": ["example", "json", "data", "블로그", "쇼핑", "취미","커피", "사이드 프로젝트", "알고리즘", "자료구조","동물"]
   },
   {
     "id": null,
