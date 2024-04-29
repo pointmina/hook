@@ -1,10 +1,11 @@
-package com.hanto.Hook
+package com.hanto.Hook.view
 
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Handler
+import com.hanto.Hook.R
 
 @Suppress("splash_screen")
 @SuppressLint("CustomSplashScreen")

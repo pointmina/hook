@@ -1,12 +1,13 @@
-package com.hanto.Hook
+package com.hanto.Hook.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.hanto.Hook.R
 
-class TagAdapter(private val tags: Array<String>) :
+class TagAdapter(private val tags: Array<String>?) :
     RecyclerView.Adapter<TagAdapter.TagViewHolder>() {
 
     inner class TagViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -21,9 +22,9 @@ class TagAdapter(private val tags: Array<String>) :
     }
 
     override fun onBindViewHolder(holder: TagViewHolder, position: Int) {
-        holder.textView.text = tags[position]
+        holder.textView.text = tags!![position]
     }
 
-    override fun getItemCount() = tags.size
+    override fun getItemCount() = tags!!.size
 }
 

@@ -8,7 +8,7 @@
     <!--첫번째 진입점은 homeFragment-->
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.hanto.Hook.HomeFragment"
+        android:name="com.hanto.Hook.view.HomeFragment"
         android:label="@string/label_tag"
         tools:layout="@layout/fragment_home">
 
@@ -20,13 +20,13 @@
 
     <fragment
         android:id="@+id/navigation_setting"
-        android:name="com.hanto.Hook.SettingFragment"
+        android:name="com.hanto.Hook.view.SettingFragment"
         android:label="SettingFragment"
         tools:layout="@layout/fragment_setting" />
 
     <fragment
         android:id="@+id/navigation_tag"
-        android:name="com.hanto.Hook.TagFragment"
+        android:name="com.hanto.Hook.view.TagFragment"
         android:label="TagFragment"
         tools:layout="@layout/fragment_tag" />
 
@@ -34,25 +34,25 @@
     <!--    로그아웃때문에 setting에 잠깐걸어놈-->
     <!--    <activity-->
     <!--        android:id="@+id/navigation_setting"-->
-    <!--        android:name="com.hanto.Hook.LoginTestActivity"-->
+    <!--        android:name="com.hanto.Hook.view.LoginTestActivity"-->
     <!--        android:label="activity_login_test"-->
     <!--        tools:layout="@layout/activity_login_test" />-->
 
 
     <activity
         android:id="@+id/addHookActivity"
-        android:name="com.hanto.Hook.AddHookActivity"
+        android:name="com.hanto.Hook.view.AddHookActivity"
         android:label="AddHookActivity" />
 
     <activity
         android:id="@+id/selectedTagAvtivity"
-        android:name="com.hanto.Hook.SelectedTagActivity"
+        android:name="com.hanto.Hook.view.SelectedTagActivity"
         android:label="activity_selected_tag"
         tools:layout="@layout/activity_selected_tag" />
 
     <fragment
         android:id="@+id/changeTagFragment"
-        android:name="com.hanto.Hook.ChangeTagFragment"
+        android:name="com.hanto.Hook.view.ChangeTagFragment"
         android:label="ChangeTagFragment"
         tools:layout="@layout/fragment_change_tag" />
 

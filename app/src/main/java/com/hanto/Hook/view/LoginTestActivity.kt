@@ -1,4 +1,4 @@
-package com.hanto.Hook
+package com.hanto.Hook.view
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +11,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.hanto.Hook.R
 
 class LoginTestActivity : AppCompatActivity() {
 

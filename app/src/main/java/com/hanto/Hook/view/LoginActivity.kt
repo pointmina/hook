@@ -1,13 +1,11 @@
-package com.hanto.Hook
+package com.hanto.Hook.view
 
 import android.os.Bundle
 import android.content.Intent
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.Toast
+import com.hanto.Hook.R
 import com.kakao.sdk.user.UserApiClient
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.AuthErrorCause.*

@@ -1,6 +1,5 @@
-package com.hanto.Hook
+package com.hanto.Hook.view
 
-import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -12,6 +11,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.hanto.Hook.R
 import com.hanto.Hook.databinding.ActivityHomeBinding
 
 class HomeActivity : AppCompatActivity() {

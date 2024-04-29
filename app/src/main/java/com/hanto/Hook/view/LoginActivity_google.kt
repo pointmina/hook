@@ -1,4 +1,4 @@
-package com.hanto.Hook
+package com.hanto.Hook.view
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -10,6 +10,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.hanto.Hook.R
 
 //로그인테스트 엑티비티 -> homeacticity
 

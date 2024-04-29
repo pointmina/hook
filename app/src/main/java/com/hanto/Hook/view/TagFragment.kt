@@ -1,13 +1,11 @@
-package com.hanto.Hook
+package com.hanto.Hook.view
 
-import Tag_xl_Adapter
-import android.R
+import com.hanto.Hook.adapter.Tag_xl_Adapter
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent

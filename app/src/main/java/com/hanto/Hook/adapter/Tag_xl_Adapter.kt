@@ -1,9 +1,11 @@
+package com.hanto.Hook.adapter
+
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.hanto.Hook.SelectedTagActivity
+import com.hanto.Hook.view.SelectedTagActivity
 import com.hanto.Hook.databinding.ItemTagXlBinding
 
 class Tag_xl_Adapter(private val tags: List<String>) :

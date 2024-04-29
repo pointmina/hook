@@ -1,12 +1,12 @@
-package com.hanto.Hook
+package com.hanto.Hook.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
+import com.hanto.Hook.model.Hook
 import com.hanto.Hook.databinding.ItemUrlHookBinding
 
 class UrlHookListAdapter(
@@ -34,14 +34,14 @@ class UrlHookListAdapter(
 
         fun bind(hook: Hook) {
             with(binding) {
-                tvTitle.text = hook.urlTitle
-                tvUrlLink.text = hook.urlLink
-                tvTagDescription.text = hook.urlDescription
+                tvTitle.text = hook.title
+                tvUrlLink.text = hook.url
+                tvTagDescription.text = hook.description
 
                 // RecyclerView에 TagAdapter와 LayoutManager 설정
                 rvTagContainer.apply {
                     // 기존 adapter 대신에 새로운 TagAdapter 객체를 생성하여 사용
-                    adapter = TagAdapter(hook.tags)
+                    adapter = TagAdapter(hook.tag)
                     val recyclerView = binding.rvTagContainer
                     layoutManager =
                         FlexboxLayoutManager(context)

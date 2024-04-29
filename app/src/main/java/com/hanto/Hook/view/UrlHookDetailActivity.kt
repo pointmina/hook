@@ -1,7 +1,8 @@
-package com.hanto.Hook
+package com.hanto.Hook.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.hanto.Hook.R
 
 class UrlHookDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -1,12 +1,12 @@
-package com.hanto.Hook
+package com.hanto.Hook.view
 
 import android.os.Bundle
-import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.hanto.Hook.R
+import com.hanto.Hook.adapter.SelectedTagHookListAdapter
 import com.hanto.Hook.databinding.ActivitySelectedTagBinding
 
 @Suppress("DEPRECATION")
@@ -38,8 +38,8 @@ class SelectedTagActivity : AppCompatActivity() {
             changeTagFragment.show(supportFragmentManager, "ChangeTagFragment")
         }
 
-
-        selectedTagHookListAdapter = SelectedTagHookListAdapter(getDummyData())
+//homeFragment참고!
+//        selectedTagHookListAdapter = SelectedTagHookListAdapter(getDummyData())
         binding.rvUrlHookList.adapter = selectedTagHookListAdapter
         binding.rvUrlHookList.layoutManager = LinearLayoutManager(this)
 

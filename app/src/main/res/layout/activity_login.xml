@@ -33,7 +33,7 @@
     <TextView
         android:id="@+id/bt_kakaologin"
         android:layout_width="300dp"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
         android:layout_marginTop="180dp"
         android:background="#FEE500"
         android:text="카카오톡으로 로그인"
@@ -57,7 +57,7 @@
     <TextView
         android:id="@+id/bt_withoutlogin"
         android:layout_width="300dp"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
         android:layout_marginTop="10dp"
         android:background="@color/gray_100"
         android:textAlignment="center"

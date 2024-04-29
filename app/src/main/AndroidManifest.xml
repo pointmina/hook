@@ -5,7 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".GlobalApplication"
+        android:name=".view.GlobalApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -16,34 +16,34 @@
         android:theme="@style/Theme.Hook"
         tools:targetApi="31">
         <activity
-            android:name=".SelectedTagActivity"
+            android:name=".view.SelectedTagActivity"
             android:exported="false" />
         <activity
-            android:name=".AddHookActivity"
+            android:name=".view.AddHookActivity"
             android:exported="false"
-            android:parentActivityName=".HomeActivity" />
+            android:parentActivityName=".view.HomeActivity" />
         <activity
-            android:name=".LoginTestActivity"
+            android:name=".view.LoginTestActivity"
             android:exported="false" />
         <activity
-            android:name=".UrlHookDetailActivity"
+            android:name=".view.UrlHookDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".view.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".HomeActivity"
+            android:name=".view.HomeActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity_google"
+            android:name=".view.LoginActivity_google"
             android:exported="false" />
         <activity
-            android:name=".SelectedTagActivity"
+            android:name=".view.SelectedTagActivity"
             android:exported="false"
             tools:ignore="DuplicateActivity" />
 
         <activity
-            android:name=".SplashView"
+            android:name=".view.SplashView"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

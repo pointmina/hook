@@ -1,4 +1,4 @@
-package com.hanto.Hook
+package com.hanto.Hook.view
 
 import android.content.DialogInterface
 import android.os.Bundle
@@ -11,6 +11,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.hanto.Hook.R
 import com.hanto.Hook.databinding.ActivityAddHookBinding
 
 @Suppress("DEPRECATION")
