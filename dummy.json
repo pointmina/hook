@@ -1,0 +1,35 @@
+[
+  {
+    "id": 1,
+    "createdAt": "2024-04-28T12:00:00Z",
+    "updatedAt": "2024-04-28T12:30:00Z",
+    "deletedAt": null,
+    "userId": 123,
+    "title": "Example Title",
+    "description": "This is an example description.",
+    "url": "https://example.com",
+    "tag": ["example", "json", "data"]
+  },
+  {
+    "id": null,
+    "createdAt": null,
+    "updatedAt": null,
+    "deletedAt": "2024-04-29T08:00:00Z",
+    "userId": null,
+    "title": "Deleted Hook",
+    "description": null,
+    "url": "https://example.org",
+    "tag": []
+  },
+  {
+    "id": 3,
+    "createdAt": "2024-04-30T10:00:00Z",
+    "updatedAt": "2024-04-30T10:30:00Z",
+    "deletedAt": null,
+    "userId": null,
+    "title": "No User",
+    "description": "This hook has no associated user.",
+    "url": null,
+    "tag": ["no", "user"]
+  }
+]
