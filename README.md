@@ -127,6 +127,11 @@ https://github.com/pointmina/Hook/assets/68779817/14745caf-0b3f-4546-bfee-3a9b5a
 3. 수정하기 누르면 fragment ☑️
 4. 태그 선택창에 add 삽입 ☑️
 
+2024 04 29 -> 14th
+-
+1. Dummy Json API 받아오기
+2. Home -> MVVM 패턴 변경
+3. HomeFragment 태그 Recycler 삽입
 
 
 To Do
