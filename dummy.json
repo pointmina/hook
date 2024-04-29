@@ -32,17 +32,5 @@
     "url": null,
     "tag": ["no", "user"]
   } ,
-
-  {
-    "id": 4,
-    "createdAt": "2024-04-31T10:00:00Z",
-    "updatedAt": "2024-04-31T10:30:00Z",
-    "deletedAt": null,
-    "userId": 222,
-    "title": "No User",
-    "description": "이 편지는 영국에서 최초로 시작되어 일년에 한바퀴를 돌면서 받는 사람에게 행운을 주었고 지금은 당신에게로 옮겨진 이 편지는 4일 안에 당신 곁을 떠나야 합니다.",
-    "url": "https://namu.wiki/w/%ED%96%89%EC%9A%B4%EC%9D%98%20%ED%8E%B8%EC%A7%80",
-    "tag": ["no", "user"]
-  } 
-  
+ 
 ]
