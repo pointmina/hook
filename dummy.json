@@ -30,6 +30,6 @@
     "title": "No User",
     "description": "This hook has no associated user.",
     "url": null,
-    "tag": ["no", "user"]
+    "tag": ["no", "user", "data"]
   }
 ]
