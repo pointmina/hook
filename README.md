@@ -136,8 +136,25 @@ https://github.com/pointmina/Hook/assets/68779817/14745caf-0b3f-4546-bfee-3a9b5a
 2024 05 01
 -
 1. 태그뷰 서버 데이터 받아오기 ☑️
-2. 새로운 훅 생성시 json으로 변환
-3. 데이터 서버로 보내기 
+2. 새로운 훅 생성시 json으로 변환✖️
+3. 데이터 서버로 보내기 ✖️
+
+2024 05 02
+-
+1. 태그 선택 화면에 api받아서 목록 띄우기 ☑️
+2. 추가하기 버튼 누르면 새로운 훅 생성.. -> json 파일로 변환 해야.. ㅠ...
+형식
+ {
+    "id": 1,
+    "createdAt": "2024-04-01T12:00:00Z",
+    "updatedAt": "2024-04-10T12:00:00Z",
+    "deletedAt": null,
+    "userId": 101,
+    "title": "첫 번째 훅",
+    "description": "이것은 첫 번째 테스트 훅이다.",
+    "url": "https://www.naver.com/",
+    "tag": ["tech", "innovation"]
+  }
 
 
 To Do
