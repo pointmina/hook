@@ -8,8 +8,7 @@
     android:paddingStart="24dp"
     android:paddingTop="8dp"
     android:paddingEnd="24dp"
-    android:paddingBottom="8dp"
-    >
+    android:paddingBottom="8dp">
 
 
     <TextView
@@ -50,20 +49,21 @@
         app:layout_constraintTop_toBottomOf="@id/tv_url_link" />
 
 
+<!--    리사이클러 뷰 안에 flexbox-->
     <androidx.recyclerview.widget.RecyclerView
-        app:flexWrap="wrap"
-        app:layoutManager="com.google.android.flexbox.FlexboxLayoutManager"
         android:id="@+id/rv_tag_container"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:background="@color/white"
+        app:flexWrap="wrap"
+        app:layoutManager="com.google.android.flexbox.FlexboxLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_tag_description"
         app:layout_constraintVertical_bias="1.0"
-        tools:listitem="@layout/item_tag" />
+        tools:listitem="@layout/item_home_tag" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

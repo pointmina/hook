@@ -8,4 +8,5 @@ class Repository {
     private val client = RetroServer.getInstance().create(ApiRequestData::class.java)
 
     suspend fun getAllData() = client.getAllHook()
+    suspend fun getAllTag() = client.getAllTag()
 }

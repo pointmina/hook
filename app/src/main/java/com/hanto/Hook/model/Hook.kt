@@ -20,8 +20,8 @@ data class Hook(
     val description: String?,
     @SerializedName("url")
     val url: String?,
-    //List -> Array로 바꿨음
     @SerializedName("tag")
-    val tag: Array<String>?
+    val tag: List<String>?
 )
-// 여기서 itemlist에 띄울거는 title, description, url, tag 네 가지
+
+

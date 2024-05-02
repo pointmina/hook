@@ -1,5 +1,6 @@
 package com.hanto.Hook.view
 
+import TagViewModel
 import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
@@ -11,34 +12,18 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.hanto.Hook.R
 import com.hanto.Hook.databinding.ActivityAddHookBinding
 
-@Suppress("DEPRECATION")
 class AddHookActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAddHookBinding
     private var isExpanded = false
+    private lateinit var viewModel: TagViewModel
 
-    private val multiChoiceList = linkedMapOf(
-        "블로그" to false,
-        "음식" to false,
-        "학교" to false,
-        "응애" to false,
-        "게임" to false,
-        "모델" to false,
-        "시험" to false,
-        "프로젝트" to false,
-        "테크" to false,
-        "개발" to false,
-        "운동" to false,
-        "쇼핑" to false,
-        "여행" to false,
-        "정보" to false,
-        "강의" to false,
-        "자격증" to false,
-        "햄스터" to false
-    )
+    private val multiChoiceList = linkedMapOf<String, Boolean>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +31,14 @@ class AddHookActivity : AppCompatActivity() {
         binding = ActivityAddHookBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
+        viewModel = ViewModelProvider(this).get(TagViewModel::class.java)
+        viewModel.tags.observe(this, Observer { tags ->
+            tags?.let {
+                // TagViewModel에서 가져온 데이터를 multiChoiceList에 업데이트
+                for (tag in tags) multiChoiceList[tag] = false
+            }
+        })
 
         val downArrow = binding.ivDownArrow
         val tvUrlDescription = binding.tvUrlDescription
@@ -55,20 +48,17 @@ class AddHookActivity : AppCompatActivity() {
         val urlLink = binding.tvUrlLink
         val tagSelect = binding.containerTag
         val backButton = binding.ivAppbarBackButton
-
+        val addNewHook = binding.ivAddNewHook
+        val tvTitle = binding.tvUrlTitle
 
         backButton.setOnClickListener {
             onBackPressed()
-
         }
 
         tagSelect.setOnClickListener {
             val builder = AlertDialog.Builder(this)
 
-
-
             builder.setTitle("태그 선택")
-
 
             builder.setMultiChoiceItems(
                 multiChoiceList.keys.toTypedArray(),
@@ -76,9 +66,6 @@ class AddHookActivity : AppCompatActivity() {
             ) { dialogInterface: DialogInterface, which: Int, isChecked: Boolean ->
                 multiChoiceList[multiChoiceList.keys.toTypedArray()[which]] = isChecked
             }
-
-
-
 
             builder.setPositiveButton("ok") { dialog, id ->
                 val selectedTags = mutableListOf<String>()
@@ -165,7 +152,6 @@ class AddHookActivity : AppCompatActivity() {
                 dialog.show()
             }
 
-
             val dialog = builder.create()
             dialog.show()
         }
@@ -199,7 +185,6 @@ class AddHookActivity : AppCompatActivity() {
             downArrow.setImageResource(R.drawable.ic_down_arrow)
         }
     }
-
 
     private fun showKeyboardAndFocus(editText: EditText) {
         editText.requestFocus()

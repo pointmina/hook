@@ -1,4 +1,4 @@
-package com.hassan.hook.adapter
+package com.hanto.Hook.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,11 +7,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
-import com.hanto.Hook.adapter.TagAdapter
 import com.hanto.Hook.databinding.ItemUrlHookBinding
 import com.hanto.Hook.model.Hook
 
-class HookAdapter(val context: Context, val dataSet: List<Hook>) : RecyclerView.Adapter<HookAdapter.ViewHolder>() {
+class HookAdapter(val context: Context, val dataSet: List<Hook>) :
+    RecyclerView.Adapter<HookAdapter.ViewHolder>() {
 
     //뷰홀더 클래스
     inner class ViewHolder(val binding: ItemUrlHookBinding): RecyclerView.ViewHolder(binding.root){
@@ -22,7 +22,7 @@ class HookAdapter(val context: Context, val dataSet: List<Hook>) : RecyclerView.
                 tvTagDescription.text = hook.description
 
                 rvTagContainer.apply {
-                    adapter = TagAdapter(hook.tag)
+                    adapter = TagHomeAdapter(hook.tag)
                     val recyclerView = binding.rvTagContainer
                     layoutManager =
                         FlexboxLayoutManager(context)
@@ -38,6 +38,7 @@ class HookAdapter(val context: Context, val dataSet: List<Hook>) : RecyclerView.
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(ItemUrlHookBinding.inflate(LayoutInflater.from(parent.context),parent,false))
+
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
