@@ -47,21 +47,6 @@
   {
     "tagName": "도서관",
     "hook" : null
-  },
-
-  {
-    "tagName": "제발",
-    "hook" : null
-  },
-
-  {
-    "tagName": "돼라",
-    "hook" : null
-  },
-
-  {
-    "tagName": "아제발요",
-    "hook" : null
   }
   
 ]
