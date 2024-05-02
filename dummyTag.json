@@ -3,50 +3,40 @@
     "tagName": "dev",
     "hook" : null
   },
-
   {
-    "tagName": "동물",
+    "tagName": "tech",
     "hook" : null
   },
-
   {
-    "tagName": "사람",
+    "tagName": "제발",
     "hook" : null
   },
-
   {
-    "tagName": "이야호",
+    "tagName": "뭐가문젠데",
     "hook" : null
   },
-
   {
-    "tagName": "인생",
+    "tagName": "죄송해요",
     "hook" : null
   },
-
   {
-    "tagName": "독서",
+    "tagName": "한번만",
     "hook" : null
   },
-  
   {
-    "tagName": "사이드 프로젝트",
+    "tagName": "파이썬",
     "hook" : null
   },
-
   {
-    "tagName": "쇼핑",
+    "tagName": "코틀린",
     "hook" : null
   },
-
   {
-    "tagName": "취업",
+    "tagName": "딸기라떼",
     "hook" : null
   },
-
   {
-    "tagName": "도서관",
+    "tagName": "커피",
     "hook" : null
   }
-  
 ]
