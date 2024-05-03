@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".view.WriteHookActivity"
+    tools:ignore="MissingDefaultResource"
+    >
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:ignore="MissingConstraints"
+        android:orientation="horizontal"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="새로운 훅"
+            android:textColor="@color/gray_700"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_gravity="center"/>
+
+        <ImageButton
+            android:id="@+id/bt_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:src="@drawable/ic_arrow_back"
+            android:layout_gravity="start"
+             /> />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_100"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_detail"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <TextView
+        android:id="@+id/tv_link_info"
+
+        android:layout_width="match_parent"
+        android:layout_height="28dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="4dp"
+        android:text="링크 정보"
+        android:textSize="14dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/tv_handed_title"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_detail" />
+
+
+    <EditText
+        android:id="@+id/tv_handed_title"
+        android:inputType="textMultiLine"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="15dp"
+        android:padding="20dp"
+
+        android:background="@drawable/textview_detail_border"
+        android:maxLength="50"
+        android:hint="제목을 입력해주세요"
+        android:textAppearance="@style/AppTextPrimary.S16"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/tv_link_info" />
+
+    <TextView
+        android:id="@+id/tv_limit_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint=""
+        android:padding="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_handed_title"
+        app:layout_constraintRight_toRightOf="@+id/tv_handed_title" />
+
+
+    <EditText
+        android:id="@+id/tv_handed_desc"
+        android:inputType="textMultiLine"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="15dp"
+        android:padding="20dp"
+        android:background="@drawable/textview_detail_border"
+        android:maxLength="80"
+        android:hint="설명을 입력해주세요"
+        android:textAppearance="@style/AppTextPrimary.S16"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/tv_handed_title" />
+
+    <TextView
+        android:id="@+id/tv_limit_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint=""
+        android:padding="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_handed_desc"
+        app:layout_constraintRight_toRightOf="@+id/tv_handed_desc" />
+
+    <EditText
+        android:id="@+id/tv_handed_url"
+        android:inputType="textMultiLine"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="15dp"
+        android:paddingLeft="40dp"
+        android:paddingRight="20dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:background="@drawable/textview_detail_border"
+        android:maxLength="80"
+        android:hint="https://"
+        android:textAppearance="@style/AppTextPrimary.S16"
+        android:textColor="@color/purple"
+        app:layout_constraintTop_toBottomOf="@id/tv_handed_desc" />
+
+    <ImageButton
+        android:id="@+id/bt_paste_link"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:background="@drawable/bg_button_transparent_round"
+        android:src="@drawable/ic_link"
+        app:layout_constraintLeft_toLeftOf="@+id/tv_handed_url"
+        app:layout_constraintTop_toTopOf="@+id/tv_handed_url"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        />
+
+    <LinearLayout
+        android:id="@+id/container_view_tag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="80dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:padding="10dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/textview_detail_border"
+        app:layout_constraintTop_toBottomOf="@id/tv_handed_url"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="태그"
+            android:textStyle="bold"/>
+
+        <com.google.android.flexbox.FlexboxLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/container_view_folder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="80dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:padding="10dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/textview_detail_border"
+        app:layout_constraintTop_toBottomOf="@id/container_view_tag"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="폴더"
+            android:textStyle="bold"/>
+
+        <com.google.android.flexbox.FlexboxLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/hook_edit"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/textview_detail_border"
+        android:backgroundTint="@color/gray_100"
+        android:elevation="2dp"
+        android:text="추가하기"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/container_view_folder"
+        android:layout_marginTop="30dp"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

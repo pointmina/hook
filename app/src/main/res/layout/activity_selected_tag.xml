@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SelectedTagActivity"
+    tools:context=".view.SelectedTagActivity"
     android:background="@color/white">
 
     <com.google.android.material.appbar.MaterialToolbar
@@ -97,6 +97,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/view_tag_area"
-        tools:listitem="@layout/item_url_hook" />
+        tools:listitem="@layout/item_hook" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

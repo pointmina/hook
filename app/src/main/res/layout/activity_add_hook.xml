@@ -7,12 +7,12 @@
     android:background="@color/white"
     android:paddingStart="24dp"
     android:paddingEnd="24dp"
-    tools:context=".AddHookActivity"
+    tools:context=".view.AddHookActivity"
     tools:ignore="MissingDefaultResource">
 
 
     <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/toolbar_url_hook_detail"
+        android:id="@+id/toolbar_new_hook"
         android:layout_width="0dp"
         android:layout_height="68dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -27,8 +27,8 @@
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:src="@drawable/ic_arrow_back"
-        app:layout_constraintBottom_toBottomOf="@id/toolbar_url_hook_detail"
-        app:layout_constraintStart_toStartOf="@id/toolbar_url_hook_detail"
+        app:layout_constraintBottom_toBottomOf="@id/toolbar_new_hook"
+        app:layout_constraintStart_toStartOf="@id/toolbar_new_hook"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -41,35 +41,27 @@
         android:textSize="14dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/tv_url_link"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_url_hook_detail" />
+        app:layout_constraintTop_toBottomOf="@id/toolbar_new_hook" />
 
-    <View
-        android:id="@+id/container_url_link"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@drawable/textview_detail_border"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_link_info" />
 
     <EditText
         android:id="@+id/tv_url_link"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginEnd="16dp"
-        android:autofillHints="@string/hint_url_link"
-        android:background="@color/transparent"
+        android:layout_height="80dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/textview_detail_border"
         android:hint="@string/hint_url_link"
         android:inputType="textMultiLine"
-        android:textAppearance="@style/AppTextPrimary.S14"
+        android:paddingLeft="40dp"
+        android:paddingTop="20dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="20dp"
+        android:textAppearance="@style/AppTextPrimary.S16"
         android:textColor="@color/purple"
-        app:layout_constraintBottom_toBottomOf="@id/container_url_link"
-        app:layout_constraintEnd_toEndOf="@id/container_url_link"
-        app:layout_constraintStart_toStartOf="@id/container_url_link"
-        app:layout_constraintTop_toTopOf="@id/container_url_link"
+        android:theme="@style/MyCheckBox"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_link_info"
         tools:ignore="TextFields" />
 
 
@@ -77,19 +69,21 @@
         android:id="@+id/iv_url_link"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="10dp"
         android:layout_marginEnd="16dp"
         android:contentDescription="@string/description_link"
         android:src="@drawable/ic_link"
         android:textAppearance="@style/AppTextPrimary.S14"
         android:textColor="@color/purple"
         android:textColorHint="@color/gray_300"
-        app:layout_constraintBottom_toBottomOf="@id/container_url_link"
-        app:layout_constraintStart_toStartOf="@id/container_url_link"
-        app:layout_constraintTop_toTopOf="@id/container_url_link" />
+        app:layout_constraintBottom_toBottomOf="@id/tv_url_link"
+        app:layout_constraintStart_toStartOf="@id/tv_url_link"
+        app:layout_constraintTop_toTopOf="@id/tv_url_link" />
+
 
     <EditText
         android:id="@+id/tv_url_title"
+
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_marginTop="10dp"
@@ -105,9 +99,10 @@
         android:textAppearance="@style/AppTextPrimary.S16"
         android:textColor="@color/black"
         android:textColorHint="@color/gray_300"
+        android:theme="@style/MyCheckBox"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/container_url_link" />
+        app:layout_constraintTop_toBottomOf="@id/tv_url_link" />
 
     <View
         android:id="@+id/container_link_info_etc"
@@ -157,6 +152,7 @@
         android:text="람쥐 떤더"
         android:textAppearance="@style/AppTextPrimary.S16"
         android:textColorHint="@color/gray_300"
+        android:theme="@style/MyCheckBox"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -179,8 +175,9 @@
     <TextView
         android:id="@+id/container_tag"
         android:layout_width="match_parent"
-        android:layout_height="57dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/textview_detail_border"
+        android:hint="#"
         android:paddingStart="16dp"
         android:paddingTop="15dp"
         android:paddingEnd="16dp"
@@ -188,6 +185,7 @@
         android:text="#"
         android:textAppearance="@style/AppTexTitle.S16"
         android:textColor="@color/gray_300"
+        android:theme="@style/MyCheckBox"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -195,7 +193,7 @@
 
 
     <ImageView
-        android:id="@+id/iv_save_change"
+        android:id="@+id/iv_add_new_hook"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="50dp"

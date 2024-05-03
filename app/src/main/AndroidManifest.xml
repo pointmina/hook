@@ -2,10 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <queries>
+        <package android:name="com.kakao.talk" />
+    </queries>
+
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:name=".GlobalApplication"
+        android:name=".view.GlobalApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -15,35 +20,45 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Hook"
         tools:targetApi="31">
+
         <activity
-            android:name=".SelectedTagActivity"
+            android:name=".view.WebviewActivity"
             android:exported="false" />
         <activity
-            android:name=".AddHookActivity"
+            android:name=".view.UrlHookDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.HookDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.SettingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.SelectedTagActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.AddHookActivity"
             android:exported="false"
-            android:parentActivityName=".HomeActivity" />
+            android:parentActivityName=".view.HomeActivity" />
         <activity
-            android:name=".LoginTestActivity"
+            android:name=".view.LoginTestActivity"
             android:exported="false" />
         <activity
-            android:name=".UrlHookDetailActivity"
+            android:name=".view.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".view.HomeActivity"
             android:exported="false" />
         <activity
-            android:name=".HomeActivity"
+            android:name=".view.LoginActivity_google"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity_google"
-            android:exported="false" />
-        <activity
-            android:name=".SelectedTagActivity"
+            android:name=".view.SelectedTagActivity"
             android:exported="false"
             tools:ignore="DuplicateActivity" />
 
         <activity
-            android:name=".SplashView"
+            android:name=".view.SplashView"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

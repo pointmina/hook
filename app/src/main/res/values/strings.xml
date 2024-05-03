@@ -39,5 +39,8 @@
     <string name="add_new_hook">훅 추가</string>
     <string name="etc_info">기타 정보 보기</string>
     <string name="hint_url_link">https://</string>
+    <string name="open_in_browser">브라우저에서 열기</string>
+    <string name="share">공유하기</string>
+    <string name="delete">삭제하기</string>
 
 </resources>
