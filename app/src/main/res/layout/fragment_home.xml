@@ -15,17 +15,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:title="@string/appbar_title_home_fragment"
-        app:titleCentered="true"
+        app:titleMarginStart="20dp"
         app:titleTextAppearance="@style/AppTexTitle.S16.Bold" />
+
+    <ImageView
+        android:id="@+id/iv_setting"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="end"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="24dp"
+        android:background="@color/white"
+        android:src="@drawable/ic_dots"
+        app:layout_constraintStart_toEndOf="@id/iv_appbar_add_hook"
+        app:layout_constraintTop_toTopOf="@id/iv_appbar_add_hook" />
 
 
     <ImageView
         android:id="@+id/iv_appbar_add_hook"
-        android:layout_width="34dp"
-        android:layout_height="34dp"
-        android:layout_marginEnd="28dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="60dp"
         android:contentDescription="@string/add_new_hook"
-        android:src="@drawable/ic_add_tag"
+        android:src="@drawable/ic_add"
         app:layout_constraintBottom_toBottomOf="@id/toorbar_home"
         app:layout_constraintEnd_toEndOf="@id/toorbar_home"
         app:layout_constraintTop_toTopOf="parent" />
@@ -67,8 +79,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_recent_hooks"
-        tools:listitem="@layout/item_url_hook"
-        />
+        tools:listitem="@layout/item_hook" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

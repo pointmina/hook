@@ -2,7 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <queries>
+        <package android:name="com.kakao.talk" />
+    </queries>
+
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:name=".view.GlobalApplication"
@@ -15,6 +20,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Hook"
         tools:targetApi="31">
+
+        <activity
+            android:name=".view.WebviewActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.UrlHookDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.HookDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.SettingActivity"
+            android:exported="false" />
         <activity
             android:name=".view.SelectedTagActivity"
             android:exported="false" />
@@ -24,9 +42,6 @@
             android:parentActivityName=".view.HomeActivity" />
         <activity
             android:name=".view.LoginTestActivity"
-            android:exported="false" />
-        <activity
-            android:name=".view.UrlHookDetailActivity"
             android:exported="false" />
         <activity
             android:name=".view.LoginActivity"

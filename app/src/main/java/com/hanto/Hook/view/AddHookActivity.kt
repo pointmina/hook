@@ -56,7 +56,7 @@ class AddHookActivity : AppCompatActivity() {
         }
 
         tagSelect.setOnClickListener {
-            val builder = AlertDialog.Builder(this)
+            val builder = AlertDialog.Builder(this,R.style.AlertDialogTheme)
 
             builder.setTitle("태그 선택")
 

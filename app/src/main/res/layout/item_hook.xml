@@ -11,18 +11,30 @@
     android:paddingBottom="8dp">
 
 
+    <ImageButton
+        android:id="@+id/bt_option"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent"
+        android:contentDescription="option"
+        android:padding="5dp"
+        android:src="@drawable/ic_dots_horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="MissingConstraints" />
+
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:background="@color/white"
-        android:text="뉴진스의 하입보이요"
+        android:text="@{hook.title}"
         android:textColor="@color/black"
         android:textSize="16dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="제발돼라 제발돼라 제발돼라 제발돼라 제발돼라 " />
 
     <TextView
         android:id="@+id/tv_url_link"
@@ -33,7 +45,7 @@
         app:layout_constraintBottom_toTopOf="@id/tv_tag_description"
         app:layout_constraintStart_toStartOf="@id/tv_title"
         app:layout_constraintTop_toBottomOf="@id/tv_title"
-        tools:text="https://github.com/pointmina/Hook/blob/master/README.md" />
+        tools:text="@{hook.url}" />
 
     <TextView
         android:id="@+id/tv_tag_description"
@@ -41,7 +53,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:background="#FFFFFF"
-        android:text="미안하다 이거 보여주려고 어그로 끌었다."
+        android:text="@{hook.description}"
         android:textColor="@color/black"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -49,7 +61,7 @@
         app:layout_constraintTop_toBottomOf="@id/tv_url_link" />
 
 
-<!--    리사이클러 뷰 안에 flexbox-->
+    <!--    리사이클러 뷰 안에 flexbox-->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_tag_container"
         android:layout_width="0dp"

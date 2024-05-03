@@ -110,35 +110,6 @@
         app:layout_constraintStart_toStartOf="@id/container_url_link"
         app:layout_constraintTop_toTopOf="@id/container_url_link" />
 
-    <TextView
-        android:id="@+id/container_folder"
-        android:layout_width="match_parent"
-        android:layout_height="91dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/textview_detail_border"
-        android:paddingStart="16dp"
-        android:paddingTop="15dp"
-        android:paddingEnd="16dp"
-        android:paddingBottom="15dp"
-        android:text="@string/label_url_hook_detail_folder"
-        android:textAppearance="@style/AppTexTitle.S16"
-        android:textColor="@color/gray_300"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/container_url_link" />
-
-    <GridView
-        android:id="@+id/gv_folder"
-        android:layout_width="match_parent"
-        android:layout_height="31dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="15dp"
-        android:numColumns="4"
-        app:layout_constraintBottom_toBottomOf="@id/container_folder"
-        app:layout_constraintEnd_toEndOf="@id/container_folder"
-        app:layout_constraintStart_toStartOf="@id/container_folder" />
-
 
     <TextView
         android:id="@+id/container_tag"
@@ -155,19 +126,7 @@
         android:textColor="@color/gray_300"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/container_folder" />
-
-    <GridView
-        android:id="@+id/gv_tag"
-        android:layout_width="match_parent"
-        android:layout_height="31dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="15dp"
-        android:numColumns="4"
-        app:layout_constraintBottom_toBottomOf="@id/container_tag"
-        app:layout_constraintEnd_toEndOf="@id/container_tag"
-        app:layout_constraintStart_toStartOf="@id/container_tag" />
+        app:layout_constraintTop_toBottomOf="@id/container_url_link" />
 
 
     <ImageView
@@ -175,12 +134,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="76dp"
+        android:contentDescription="@string/description_save_changes"
         android:src="@drawable/ic_save_changes"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.444"
-        app:layout_constraintStart_toStartOf="parent"
-        android:contentDescription="@string/description_save_changes" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

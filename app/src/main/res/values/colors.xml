@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources xmlns:tools="http://schemas.android.com/tools" xmlns:app="http://schemas.android.com/apk/res-auto">
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="gray_700">#474F5A</color>
@@ -12,6 +12,7 @@
     <color name="transparent">#00FFFFFF</color>
     <color name="google_blue" tools:ignore="MissingDefaultResource">#459DE4</color>
     <color name="google_red" tools:ignore="MissingDefaultResource">#FF0000</color>
+
 
 
 </resources>

@@ -7,7 +7,7 @@ import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
 import com.hanto.Hook.model.Hook
-import com.hanto.Hook.databinding.ItemUrlHookBinding
+import com.hanto.Hook.databinding.ItemHookBinding
 
 class UrlHookListAdapter(
     private val items: List<Hook>
@@ -16,7 +16,7 @@ class UrlHookListAdapter(
     // 뷰홀더 생성
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UrlHookItemViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemUrlHookBinding.inflate(inflater, parent, false)
+        val binding = ItemHookBinding.inflate(inflater, parent, false)
         return UrlHookItemViewHolder(binding)
     }
 
@@ -29,7 +29,7 @@ class UrlHookListAdapter(
     override fun getItemCount(): Int = items.size
 
     // 뷰홀더 클래스
-    inner class UrlHookItemViewHolder(private val binding: ItemUrlHookBinding) :
+    inner class UrlHookItemViewHolder(private val binding: ItemHookBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(hook: Hook) {
