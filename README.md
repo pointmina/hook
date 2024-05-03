@@ -154,7 +154,20 @@ https://github.com/pointmina/Hook/assets/68779817/14745caf-0b3f-4546-bfee-3a9b5a
     "description": "이것은 첫 번째 테스트 훅이다.",
     "url": "https://www.naver.com/",
     "tag": ["tech", "innovation"]
+
   }
+
+2024 05 03
+-
+1. 예진님 작업물 합침 ☑️
+- 리사이클러뷰 개별선택
+- 길게 터치시 바텀시트
+- 설정뷰
+- 데이터 바인딩?.. 오류남.. 굳이 해야할까..
+
+2. 스타일 변경
+- active cursor 변경 ☑️
+- checkbox ✖️
 
 
 To Do
