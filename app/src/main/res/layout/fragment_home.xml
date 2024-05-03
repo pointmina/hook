@@ -18,6 +18,7 @@
         app:titleMarginStart="20dp"
         app:titleTextAppearance="@style/AppTexTitle.S16.Bold" />
 
+<!--    committest-->
     <ImageView
         android:id="@+id/iv_setting"
         android:layout_width="30dp"
