@@ -6,7 +6,7 @@
     <data>
         <variable
             name="Hook"
-            type="com.hanto.Hook.model.Hook" />
+            type="com.hanto.hook.model.Hook" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

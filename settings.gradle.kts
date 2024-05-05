@@ -14,6 +14,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Hook"
+rootProject.name = "hook"
 include(":app")
  

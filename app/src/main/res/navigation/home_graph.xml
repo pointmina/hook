@@ -8,7 +8,7 @@
     <!--첫번째 진입점은 homeFragment-->
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.hanto.Hook.view.HomeFragment"
+        android:name="com.hanto.hook.view.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home">
 
@@ -40,7 +40,7 @@
 
     <fragment
         android:id="@+id/navigation_tag"
-        android:name="com.hanto.Hook.view.TagFragment"
+        android:name="com.hanto.hook.view.TagFragment"
         android:label="TagFragment"
         tools:layout="@layout/fragment_tag" />
 
@@ -55,31 +55,31 @@
 
     <activity
         android:id="@+id/addHookActivity"
-        android:name="com.hanto.Hook.view.AddHookActivity"
+        android:name="com.hanto.hook.view.AddHookActivity"
         android:label="AddHookActivity" />
 
     <activity
         android:id="@+id/settingActivity"
-        android:name="com.hanto.Hook.view.SettingActivity"
+        android:name="com.hanto.hook.view.SettingActivity"
         android:label="activity_setting"
         tools:layout="@layout/activity_setting" />
 
     <activity
         android:id="@+id/webViewActivity"
-        android:name="com.hanto.Hook.view.WebviewActivity"
+        android:name="com.hanto.hook.view.WebviewActivity"
         android:label="activity_webview"
         tools:layout="@layout/activity_webview" />
 
 
     <activity
         android:id="@+id/selectedTagAvtivity"
-        android:name="com.hanto.Hook.view.SelectedTagActivity"
+        android:name="com.hanto.hook.view.SelectedTagActivity"
         android:label="activity_selected_tag"
         tools:layout="@layout/activity_selected_tag" />
 
     <fragment
         android:id="@+id/changeTagFragment"
-        android:name="com.hanto.Hook.view.ChangeTagFragment"
+        android:name="com.hanto.hook.view.ChangeTagFragment"
         android:label="ChangeTagFragment"
         tools:layout="@layout/fragment_change_tag" />
 
