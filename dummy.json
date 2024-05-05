@@ -29,7 +29,7 @@
     "userId": null,
     "title": "No User",
     "description": "This hook has no associated user.",
-    "url": null,
+    "url": "https://example1.org",
     "tag": ["no", "user", "data"]
   },
   {
@@ -40,7 +40,7 @@
     "userId": null,
     "title": "아 왜그러는데 뭐가문젠데",
     "description": null,
-    "url": null,
+    "url": "https://example2.org",
     "tag": ["제발", "제발요", "제발제발", "플리즈"]
   },
   {
