@@ -73,7 +73,7 @@
         android:textAppearance="@style/AppTextPrimary.S14"
         android:textColor="@color/white"
         app:elevation="4dp"
-        app:icon="@drawable/ic_add"
+        app:icon="@drawable/ic_delete"
         app:iconPadding="-20dp"
         app:iconSize="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
