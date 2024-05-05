@@ -1,4 +1,4 @@
-2024 04 04 -> 5th commit
+2024 04 04 -> 5th
 -
 
 1. 네비게이션바 홈 추가 ☑️
@@ -13,7 +13,7 @@
 4. 태그뷰 선택 태그 selected_tag_fragment ☑️
 
 
-2024 04 05 -> 6th commit
+2024 04 05 -> 6th
 -
 
 1. Dummy Data 만들고 home에 리사이클 뷰 뿌리기☑️
@@ -25,7 +25,7 @@
 3. selected_tag fragment에서 수정 클릭스 -> 태그 수정 fragment 
 
 
-2024 04 07 -> 7th commit
+2024 04 07 -> 7th
 -
 <details><summary>1. kakao login -> google login ☑️</summary> 
     - https://visualandroidblog.blogspot.com/2023/04/google-sign-in-firebase-android-kotlin-tutorial.html <br> <br>
@@ -41,7 +41,7 @@ https://github.com/pointmina/Hook/assets/68779817/14745caf-0b3f-4546-bfee-3a9b5a
 - 유저 정보 나오게
 
 
-2024 04 08 -> 8th commit
+2024 04 08 -> 8th
 -
 
 0. 레이아웃 만들기, 함수 만들기 ☑️
