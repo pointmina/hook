@@ -104,7 +104,7 @@ dependencies {
     //KTX
     implementation ("androidx.fragment:fragment-ktx:1.3.3")
 
-    // Kotlin
+    // /Kotlin
     implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
     implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
     implementation("androidx.core:core-ktx:1.12.0")
