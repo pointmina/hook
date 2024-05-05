@@ -175,7 +175,7 @@ https://github.com/pointmina/Hook/assets/68779817/14745caf-0b3f-4546-bfee-3a9b5a
 2. bottomSheet 목록 icon 클릭시☑️
 3. dataBinding layout에 적용 -> 패키지 이름 변경 Hook -> hook ☑️
 
-2024 05 06
+2024 05 06 -> 17th
 -
 1. 당겨서 새로고침 ☑️
 2. null값 가질시 itemList 크기 조정 ☑️
