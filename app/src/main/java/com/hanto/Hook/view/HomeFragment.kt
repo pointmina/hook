@@ -14,18 +14,16 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.hanto.Hook.R
-import com.hanto.Hook.databinding.FragmentHomeBinding
-import com.hanto.apitest.HookViewModel
 import com.hanto.Hook.adapter.HookAdapter
+import com.hanto.Hook.databinding.FragmentHomeBinding
 import com.hanto.Hook.model.Hook
+import com.hanto.apitest.HookViewModel
 
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private lateinit var viewModel: HookViewModel
-    private var currentSelectedItem: Hook? = null
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,38 +32,35 @@ class HomeFragment : Fragment() {
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-
-        //뷰모델 생성 & 데이터 로드
+        // Viewmodel 생성 및 데이터 로드
         viewModel = ViewModelProvider(this)[HookViewModel::class.java]
         viewModel.getAllData()
 
-        //훅추가
+        // 훅 추가 버튼 클릭 시
         binding.ivAppbarAddHook.setOnClickListener {
             val action_a = HomeFragmentDirections.actionNavigationHomeToAddHookActivity()
             findNavController().navigate(action_a)
         }
 
-        //세팅
+        // 세팅 버튼 클릭 시
         binding.ivSetting.setOnClickListener {
             val action_s = HomeFragmentDirections.actionNavigationHomeToSettingActivity()
             findNavController().navigate(action_s)
         }
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //LiveData 관찰자 설정
+        // LiveData 관찰자 설정
         viewModel.result.observe(viewLifecycleOwner, Observer { itemList ->
             HookAdapter(requireContext(), itemList, object : HookAdapter.OnItemClickListener {
 
-                // 아이템 단일 클릭 시 이벤트 처리
                 override fun onClick(position: Int) {
-                    // 'itemList'에서 선택한 위치의 Hook 객체 가져오기
+                    // 아이템 클릭 시 이벤트 처리
                     val selectedHook = itemList[position]
-
-                    // Intent 생성하고 HookDetailActivity로 이동하는 로직을 실행
                     Intent(requireContext(), HookDetailActivity::class.java).apply {
                         putExtra("item_title", selectedHook.title)
                         putExtra("item_url", selectedHook.url)
@@ -74,28 +69,22 @@ class HomeFragment : Fragment() {
                     }
                 }
 
-                // 아이템 롱 클릭 시 이벤트 처리
-                override fun onLongClick(position: Int): Boolean {
-                    // 현재 선택된 아이템 업데이트
-                    currentSelectedItem = itemList[position]
-                    // BottomSheetDialog 보여주기
-                    showBottomSheetDialog(currentSelectedItem)
-                    // 이벤트가 처리됐음을 나타냄
-                    return true
+                override fun onOptionButtonClick(position: Int) {
+                    // 옵션 버튼 클릭 시 이벤트 처리
+                    val selectedItem = itemList[position]
+                    showBottomSheetDialog(selectedItem)
                 }
             }).also { hookAdapter ->
                 // RecyclerView 어댑터 설정
                 binding.rvHome.adapter = hookAdapter
             }
 
-            // DividerItemDecoration
-            val dividerItemDecoration =
-                DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
+            // DividerItemDecoration 설정
+            val dividerItemDecoration = DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
             ResourcesCompat.getDrawable(resources, R.drawable.divider, null)?.let {
                 dividerItemDecoration.setDrawable(it)
             }
             binding.rvHome.addItemDecoration(dividerItemDecoration)
-
         })
     }
 
@@ -105,7 +94,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun showBottomSheetDialog(selectedItem: Hook?) {
-        selectedItem?.let { item ->  // selectedItem이 null이 아닌 경우에만 로직 실행
+        selectedItem?.let { item ->
             val dialog = BottomSheetDialog(requireContext(), R.style.CustomBottomSheetDialogTheme)
             val view = layoutInflater.inflate(R.layout.dialog_home, null)
             dialog.setContentView(view)
@@ -113,32 +102,26 @@ class HomeFragment : Fragment() {
 
             val btonWeb = view.findViewById<Button>(R.id.bt_onWeb)
             btonWeb.setOnClickListener {
-                // selectedItem을 사용하여 Intent 생성
                 Intent(requireContext(), WebviewActivity::class.java).also { intent ->
-                    intent.putExtra(
-                        WebviewActivity.EXTRA_URL,
-                        selectedItem?.url
-                    )  // 'selectedItem?.url'은 null 가능성을 고려하여 null 안전 호출을 사용합니다.
+                    intent.putExtra(WebviewActivity.EXTRA_URL, selectedItem?.url)
                     startActivity(intent)
                 }
                 dialog.dismiss()
             }
 
-
             val btHookShare = view.findViewById<Button>(R.id.bt_HookShare)
             btHookShare.setOnClickListener {
-                // 전체 앱을 띄우는 게 보안 문제 때문에 막혔음
+                // Share 기능 구현
                 dialog.dismiss()
             }
 
             val btHookDelete = view.findViewById<Button>(R.id.bt_HookDelete)
             btHookDelete.setOnClickListener {
+                // Delete 기능 구현
                 dialog.dismiss()
             }
 
             dialog.show()
         }
     }
-
-
 }

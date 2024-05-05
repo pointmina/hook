@@ -19,6 +19,11 @@ class HookDetailActivity : AppCompatActivity() {
         val title = intent.getStringExtra("item_title")
         val url = intent.getStringExtra("item_url")
         val description = intent.getStringExtra("item_description")
+        val backButton = binding.ivAppbarUrlHookDetailBackButton
+
+        backButton.setOnClickListener {
+            onBackPressed()
+        }
 
         binding.tvHandedTitle.setText(title)
         binding.tvHandedUrl.setText(url)

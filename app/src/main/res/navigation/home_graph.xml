@@ -26,7 +26,13 @@
 
         <action
             android:id="@+id/action_navigation_home_to_settingActivity"
-            app:destination="@id/settingActivity" />
+            app:destination="@id/settingActivity"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/navigation_home"
+            />
 
 
     </fragment>
