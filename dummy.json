@@ -97,17 +97,5 @@
     "description": "이것은 아홉 번째 테스트 훅이다.",
     "url": "http://example.com/hook9",
     "tag": ["business", "entrepreneurship"]
-  },
-  {
-    "id": 10,
-    "createdAt": "2024-04-10T21:00:00Z",
-    "updatedAt": "2024-04-19T21:00:00Z",
-    "deletedAt": null,
-    "userId": 110,
-    "title": "java.lang.IllegalStateException: Module entity with name: hook should be available",
-    "description": "이것은 열 번째 테스트 훅이다.",
-    "url": "http://example.com/hook10",
-    "tag": ["food", "cooking" , "비"]
-  }
- 
+  } 
 ]
