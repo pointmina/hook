@@ -5,7 +5,7 @@
     "updatedAt": "2024-04-28T12:30:00Z",
     "deletedAt": null,
     "userId": 123,
-    "title": "제발 돼라 제발 돼라 제발 돼라 제발 돼라 제발 돼라 제발 돼라 제발 돼라 제발 돼라 제발 돼라 제발 돼라",
+    "title": "Title Example",
     "description": "This is an example description.",
     "url": "https://docs.google.com/forms/d/e/1FAIpQLSe3kLAvkDR7s6wf01sKhYlM3zKRvkb996gIgsQnKR1XudQ03w/viewform",
     "tag": ["example", "json", "data", "사이트프로젝트", "종합설계" , "git" , "알고리즘" , "도서관" , "장학금", "개발"]
