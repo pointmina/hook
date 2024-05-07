@@ -1,19 +1,19 @@
-2024 04 04 -> 5th commit
+2024 04 04 -> 5th
 -
 
-1. 네비게이션바 홈 추가 clear☑️
+1. 네비게이션바 홈 추가 ☑️
     
 2. 홈 상세 뷰 구현
-- 클릭하면 -> 상세 뷰 구현 clear☑️
+- 클릭하면 -> 상세 뷰 구현 ☑️
 
 
-3. 태그뷰 태그 모음 tag_fragment  clear ☑️
+3. 태그뷰 태그 모음 tag_fragment ☑️
 - 그리드 뷰 사용
 
-4. 태그뷰 선택 태그 selected_tag_fragment clear☑️
+4. 태그뷰 선택 태그 selected_tag_fragment ☑️
 
 
-2024 04 05 -> 6th commit
+2024 04 05 -> 6th
 -
 
 1. Dummy Data 만들고 home에 리사이클 뷰 뿌리기☑️
@@ -25,7 +25,7 @@
 3. selected_tag fragment에서 수정 클릭스 -> 태그 수정 fragment 
 
 
-2024 04 07 -> 7th commit
+2024 04 07 -> 7th
 -
 <details><summary>1. kakao login -> google login ☑️</summary> 
     - https://visualandroidblog.blogspot.com/2023/04/google-sign-in-firebase-android-kotlin-tutorial.html <br> <br>
@@ -33,30 +33,24 @@
     - https://www.youtube.com/watch?v=H_maapn4Q3Q <br> <br>
     - https://firebase.google.com/docs/auth/android/start?hl=ko&_gl=1*tfveyn*_up*MQ..*_ga*Nzk2MDYxODgwLjE3MTI0MjI2ODI.*_ga_CW55HF8NVT*MTcxMjQyMjY4Mi4xLjAuMTcxMjQyMjY4Mi4wLjAuMA.. <br> <br>
     - https://console.firebase.google.com/u/0/project/hook-882c5/settings/general/android:com.hanto.Hook?hl=ko <br> <br>
-
+    - https://github.com/pointmina/Hook/assets/68779817/14745caf-0b3f-4546-bfee-3a9b5a55f393
 </details>
-
-
-
 
 2. 설정 버튼 누르면☑️
 - 로그아웃 버튼
 - 유저 정보 나오게
 
-https://github.com/pointmina/Hook/assets/68779817/14745caf-0b3f-4546-bfee-3a9b5a55f393
 
-2024 04 08 -> 8th commit
+2024 04 08 -> 8th
 -
 
 0. 레이아웃 만들기, 함수 만들기 ☑️
 
-2. ![image](https://github.com/pointmina/Hook/assets/68779817/8252ed3e-6185-425f-b675-a1a82247cad5)   ☑️
-<details><summary>리사이클러뷰에 리사이클러뷰 삽입</summary> 
-
-- https://velog.io/@simsubeen/Android-Kotlin-RecyclerView-%EA%B0%80%EB%A1%9C-%EC%A0%95%EB%A0%AC-GridLayoutManager <br> <br>
-- https://notepad96.tistory.com/201 <br><br>
-- https://jinsangjin.tistory.com/25 <br><br>
-- https://developer.android.com/develop/ui/views/layout/recyclerview?hl=ko <br><br>
+2. <details><summary>리사이클러뷰에 리사이클러뷰 삽입 ☑️</summary> 
+    - https://velog.io/@simsubeen/Android-Kotlin-RecyclerView-%EA%B0%80%EB%A1%9C-%EC%A0%95%EB%A0%AC-GridLayoutManager <br> <br>
+    - https://notepad96.tistory.com/201 <br><br>
+    - https://jinsangjin.tistory.com/25 <br><br>
+    - https://developer.android.com/develop/ui/views/layout/recyclerview?hl=ko <br><br>
  </details>
 
 2. ![image](https://github.com/pointmina/Hook/assets/68779817/6ea96baf-456a-4a62-ad78-0b48cf506f49) ☑️
@@ -65,13 +59,8 @@ https://github.com/pointmina/Hook/assets/68779817/14745caf-0b3f-4546-bfee-3a9b5a
 
 ☑️클리어 문제는 tag_item layout에서 match_parent여서 한줄을 다 차지하고 있던거였음 삽질 완.☑️
 
-2024 04 09 -> 9th commit
-
-1. 8일꺼 나머지 ☑️
-
 2024 04 10 -> 9.5th
 -
-
 1) 홈뷰 -> setting 을 add hook으로 바꿈☑️
 - navigation loginTestActivity -> addHookActivity로 경로 변경
 
@@ -143,19 +132,6 @@ https://github.com/pointmina/Hook/assets/68779817/14745caf-0b3f-4546-bfee-3a9b5a
 -
 1. 태그 선택 화면에 api받아서 목록 띄우기 ☑️
 2. 추가하기 버튼 누르면 새로운 훅 생성.. -> json 파일로 변환 해야.. ㅠ...
-형식
- {
-    "id": 1,
-    "createdAt": "2024-04-01T12:00:00Z",
-    "updatedAt": "2024-04-10T12:00:00Z",
-    "deletedAt": null,
-    "userId": 101,
-    "title": "첫 번째 훅",
-    "description": "이것은 첫 번째 테스트 훅이다.",
-    "url": "https://www.naver.com/",
-    "tag": ["tech", "innovation"]
-
-  }
 
 2024 05 03 -> 16th
 -
@@ -163,7 +139,6 @@ https://github.com/pointmina/Hook/assets/68779817/14745caf-0b3f-4546-bfee-3a9b5a
 - 리사이클러뷰 개별선택
 - 길게 터치시 바텀시트
 - 설정뷰
-- 데이터 바인딩?.. 오류남.. 굳이 해야할까..
 
 2. 스타일 변경
 - active cursor 변경 ☑️
@@ -181,29 +156,11 @@ https://github.com/pointmina/Hook/assets/68779817/14745caf-0b3f-4546-bfee-3a9b5a
 2. null값 가질시 itemList 크기 조정 ☑️
 3. 훅 어댑터 코드 수정 ☑️
 
-To Do
--
-1. 서버에서 데이터 받아오기
-2. 새로운 훅 추가하면 리사이클러뷰에 데이터 반영하기
-3. 태그 add 버튼 추가? / 태그 뷰에서도..? ㅇㅅㅇ..
-
-
-
-
-
-
 
 페이로드
 -
-안녕하세요! 콘솔에 찍힌 페이로드 내용말씀이신걸까요? 코드상으론 없지만 log.info()를 통해서 Payload값을 직접 찍어서 확인했습니다!
-
-payload에서 값을 꺼내는 방법은 아래 링크 참고하시면 도움되실것 같아요!
-
+<details><summary>페이로드</summary> 
+안녕하세요! 콘솔에 찍힌 페이로드 내용말씀이신걸까요? 코드상으론 없지만 log.info()를 통해서 Payload값을 직접 찍어서 확인했습니다! <br>
+payload에서 값을 꺼내는 방법은 아래 링크 참고하시면 도움되실것 같아요! <br>
 https://developers.google.com/identity/gsi/web/guides/verify-google-id-token?hl=ko#using-a-google-api-client-library 
-
-
-추가 기능 (여유가 있다면)
--
-
-1. 모션으로 바텀 네비게이션 넘기기
-2. 리사이클러뷰 위로 당기면 새로고침
+ </details>
