@@ -4,18 +4,17 @@
         <item name="fontFamily">@font/notosan_r</item>
         <item name="windowNoTitle">true</item>
         <item name="android:windowLightStatusBar">false</item>
-        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:statusBarColor">@color/gray_300</item>
     </style>
+
     <style name="Theme.Hook" parent="Base.Theme.Hook" />
 
-    <style name="AlertDialogTheme" parent="Theme.MaterialComponents.Light.Dialog.Alert">
-        <item name="colorAccent">@color/purple</item> <!-- Purple color -->
-    </style>
-    
+
     <!-- Bottom Sheet 테두리 둥근 거 -->
     <style name="CustomBottomSheetDialogTheme" parent="Theme.MaterialComponents.Light.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/CustomRoundedBackgroundBottomSheet</item>
     </style>
+
     <style name="CustomRoundedBackgroundBottomSheet" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@drawable/bg_bottom_sheet_radius</item>
     </style>

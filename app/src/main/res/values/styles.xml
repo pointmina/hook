@@ -28,6 +28,14 @@
 
     </style>
 
+    <style name="AlertDialogTheme" parent="Widget.Material3.CompoundButton.CheckBox">
+        <item name="colorAccent">@color/purple</item>
+        <item name="buttonTint">@color/purple</item>
+        <item name="useMaterialThemeColors">false</item>
+        <item name="colorControlActivated">@color/purple</item>
+        <item name="colorPrimary">@color/purple</item>
+    </style>
+
 
     <style name="FolderTitle">
         <item name="android:textStyle">bold</item>

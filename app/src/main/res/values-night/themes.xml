@@ -4,12 +4,9 @@
         <item name="fontFamily">@font/notosan_r</item>
         <item name="windowNoTitle">true</item>
         <item name="android:windowLightStatusBar">false</item>
-        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:statusBarColor">@color/gray_300</item>
     </style>
 
-    <style name="AlertDialogTheme" parent="Theme.MaterialComponents.Light.Dialog.Alert">
-        <item name="colorAccent">@color/purple</item> <!-- Purple color -->
-    </style>
 
     <style name="Theme.Hook" parent="Base.Theme.Hook" />
     <!-- Bottom Sheet 테두리 둥근 거 -->
