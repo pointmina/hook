@@ -10,19 +10,14 @@ import com.hanto.hook.databinding.ActivityHomeBinding
 
 class HomeActivity : AppCompatActivity() {
 
-
-
     private lateinit var binding: ActivityHomeBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
         binding = ActivityHomeBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
+        setContentView(binding.root)
         setBottomNavigation()
-
     }
 
     private fun setBottomNavigation() {

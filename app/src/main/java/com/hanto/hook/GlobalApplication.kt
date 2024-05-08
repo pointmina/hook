@@ -1,4 +1,4 @@
-package com.hanto.hook.view
+package com.hanto.hook
 
 import android.app.Application
 import android.util.Log

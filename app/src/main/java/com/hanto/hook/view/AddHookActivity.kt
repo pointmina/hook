@@ -1,6 +1,6 @@
 package com.hanto.hook.view
 
-import TagViewModel
+
 import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
@@ -12,16 +12,16 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.hanto.hook.R
 import com.hanto.hook.databinding.ActivityAddHookBinding
+import com.hanto.hook.viewmodel.HookViewModel
 
 class AddHookActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAddHookBinding
     private var isExpanded = false
-    private lateinit var viewModel: TagViewModel
+    private lateinit var viewModel: HookViewModel
 
     private val multiChoiceList = linkedMapOf<String, Boolean>()
 
@@ -32,13 +32,13 @@ class AddHookActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        viewModel = ViewModelProvider(this).get(TagViewModel::class.java)
-        viewModel.tags.observe(this, Observer { tags ->
-            tags?.let {
-                // TagViewModel에서 가져온 데이터를 multiChoiceList에 업데이트
-                for (tag in tags) multiChoiceList[tag] = false
-            }
-        })
+//        viewModel = ViewModelProvider(this).get(HookViewModel::class.java)
+//        viewModel.loadFindMyHooks().observe(this, Observer { tags ->
+//            tags?.let {
+//                // HookViewModel에서 가져온 데이터를 multiChoiceList에 업데이트
+//                for (tag in tags) multiChoiceList[tag] = false
+//            }
+//        })
 
         val downArrow = binding.ivDownArrow
         val tvUrlDescription = binding.tvUrlDescription
@@ -56,7 +56,7 @@ class AddHookActivity : AppCompatActivity() {
         }
 
         tagSelect.setOnClickListener {
-            val builder = AlertDialog.Builder(this,R.style.AlertDialogTheme)
+            val builder = AlertDialog.Builder(this, R.style.AlertDialogTheme)
 
             builder.setTitle("태그 선택")
 

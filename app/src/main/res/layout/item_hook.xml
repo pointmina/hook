@@ -3,11 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-        <variable
-            name="Hook"
-            type="com.hanto.hook.model.Hook" />
-    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -47,7 +42,6 @@
             android:background="@color/white"
             android:ellipsize="end"
             android:maxLines="2"
-            android:text="@{Hook.title}"
             android:textColor="@color/black"
             android:textSize="16dp"
             android:textStyle="bold"
@@ -63,7 +57,6 @@
             android:layout_marginTop="3dp"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="@{Hook.url}"
             android:textColor="@color/purple"
             app:layout_constraintBottom_toTopOf="@id/tv_tag_description"
             app:layout_constraintEnd_toStartOf="@id/bt_option"
@@ -79,7 +72,6 @@
             android:background="#FFFFFF"
             android:ellipsize="end"
             android:maxLines="2"
-            android:text="@{Hook.description}"
             android:textColor="@color/black"
             android:textSize="16sp"
             app:layout_constraintEnd_toStartOf="@id/bt_option"

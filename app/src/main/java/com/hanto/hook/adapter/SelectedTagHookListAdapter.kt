@@ -7,7 +7,8 @@ import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
 import com.hanto.hook.databinding.ItemSelectedTagHookListBinding
-import com.hanto.hook.model.Hook
+import com.hanto.hook.api.model.Hook
+import com.hanto.hook.api.model.Tag
 
 class SelectedTagHookListAdapter(
     private val items: List<Hook>
@@ -42,7 +43,7 @@ class SelectedTagHookListAdapter(
                 // RecyclerView에 TagAdapter와 LayoutManager 설정
                 rvTagContainer.apply {
                     // 기존 adapter 대신에 새로운 TagAdapter 객체를 생성하여 사용
-                    adapter = TagHomeAdapter(hook.tag)
+                    adapter = hook.tags?.mapNotNull { it.displayName }?.let { TagHomeAdapter(it) }
                     val recyclerView = binding.rvTagContainer
                     layoutManager =
                         FlexboxLayoutManager(context)

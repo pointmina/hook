@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.hanto.hook.databinding.ItemHomeTagBinding
 
-class TagHomeAdapter(private val tags: List<String>?) :
+class TagHomeAdapter(private val tags: List<String?>) :
     RecyclerView.Adapter<TagHomeAdapter.TagViewHolder>() {
 
     inner class TagViewHolder(val binding: ItemHomeTagBinding) : RecyclerView.ViewHolder(binding.root) {
