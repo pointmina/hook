@@ -9,9 +9,9 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:paddingStart="24dp"
-        android:paddingTop="8dp"
+        android:paddingTop="15dp"
         android:paddingEnd="10dp"
-        android:paddingBottom="8dp">
+        android:paddingBottom="10dp">
 
 
         <!--    점세개 너무 작은거 같아서..-->
@@ -54,7 +54,7 @@
             android:id="@+id/tv_url_link"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
+            android:layout_marginTop="5dp"
             android:ellipsize="end"
             android:maxLines="1"
             android:textColor="@color/purple"
@@ -85,7 +85,7 @@
             android:id="@+id/rv_tag_container"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:background="@color/white"
             app:flexWrap="wrap"
             app:layoutManager="com.google.android.flexbox.FlexboxLayoutManager"
