@@ -93,10 +93,14 @@ class HomeFragment : Fragment() {
         }
 
         binding.rvHome.addItemDecoration(dividerItemDecoration)
+
+        val shimmerContainer = binding.sfLoading
         hookViewModel.successData.observe(viewLifecycleOwner, Observer {
             successData ->
             if (successData != null) {
                 hookAdapter.updateData(successData)
+                shimmerContainer.stopShimmer()
+                shimmerContainer.visibility = View.GONE
             } else {
 
             }
