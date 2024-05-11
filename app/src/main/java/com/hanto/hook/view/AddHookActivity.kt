@@ -12,10 +12,14 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.hanto.hook.R
+import com.hanto.hook.api.ApiServiceManager
+import com.hanto.hook.api.SuccessResponse
 import com.hanto.hook.databinding.ActivityAddHookBinding
 import com.hanto.hook.viewmodel.HookViewModel
+import com.hanto.hook.viewmodel.ViewModelFactory
 
 class AddHookActivity : AppCompatActivity() {
 
@@ -28,17 +32,27 @@ class AddHookActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // ApiServiceManager 인스턴스 생성 (필요에 따라서)
+        val apiServiceManager = ApiServiceManager()
+
+        // HookViewModel 인스턴스 생성
+        viewModel = ViewModelProvider(
+            this,
+            ViewModelFactory(apiServiceManager)
+        ).get(HookViewModel::class.java)
+
+        viewModel.loadFindMyDisplayName()
+
+        viewModel.tagDisplayNames.observe(this, Observer { tagDisplayNames ->
+            tagDisplayNames?.let {
+                for (tag in tagDisplayNames) multiChoiceList[tag] = false
+            }
+
+        })
+
         binding = ActivityAddHookBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-
-//        viewModel = ViewModelProvider(this).get(HookViewModel::class.java)
-//        viewModel.loadFindMyHooks().observe(this, Observer { tags ->
-//            tags?.let {
-//                // HookViewModel에서 가져온 데이터를 multiChoiceList에 업데이트
-//                for (tag in tags) multiChoiceList[tag] = false
-//            }
-//        })
 
         val downArrow = binding.ivDownArrow
         val tvUrlDescription = binding.tvUrlDescription

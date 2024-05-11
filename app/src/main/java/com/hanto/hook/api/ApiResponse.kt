@@ -1,8 +1,8 @@
 package com.hanto.hook.api
 
 import com.google.gson.annotations.SerializedName
-import com.hanto.hook.api.model.Hook
-import com.hanto.hook.api.model.Tag
+import com.hanto.hook.model.Hook
+import com.hanto.hook.model.Tag
 
 sealed class ApiResponse
 

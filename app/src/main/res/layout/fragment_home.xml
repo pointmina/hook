@@ -7,11 +7,13 @@
     android:background="@color/white">
 
     <!--커밋-->
+
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toorbar_home"
         android:layout_width="0dp"
         android:layout_height="68dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:title="@string/appbar_title_home_fragment"
@@ -20,27 +22,28 @@
 
     <ImageView
         android:id="@+id/iv_setting"
-        android:layout_width="25dp"
+        android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_gravity="end"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="24dp"
         android:background="@color/white"
-        android:src="@drawable/ic_setting"
-        app:layout_constraintStart_toEndOf="@id/iv_appbar_add_hook"
-        app:layout_constraintTop_toTopOf="@id/iv_appbar_add_hook" />
-
-
-    <ImageView
-        android:id="@+id/iv_appbar_add_hook"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginEnd="60dp"
-        android:contentDescription="@string/add_new_hook"
-        android:src="@drawable/ic_add"
+        android:src="@drawable/ic_setting_2"
         app:layout_constraintBottom_toBottomOf="@id/toorbar_home"
         app:layout_constraintEnd_toEndOf="@id/toorbar_home"
         app:layout_constraintTop_toTopOf="parent" />
+
+<!--    <ImageView-->
+<!--        android:id="@+id/iv_appbar_add_hook"-->
+<!--        android:layout_width="30dp"-->
+<!--        android:layout_height="30dp"-->
+<!--        android:layout_marginEnd="60dp"-->
+<!--        android:contentDescription="@string/add_new_hook"-->
+<!--        android:src="@drawable/ic_add"-->
+<!--        app:layout_constraintBottom_toBottomOf="@id/toorbar_home"-->
+<!--        app:layout_constraintEnd_toEndOf="@id/toorbar_home"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
+
 
     <View
         android:id="@+id/view_tag_area"
@@ -69,7 +72,6 @@
         app:layout_constraintStart_toStartOf="parent" />
 
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_home"
         android:layout_width="match_parent"
@@ -88,22 +90,28 @@
         android:id="@+id/sf_loading"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/rv_home"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/rv_home"
         app:shimmer_auto_start="true">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-            <include layout="@layout/item_shimmer"/>
-            <include layout="@layout/item_shimmer"/>
-            <include layout="@layout/item_shimmer"/>
-            <include layout="@layout/item_shimmer"/>
-            <include layout="@layout/item_shimmer"/>
-            <include layout="@layout/item_shimmer"/>
+
+            <include layout="@layout/item_shimmer" />
+
+            <include layout="@layout/item_shimmer" />
+
+            <include layout="@layout/item_shimmer" />
+
+            <include layout="@layout/item_shimmer" />
+
+            <include layout="@layout/item_shimmer" />
+
+            <include layout="@layout/item_shimmer" />
         </LinearLayout>
     </com.facebook.shimmer.ShimmerFrameLayout>
 

@@ -27,21 +27,17 @@
         app:layout_constraintVertical_bias="0.0"
         app:navGraph="@navigation/home_graph" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <ImageButton
         android:id="@+id/mainFAB"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginRight="15dp"
-        android:layout_marginBottom="15dp"
-        android:backgroundTint="#9575F3"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/bg_button_transparent_round"
         android:contentDescription="@string/add_new_hook"
-        android:focusableInTouchMode="true"
-        android:src="@drawable/ic_draw"
-        app:borderWidth="0dp"
+        android:src="@drawable/ic_write_hook"
         app:layout_constraintBottom_toTopOf="@id/bottom_navigation_home"
-        app:layout_constraintRight_toRightOf="parent"
-        app:rippleColor="@color/transparent"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintRight_toRightOf="parent" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation_home"

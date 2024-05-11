@@ -7,8 +7,8 @@ import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
 import com.hanto.hook.databinding.ItemSelectedTagHookListBinding
-import com.hanto.hook.api.model.Hook
-import com.hanto.hook.api.model.Tag
+import com.hanto.hook.model.Hook
+import com.hanto.hook.model.Tag
 
 class SelectedTagHookListAdapter(
     private val items: List<Hook>

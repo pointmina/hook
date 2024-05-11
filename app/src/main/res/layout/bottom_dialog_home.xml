@@ -26,7 +26,7 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/bt_onWeb"
         android:layout_width="300dp"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/textview_detail_border"
         android:backgroundTint="@color/purple"
@@ -34,7 +34,6 @@
         android:text="@string/open_in_browser"
         android:textAppearance="@style/AppTextPrimary.S14"
         android:textColor="@color/white"
-
         app:icon="@drawable/ic_open_in_browser"
         app:iconPadding="-20dp"
         app:iconSize="24dp"
@@ -42,29 +41,11 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/horizontal_bar" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/bt_HookShare"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/textview_detail_border"
-        android:backgroundTint="@color/purple"
-        android:elevation="5dp"
-        android:text="@string/share"
-        android:textAlignment="center"
-        android:textAppearance="@style/AppTextPrimary.S14"
-        android:textColor="@color/white"
-        app:icon="@drawable/ic_share"
-        app:iconPadding="-20dp"
-        app:iconSize="24dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bt_onWeb" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/bt_HookDelete"
         android:layout_width="300dp"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="50dp"
         android:background="@drawable/textview_detail_border"
@@ -79,15 +60,15 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bt_HookShare" />
+        app:layout_constraintTop_toBottomOf="@+id/bt_onWeb" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 
-<!--
-STATE_EXPANDED : 완전히 펼쳐진 상태
-STATE_COLLAPSED : 접혀있는 상태
-STATE_HIDDEN : 아래로 숨겨진 상태
-STATE_HALF_EXPANDED : 절반으로 펼쳐진 상태
-STATE_DRAGGING : 드래깅 되고 있는 상태
-STATE_SETTING : 드래그/스와이프 직후 고정된 상태
+    <!--
+    STATE_EXPANDED : 완전히 펼쳐진 상태
+    STATE_COLLAPSED : 접혀있는 상태
+    STATE_HIDDEN : 아래로 숨겨진 상태
+    STATE_HALF_EXPANDED : 절반으로 펼쳐진 상태
+    STATE_DRAGGING : 드래깅 되고 있는 상태
+    STATE_SETTING : 드래그/스와이프 직후 고정된 상태
 
--->
+    -->

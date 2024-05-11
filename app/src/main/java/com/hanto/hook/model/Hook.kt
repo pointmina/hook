@@ -1,4 +1,4 @@
-package com.hanto.hook.api.model
+package com.hanto.hook.model
 
 import com.google.gson.annotations.SerializedName
 

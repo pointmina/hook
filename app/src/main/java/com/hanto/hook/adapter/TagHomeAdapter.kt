@@ -8,8 +8,13 @@ import com.hanto.hook.databinding.ItemHomeTagBinding
 class TagHomeAdapter(private val tags: List<String?>) :
     RecyclerView.Adapter<TagHomeAdapter.TagViewHolder>() {
 
-    inner class TagViewHolder(val binding: ItemHomeTagBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class TagViewHolder(val binding: ItemHomeTagBinding)
+        : RecyclerView.ViewHolder(binding.root) {
         val textView = binding.tvTagName
+
+        fun bind(tag: String) {
+            textView.text = tag
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TagViewHolder {
@@ -17,9 +22,11 @@ class TagHomeAdapter(private val tags: List<String?>) :
     }
 
     override fun onBindViewHolder(holder: TagViewHolder, position: Int) {
-        holder.textView.text = tags!![position]
+        val tag = tags[position]
+        tag?.let { holder.bind(it) } // Nullable 체크 후 사용
     }
 
-    override fun getItemCount() = tags!!.size
+    override fun getItemCount(): Int {
+        return tags.filterNotNull().size // Nullable 항목 필터링 후 크기 반환
+    }
 }
-

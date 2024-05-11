@@ -32,10 +32,10 @@
 
 
     <TextView
-        android:layout_marginStart="10dp"
         android:id="@+id/tv_link_info"
         android:layout_width="match_parent"
         android:layout_height="28dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="4dp"
         android:text="링크 정보"
@@ -129,29 +129,35 @@
         app:layout_constraintLeft_toLeftOf="@+id/tv_handed_url"
         app:layout_constraintTop_toTopOf="@+id/tv_handed_url" />
 
-    <LinearLayout
-        android:id="@+id/container_view_tag"
+    <TextView
+        android:id="@+id/tv_tag"
+        android:layout_width="wrap_content"
+        android:layout_height="28dp"
+        android:layout_marginTop="20dp"
+        android:text="태그"
+        android:textSize="14dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/tv_link_info"
+        app:layout_constraintTop_toBottomOf="@id/tv_handed_url" />
+
+
+    <TextView
+        android:id="@+id/container_tag"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:minHeight="80dp"
-        android:orientation="vertical"
-        android:padding="10dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_handed_url">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="태그"
-            android:textStyle="bold" />
-
-        <com.google.android.flexbox.FlexboxLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
+        android:background="@drawable/textview_detail_border"
+        android:hint="#"
+        android:paddingStart="16dp"
+        android:paddingTop="15dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="15dp"
+        android:text="#"
+        android:textAppearance="@style/AppTexTitle.S16"
+        android:textColor="@color/gray_300"
+        android:theme="@style/MyCheckBox"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_tag" />
 
 
     <TextView

@@ -10,7 +10,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 // TODO: BuildConfig로 베이스 서버 URL 숨겨주세요. (사용할 때 import ...BuildConfig.BASE_URL 필요)
 object RetroServer {
-    val BASE_URL = "https://821a656d-8d6c-4d9b-b2a5-33546fe80917.mock.pstmn.io"
+    val BASE_URL = "https://aa21ff80-3490-469e-9e1b-050e1052c760.mock.pstmn.io"
+    //밑에는 예진님 서버
 //    val BASE_URL = "https://910211dc-c23e-4c24-b62d-3a62fbc99739.mock.pstmn.io/"
     // 오후 10:18 2024-05-06 : API 컬렉션 변경됨, 새로 목업 서버 빌드
 

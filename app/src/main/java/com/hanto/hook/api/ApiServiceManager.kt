@@ -7,6 +7,7 @@ import com.hanto.hook.api.RetroServer
 import com.hanto.hook.api.ErrorResponse
 import com.hanto.hook.api.SuccessResponse
 import com.hanto.hook.api.ApiServiceManager
+import retrofit2.Response
 
 //Api 호출을 관리하기 위한 클래스 -> ApiServiceManager
 //Retrofit을 사용하여 서버에 API요청을 보낸다.
@@ -16,10 +17,17 @@ class ApiServiceManager {
     private val apiService: ApiService = RetroServer.getInstance().create(ApiService::class.java)
 
 
-    //서버에서 findMyHooks API를 호출하고 결과를 처리한다. 비동기 호출 -> suspend
+    suspend fun getFindMyTags(): ApiResponse {
+        return handleApiResponse { apiService.findMyTags() }
+    }
+
     suspend fun getFindMyHooks(): ApiResponse {
+        return handleApiResponse { apiService.findMyHooks() }
+    }
+
+    private suspend fun handleApiResponse(apiCall: suspend () -> Response<ApiResponse>): ApiResponse {
         return try {
-            val response = apiService.findMyHooks() // Retrofit service call
+            val response = apiCall()
             if (response.isSuccessful) {
                 // Parse the successful response
                 response.body()?.let {
@@ -28,10 +36,9 @@ class ApiServiceManager {
                 } ?: ErrorResponse()
             } else {
                 // Parse the error response
-                Gson().fromJson(response.errorBody()?.string(), ErrorResponse::class.java)
-                    .also {
-                        Log.d("ApiServiceManager", "에러 -- ${it.error}")
-                    }
+                Gson().fromJson(response.errorBody()?.string(), ErrorResponse::class.java).also {
+                    Log.d("ApiServiceManager", "에러 -- ${it.error}")
+                }
             }
         } catch (e: Exception) {
             Log.d("ApiServiceManager", "예상치 못한 오류", e)

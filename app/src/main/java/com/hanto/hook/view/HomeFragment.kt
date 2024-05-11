@@ -19,7 +19,7 @@ import com.hanto.hook.R
 import com.hanto.hook.databinding.FragmentHomeBinding
 import com.hanto.hook.adapter.HookAdapter
 import com.hanto.hook.api.ApiServiceManager
-import com.hanto.hook.api.model.Hook
+import com.hanto.hook.model.Hook
 import com.hanto.hook.viewmodel.HookViewModel
 import com.hanto.hook.viewmodel.ViewModelFactory
 
@@ -43,16 +43,15 @@ class HomeFragment : Fragment() {
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-
-        // 훅 추가 버튼 클릭 시
-        binding.ivAppbarAddHook.setOnClickListener {
-            findNavController().navigate(R.id.action_navigation_home_to_addHookActivity)
-        }
-
         // 세팅 버튼 클릭 시
         binding.ivSetting.setOnClickListener {
             findNavController().navigate(R.id.action_navigation_home_to_settingActivity)
         }
+
+        // 추가 버튼 클릭 시
+//        binding.add.setOnClickListener {
+//            findNavController().navigate(R.id.action_navigation_home_to_addHookActivity)
+//        }
 
         return binding.root
     }
@@ -130,11 +129,11 @@ class HomeFragment : Fragment() {
             dialog.dismiss()
         }
 
-        val btHookShare = view.findViewById<Button>(R.id.bt_HookShare)
-        btHookShare.setOnClickListener {
-            // Share 기능 구현
-            dialog.dismiss()
-        }
+//        val btHookShare = view.findViewById<Button>(R.id.bt_HookShare)
+//        btHookShare.setOnClickListener {
+//            // Share 기능 구현
+//            dialog.dismiss()
+//        }
 
         val btHookDelete = view.findViewById<Button>(R.id.bt_HookDelete)
         btHookDelete.setOnClickListener {
