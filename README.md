@@ -162,6 +162,11 @@
 2. homeview 태그값 뿌리기 -> 문제 처음꺼 하나만 넘어옴.. 😠
 3. shimmer, floating icon 추가 ☑️
 
+2024 05 11 -> 19th
+1. 홈뷰 태그값 문제 해결 ☑️
+2. addHookActivity 선택 목록에 DisplayName 가져오기 ☑️
+
+
 페이로드
 -
 <details><summary>페이로드</summary> 
