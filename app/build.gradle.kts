@@ -72,6 +72,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
     implementation("androidx.activity:activity-ktx:1.9.0")
     implementation("com.google.firebase:firebase-database-ktx:21.0.0")
+    implementation("androidx.activity:activity:1.8.0")
     val nav_version = "2.7.7"
 
     implementation("com.google.code.gson:gson:2.10.1")

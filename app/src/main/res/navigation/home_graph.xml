@@ -31,9 +31,7 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_right"
             app:popExitAnim="@anim/slide_out_right"
-            app:popUpTo="@id/navigation_home"
-            />
-
+            app:popUpTo="@id/navigation_home" />
 
     </fragment>
 
@@ -42,7 +40,10 @@
         android:id="@+id/navigation_tag"
         android:name="com.hanto.hook.view.TagFragment"
         android:label="TagFragment"
-        tools:layout="@layout/fragment_tag" />
+        tools:layout="@layout/fragment_tag">
+
+
+    </fragment>
 
 
     <!--    로그아웃때문에 setting에 잠깐걸어놈-->
