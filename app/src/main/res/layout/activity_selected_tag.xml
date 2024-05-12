@@ -42,18 +42,32 @@
 
     <!--    요기에 태그 한개만 나온다함..-->
     <TextView
-        android:id="@+id/tv_selected_tag"
+        android:id="@+id/sharp"
         android:layout_width="wrap_content"
         android:layout_height="35dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="8dp"
-        android:contentDescription="@string/description_select_tag"
         android:fontFamily="@font/notosan_r"
-        android:text="#종합설계"
+        android:text="#"
         android:textColor="@color/black"
         android:textSize="24dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@id/view_tag_area"
+        app:layout_constraintTop_toTopOf="@id/view_tag_area" />
+
+    <TextView
+        android:id="@+id/tv_selected_tag"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="8dp"
+        android:contentDescription="@string/description_select_tag"
+        android:fontFamily="@font/notosan_r"
+        android:text="종합설계"
+        android:textColor="@color/black"
+        android:textSize="24dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/sharp"
         app:layout_constraintTop_toTopOf="@id/view_tag_area" />
 
     <TextView
@@ -89,14 +103,17 @@
 
 
         />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_url_hook_list"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/view_tag_area"
+        app:layout_constraintVertical_bias="0.0"
         tools:listitem="@layout/item_hook" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

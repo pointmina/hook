@@ -74,10 +74,13 @@ class TagFragment : Fragment() {
             object : TagAdapter.OnItemClickListener {
                 override fun onClick(position: Int) {
                     val selectedTag = tagAdapter.getItem(position)
-
                     val name = selectedTag.displayName
                     if (name != null) {
                         // 선택된 태그에 대한 작업 수행
+                        Intent(requireContext(), SelectedTagActivity::class.java).apply {
+                            putExtra("selectedTag", selectedTag.displayName)
+                            startActivity(this)
+                        }
                     }
                 }
             }

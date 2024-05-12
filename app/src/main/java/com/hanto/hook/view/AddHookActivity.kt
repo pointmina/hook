@@ -3,6 +3,8 @@ package com.hanto.hook.view
 
 import android.content.DialogInterface
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -64,6 +66,43 @@ class AddHookActivity : AppCompatActivity() {
         val backButton = binding.ivAppbarBackButton
         val addNewHook = binding.ivAddNewHook
         val tvTitle = binding.tvUrlTitle
+        val tvLimit2 = binding.tvLimit2
+
+        binding.tvLimit1.text = "${tvTitle.text.length} / 80"
+        tvLimit2.text = "${tvUrlDescription.text.length} / 80"
+
+        tvTitle.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                s?.let {
+                    binding.tvLimit1.text = "${s.length} / 80"
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+        })
+
+        tvUrlDescription.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                s?.let {
+                    tvLimit2.text = "${s.length} / 80"
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+        })
 
         backButton.setOnClickListener {
             onBackPressed()
@@ -171,7 +210,7 @@ class AddHookActivity : AppCompatActivity() {
         }
 
         containerInfoEtc.setOnClickListener {
-            toggleExpandCollapse(tvUrlDescription, tvTag, containerTag, downArrow)
+            toggleExpandCollapse(tvUrlDescription, tvTag, containerTag, downArrow, tvLimit2)
         }
 
         urlLink.setOnClickListener {
@@ -183,7 +222,8 @@ class AddHookActivity : AppCompatActivity() {
         tvUrlDescription: TextView,
         tvTag: TextView,
         containerTag: TextView,
-        downArrow: ImageView
+        downArrow: ImageView,
+        tvLimit2: TextView
     ) {
         isExpanded = !isExpanded
 
@@ -192,11 +232,15 @@ class AddHookActivity : AppCompatActivity() {
             tvTag.visibility = View.VISIBLE
             containerTag.visibility = View.VISIBLE
             downArrow.setImageResource(R.drawable.ic_up_arrow)
+            tvLimit2.visibility = View.VISIBLE
+
+
         } else {
             tvUrlDescription.visibility = View.INVISIBLE
             tvTag.visibility = View.INVISIBLE
             containerTag.visibility = View.INVISIBLE
             downArrow.setImageResource(R.drawable.ic_down_arrow)
+            tvLimit2.visibility = View.INVISIBLE
         }
     }
 

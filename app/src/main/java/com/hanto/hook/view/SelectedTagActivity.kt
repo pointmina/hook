@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.hanto.hook.R
 import com.hanto.hook.adapter.SelectedTagHookListAdapter
 import com.hanto.hook.databinding.ActivitySelectedTagBinding
+import com.hanto.hook.model.Tag
 
 @Suppress("DEPRECATION")
 class SelectedTagActivity : AppCompatActivity() {
@@ -19,11 +20,11 @@ class SelectedTagActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding = ActivitySelectedTagBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
+        setContentView(binding.root)
 
         // Intent로부터 데이터 받기
         val selectedTag = intent.getStringExtra("selectedTag")
+        binding.tvSelectedTag.text = selectedTag
 
         val backButton = binding.ivAppbarSelectedTagBackButton
 
@@ -33,13 +34,16 @@ class SelectedTagActivity : AppCompatActivity() {
 
         val ivTagChange = binding.ivTagChange
         ivTagChange.setOnClickListener {
-            // ChangeTagFragment를 띄우기 위한 코드
-            val changeTagFragment = ChangeTagFragment()
+            val changeTagFragment = ChangeTagFragment().apply {
+                arguments = Bundle().apply {
+                    putString("selectedTag", selectedTag)
+                }
+            }
             changeTagFragment.show(supportFragmentManager, "ChangeTagFragment")
         }
 
-//homeFragment참고!
-//        selectedTagHookListAdapter = SelectedTagHookListAdapter(getDummyData())
+        //homeFragment참고! 해당 태그와 관련된 항목 목록이어야 합니다.
+        selectedTagHookListAdapter = SelectedTagHookListAdapter(listOf())
         binding.rvUrlHookList.adapter = selectedTagHookListAdapter
         binding.rvUrlHookList.layoutManager = LinearLayoutManager(this)
 
@@ -50,6 +54,7 @@ class SelectedTagActivity : AppCompatActivity() {
         ResourcesCompat.getDrawable(resources, R.drawable.divider, null)?.let {
             dividerItemDecoration.setDrawable(it)
         }
+
 
 
         binding.rvUrlHookList.addItemDecoration(dividerItemDecoration)

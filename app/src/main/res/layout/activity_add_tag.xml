@@ -1,21 +1,21 @@
- <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-     android:background="@color/transparent"
-     android:layout_gravity="center">
+    android:layout_gravity="center"
+    android:background="@drawable/rounded_background_little">
 
 
-     <View
-         android:id="@+id/view_change_tag"
-         android:layout_width="375dp"
-         android:layout_height="221dp"
-         android:layout_gravity="center"
-         android:background="@drawable/rounded_background_little"
-         app:layout_constraintBottom_toBottomOf="parent"
-         app:layout_constraintEnd_toEndOf="parent"
-         app:layout_constraintStart_toStartOf="parent"
-         app:layout_constraintTop_toTopOf="parent" />
+    <View
+        android:id="@+id/view_change_tag"
+        android:layout_width="375dp"
+        android:layout_height="221dp"
+        android:layout_gravity="center"
+        android:background="@drawable/rounded_background_little"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_link_info"
@@ -27,17 +27,16 @@
         android:textSize="16dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@id/view_change_tag"
-        app:layout_constraintTop_toTopOf="@id/view_change_tag"
-        />
+        app:layout_constraintTop_toTopOf="@id/view_change_tag" />
 
     <View
         android:id="@+id/container_tag_name"
         android:layout_width="327dp"
         android:layout_height="60dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/textview_detail_border"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
-        android:layout_marginTop="10dp"
         app:layout_constraintBottom_toTopOf="@id/btn_change_tag_name"
         app:layout_constraintEnd_toEndOf="@id/view_change_tag"
         app:layout_constraintStart_toStartOf="@id/view_change_tag"
@@ -50,8 +49,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:background="@color/transparent"
-        android:inputType="textMultiLine"
         android:hint="태그를 입력하세요"
+        android:theme="@style/MyCheckBox"
+        android:inputType="textMultiLine"
         android:textSize="24dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@id/container_tag_name"

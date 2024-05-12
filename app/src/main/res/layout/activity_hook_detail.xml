@@ -52,7 +52,7 @@
         android:background="@drawable/textview_detail_border"
         android:hint="제목을 입력해주세요"
         android:inputType="textMultiLine"
-        android:maxLength="50"
+        android:maxLength="80"
         android:padding="20dp"
         android:textAppearance="@style/AppTextPrimary.S16"
         android:textColor="@color/black"

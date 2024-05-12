@@ -27,17 +27,22 @@ class HookDetailActivity : AppCompatActivity() {
         binding.tvHandedUrl.setText(url)
         binding.tvHandedDesc.setText(description)
 
-        binding.tvLimit1.text = "${binding.tvHandedTitle.text.length} / 50"
+
+        binding.tvLimit1.text = "${binding.tvHandedTitle.text.length} / 80"
         binding.tvLimit2.text = "${binding.tvHandedDesc.text.length} / 80"
 
 
         binding.tvHandedTitle.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            override fun beforeTextChanged(
+                s: CharSequence?,
+                start: Int, count:
+                Int, after: Int
+            ) {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 s?.let {
-                    binding.tvLimit1.text = "${s.length} / 50"
+                    binding.tvLimit1.text = "${s.length} / 80"
                 }
             }
 

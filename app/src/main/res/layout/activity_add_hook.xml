@@ -83,7 +83,6 @@
 
     <EditText
         android:id="@+id/tv_url_title"
-
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_marginTop="10dp"
@@ -92,6 +91,7 @@
         android:gravity="top|start"
         android:hint="제목"
         android:inputType="textMultiLine"
+        android:maxLength="80"
         android:paddingStart="16dp"
         android:paddingTop="15dp"
         android:paddingEnd="16dp"
@@ -103,6 +103,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_url_link" />
+
+    <TextView
+        android:id="@+id/tv_limit_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint=""
+        android:padding="5dp"
+        app:layout_constraintBottom_toBottomOf="@id/tv_url_title"
+        app:layout_constraintRight_toRightOf="@id/tv_url_title" />
 
     <View
         android:id="@+id/container_link_info_etc"
@@ -145,11 +154,11 @@
         android:gravity="top|start"
         android:hint="설명"
         android:inputType="textMultiLine"
+        android:maxLength="80"
         android:paddingStart="16dp"
         android:paddingTop="15dp"
         android:paddingEnd="16dp"
         android:paddingBottom="15dp"
-        android:text="람쥐 떤더"
         android:textAppearance="@style/AppTextPrimary.S16"
         android:textColorHint="@color/gray_300"
         android:theme="@style/MyCheckBox"
@@ -157,6 +166,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_link_info_etc" />
+
+    <TextView
+        android:id="@+id/tv_limit_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint=""
+        android:padding="5dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@id/tv_url_description"
+        app:layout_constraintRight_toRightOf="@id/tv_url_description" />
 
 
     <TextView
