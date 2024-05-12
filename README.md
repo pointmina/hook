@@ -165,6 +165,9 @@
 2024 05 11 -> 19th
 1. 홈뷰 태그값 문제 해결 ☑️
 2. addHookActivity 선택 목록에 DisplayName 가져오기 ☑️
+ + 19.5
+3. 태그 추가 누르면 intent ☑️
+
 
 
 페이로드
