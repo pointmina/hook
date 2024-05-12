@@ -5,6 +5,7 @@
         <item name="windowNoTitle">true</item>
         <item name="android:windowLightStatusBar">false</item>
         <item name="android:statusBarColor">@color/gray_300</item>
+        <item name="colorAccent">@color/purple</item>
     </style>
 
     <style name="Theme.Hook" parent="Base.Theme.Hook" />
