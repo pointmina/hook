@@ -23,7 +23,7 @@
         android:layout_height="28dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="27dp"
-        android:text="태그 수정"
+        android:text=" 태그 수정"
         android:textSize="16dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@id/view_change_tag"
