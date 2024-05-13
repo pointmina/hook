@@ -101,8 +101,8 @@
     <EditText
         android:id="@+id/tv_handed_url"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="12dp"
         android:background="@drawable/textview_detail_border"
         android:hint="@string/hint_url_link"
         android:inputType="textMultiLine"
@@ -113,6 +113,7 @@
         android:textAppearance="@style/AppTextPrimary.S16"
         android:textColor="@color/purple"
         android:theme="@style/MyCheckBox"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_handed_desc" />
@@ -122,9 +123,9 @@
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="20dp"
         android:background="@drawable/bg_button_transparent_round"
         android:src="@drawable/ic_link"
+        app:layout_constraintBottom_toBottomOf="@id/tv_handed_url"
         app:layout_constraintLeft_toLeftOf="@+id/tv_handed_url"
         app:layout_constraintTop_toTopOf="@+id/tv_handed_url" />
 
