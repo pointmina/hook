@@ -178,7 +178,7 @@ class AddHookActivity : AppCompatActivity() {
                 // 추가: 새로운 항목 추가 기능 구현
                 val editText = EditText(this)
                 editText.hint = "태그 입력"
-                val dialogBuilder = AlertDialog.Builder(this,R.style.MyCheckBox)
+                val dialogBuilder = AlertDialog.Builder(this)
                     .setTitle("태그 추가")
                     .setView(editText)
                     .setPositiveButton("추가") { dialog, which ->
