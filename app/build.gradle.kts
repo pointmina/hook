@@ -111,4 +111,8 @@ dependencies {
 
     // Shimmer
     implementation("com.facebook.shimmer:shimmer:0.5.0")
+    // jsoup
+    implementation ("org.jsoup:jsoup:1.13.1")
+    // bumptech glide
+    implementation ("com.github.bumptech.glide:glide:4.12.0")
 }
