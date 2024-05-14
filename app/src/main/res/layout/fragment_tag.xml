@@ -1,50 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:paddingStart="17dp"
-    android:paddingEnd="17dp">
+    tools:context=".view.TagFragment"
+    android:background="@color/white">
 
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/toorbar_home"
-        android:layout_width="0dp"
-        android:layout_height="68dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:title="@string/appbar_title_tag_screen"
-        app:titleCentered="true"
-        app:titleTextAppearance="@style/AppTexTitle.S16" />
+    <include
+        layout="@layout/appbar_tag"/>
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <ImageView
-        android:id="@+id/iv_add_tag"
-        android:layout_width="34dp"
-        android:layout_height="34dp"
-        android:layout_marginEnd="11dp"
-        android:contentDescription="@string/label_setting"
-        android:src="@drawable/ic_add_tag"
-        app:layout_constraintBottom_toBottomOf="@id/toorbar_home"
-        app:layout_constraintEnd_toEndOf="@id/toorbar_home"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_tag_view_tag_container"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:background="@color/white"
-        app:flexWrap="wrap"
-        app:layoutManager="com.google.android.flexbox.FlexboxLayoutManager"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toorbar_home"
-        tools:listitem="@layout/item_tag_tag" />
-
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_tag_view_tag_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:padding="20dp"
+            app:flexWrap="wrap"
+            app:layoutManager="com.google.android.flexbox.FlexboxLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:listitem="@layout/item_tag_tag"
+            tools:itemCount="5"
+            tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

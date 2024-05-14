@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageButton
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -43,10 +44,11 @@ class HomeFragment : Fragment() {
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
+
         // 세팅 버튼 클릭 시
-        binding.ivSetting.setOnClickListener {
+        /*binding.bySetting.setOnClickListener {
             findNavController().navigate(R.id.action_navigation_home_to_settingActivity)
-        }
+        }*/
 
         // 추가 버튼 클릭 시
 //        binding.add.setOnClickListener {
@@ -58,6 +60,11 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val btSetting: ImageButton = view.findViewById(R.id.bt_setting)
+        btSetting.setOnClickListener {
+            findNavController().navigate(R.id.action_navigation_home_to_settingActivity)
+        }
 
         hookAdapter = HookAdapter(
             hooks = ArrayList(),

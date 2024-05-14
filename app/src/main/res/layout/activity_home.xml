@@ -42,17 +42,19 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation_home"
         android:layout_width="0dp"
-        android:layout_height="70dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/shadow"
         android:backgroundTint="@color/white"
         app:itemActiveIndicatorStyle="@null"
-        app:itemIconSize="28dp"
+        app:itemIconSize="24dp"
         app:itemIconTint="@color/selector_botton_navigation_color"
         app:itemTextColor="@color/selector_botton_navigation_color"
         app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
         app:menu="@menu/home_navigation_menu"
 
         />

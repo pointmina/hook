@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.view.WindowManager
+import android.widget.ImageButton
 import androidx.compose.ui.graphics.Color
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -49,8 +50,8 @@ class TagFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // AddTag 버튼에 대한 클릭 리스너 설정
-        binding.ivAddTag.setOnClickListener {
+        val btAddTag: ImageButton = view.findViewById(R.id.btAddTag)
+        btAddTag.setOnClickListener{
             // Dialog를 생성하고 설정
             val dialog = Dialog(requireContext())
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE) // 타이틀 제거
