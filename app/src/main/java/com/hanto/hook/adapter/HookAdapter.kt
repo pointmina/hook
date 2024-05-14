@@ -1,5 +1,6 @@
 package com.hanto.hook.adapter
 
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import com.hanto.hook.databinding.ItemHookBinding
 import com.hanto.hook.model.Hook
 import com.hanto.hook.api.SuccessResponse
 import com.hanto.hook.model.Tag
+import com.hanto.hook.adapter.TagHomeAdapter
 
 class HookAdapter(
     private var hooks: ArrayList<Hook>,
@@ -38,12 +40,13 @@ class HookAdapter(
             }
 
             //tags가 null이 아닌 경우에만 RecyclerView에 어댑터 설정
-            hook.tags?.let { tag ->
+            hook.tags?.let { tags ->
                 val flexboxLayoutManager = FlexboxLayoutManager(binding.root.context)
                 flexboxLayoutManager.flexDirection = FlexDirection.ROW
                 flexboxLayoutManager.justifyContent = JustifyContent.FLEX_START
                 binding.rvTagContainer.layoutManager = flexboxLayoutManager
-                binding.rvTagContainer.adapter = hook.tags?.map { it.displayName }?.let { TagHomeAdapter(it) }
+                // TagHomeAdapter 초기화 시 selectedHook도 함께 전달
+                binding.rvTagContainer.adapter = TagHomeAdapter(tags.map { it.displayName }, hook)
                 binding.rvTagContainer.visibility = View.VISIBLE
             } ?: run {
                 binding.rvTagContainer.visibility = View.GONE
