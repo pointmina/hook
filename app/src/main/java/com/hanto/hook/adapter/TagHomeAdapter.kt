@@ -1,4 +1,5 @@
 package com.hanto.hook.adapter
+
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -11,8 +12,8 @@ import com.hanto.hook.view.HookDetailActivity
 class TagHomeAdapter(private val tags: List<String?>, private val selectedHook: Hook) :
     RecyclerView.Adapter<TagHomeAdapter.TagViewHolder>() {
 
-    inner class TagViewHolder(val binding: ItemHomeTagBinding)
-        : RecyclerView.ViewHolder(binding.root) {
+    inner class TagViewHolder(val binding: ItemHomeTagBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         val textView = binding.tvTagName
 
         fun bind(tag: String) {

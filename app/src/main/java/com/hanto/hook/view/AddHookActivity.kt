@@ -49,7 +49,6 @@ class AddHookActivity : AppCompatActivity() {
             tagDisplayNames?.let {
                 for (tag in tagDisplayNames) multiChoiceList[tag] = false
             }
-
         })
 
         binding = ActivityAddHookBinding.inflate(layoutInflater)
@@ -108,39 +107,6 @@ class AddHookActivity : AppCompatActivity() {
             onBackPressed()
         }
 
-        tagSelect.setOnClickListener {
-            val builder = AlertDialog.Builder(this, R.style.AlertDialogTheme)
-
-            builder.setTitle("태그 선택")
-
-            builder.setMultiChoiceItems(
-                multiChoiceList.keys.toTypedArray(),
-                multiChoiceList.values.toBooleanArray()
-            ) { dialogInterface: DialogInterface, which: Int, isChecked: Boolean ->
-                multiChoiceList[multiChoiceList.keys.toTypedArray()[which]] = isChecked
-            }
-
-            builder.setPositiveButton("ok") { dialog, id ->
-                val selectedTags = mutableListOf<String>()
-                for ((tag, selected) in multiChoiceList) {
-                    if (selected) {
-                        selectedTags.add(tag)
-                    }
-                }
-                tvTag.text = selectedTags.joinToString(", ")
-                // 추가: 선택된 태그를 containerTag에 표시
-                containerTag.text = selectedTags.joinToString(", ")
-                Log.d("Selected Items", multiChoiceList.toString())
-                dialog.dismiss()
-            }
-
-            builder.setNegativeButton("cancel") { dialog, id ->
-                dialog.dismiss()
-            }
-
-            val alertDialog = builder.create()
-            alertDialog.show()
-        }
 
         containerTag.setOnClickListener {
             val tags = multiChoiceList.keys.toTypedArray()

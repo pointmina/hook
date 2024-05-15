@@ -12,7 +12,6 @@ import com.hanto.hook.databinding.ItemHookBinding
 import com.hanto.hook.model.Hook
 import com.hanto.hook.api.SuccessResponse
 import com.hanto.hook.model.Tag
-import com.hanto.hook.adapter.TagHomeAdapter
 
 class HookAdapter(
     private var hooks: ArrayList<Hook>,
@@ -25,8 +24,7 @@ class HookAdapter(
         fun onOptionButtonClick(position: Int)
     }
 
-    inner class ViewHolder(val binding: ItemHookBinding)
-        : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(val binding: ItemHookBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(hook: Hook) {
             binding.tvTitle.text = hook.title
