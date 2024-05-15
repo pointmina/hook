@@ -17,7 +17,10 @@ class HookDetailActivity : AppCompatActivity() {
         val title = intent.getStringExtra("item_title")
         val url = intent.getStringExtra("item_url")
         val description = intent.getStringExtra("item_description")
+        val tags = intent.getStringArrayListExtra("item_tag_list")
         val backButton = binding.ivAppbarUrlHookDetailBackButton
+
+
 
         backButton.setOnClickListener {
             onBackPressed()
@@ -26,6 +29,12 @@ class HookDetailActivity : AppCompatActivity() {
         binding.tvHandedTitle.setText(title)
         binding.tvHandedUrl.setText(url)
         binding.tvHandedDesc.setText(description)
+
+        // 태그 리스트를 문자열로 변환
+        val tagString = tags?.joinToString(" ") { "#$it " }
+
+        binding.tvTag.text = tagString
+
 
 
         binding.tvLimit1.text = "${binding.tvHandedTitle.text.length} / 80"

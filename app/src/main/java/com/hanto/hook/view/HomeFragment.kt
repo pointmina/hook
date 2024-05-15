@@ -61,7 +61,7 @@ class HomeFragment : Fragment() {
 
         hookAdapter = HookAdapter(
             hooks = ArrayList(),
-            tag = emptyList(),
+            tag = ArrayList(),
             object : HookAdapter.OnItemClickListener {
                 override fun onClick(position: Int) {
                     val selectedHook = hookAdapter.getItem(position)
@@ -70,6 +70,9 @@ class HomeFragment : Fragment() {
                         putExtra("item_title", selectedHook.title)
                         putExtra("item_url", selectedHook.url)
                         putExtra("item_description", selectedHook.description)
+                        selectedHook.tags?.map { it.displayName }?.let {
+                            putStringArrayListExtra("item_tag_list", ArrayList(it))
+                        }
                         startActivity(this)
                     }
                 }
@@ -94,8 +97,7 @@ class HomeFragment : Fragment() {
         binding.rvHome.addItemDecoration(dividerItemDecoration)
 
         val shimmerContainer = binding.sfLoading
-        hookViewModel.successData.observe(viewLifecycleOwner, Observer {
-            successData ->
+        hookViewModel.successData.observe(viewLifecycleOwner, Observer { successData ->
             if (successData != null) {
                 hookAdapter.updateData(successData)
                 shimmerContainer.stopShimmer()

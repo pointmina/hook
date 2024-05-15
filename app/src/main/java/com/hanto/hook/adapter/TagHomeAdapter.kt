@@ -40,7 +40,9 @@ class TagHomeAdapter(private val tags: List<String?>, private val selectedHook: 
                 putExtra("item_url", selectedHook.url)
                 putExtra("item_description", selectedHook.description)
                 // 클릭한 태그와 관련된 정보도 함께 전달합니다.
-                putExtra("clicked_tag", tag)
+                selectedHook.tags?.map { it.displayName }?.let {
+                    putStringArrayListExtra("item_tag_list", ArrayList(it))
+                }
                 context.startActivity(this)
             }
         }
