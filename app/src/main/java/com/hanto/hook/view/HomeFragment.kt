@@ -36,25 +36,12 @@ class HomeFragment : Fragment() {
         ViewModelProvider(this, viewModelFactory).get(HookViewModel::class.java)
     }
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-
-
-        // 세팅 버튼 클릭 시
-        /*binding.bySetting.setOnClickListener {
-            findNavController().navigate(R.id.action_navigation_home_to_settingActivity)
-        }*/
-
-        // 추가 버튼 클릭 시
-//        binding.add.setOnClickListener {
-//            findNavController().navigate(R.id.action_navigation_home_to_addHookActivity)
-//        }
-
         return binding.root
     }
 
@@ -85,7 +72,6 @@ class HomeFragment : Fragment() {
                     val selectedHook = hookAdapter.getItem(position)
                     showBottomSheetDialog(selectedHook)
                 }
-
             })
 
         hookViewModel.loadFindMyHooks()
@@ -111,15 +97,12 @@ class HomeFragment : Fragment() {
 
             }
         })
-
-
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
 
     private fun showBottomSheetDialog(selectedItem: Hook) {
         val dialog = BottomSheetDialog(requireContext(), R.style.CustomBottomSheetDialogTheme)
@@ -136,15 +119,10 @@ class HomeFragment : Fragment() {
             dialog.dismiss()
         }
 
-//        val btHookShare = view.findViewById<Button>(R.id.bt_HookShare)
-//        btHookShare.setOnClickListener {
-//            // Share 기능 구현
-//            dialog.dismiss()
-//        }
-
         val btHookDelete = view.findViewById<Button>(R.id.bt_HookDelete)
         btHookDelete.setOnClickListener {
-            // Delete 기능 구현
+            selectedItem.id?.let { it1 -> hookViewModel.loadDeleteMyHook(it1) }
+            hookViewModel.loadFindMyHooks() // 뷰 화면 새로고침 (다시 불러오기)
             dialog.dismiss()
         }
 

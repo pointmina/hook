@@ -1,13 +1,12 @@
 package com.hanto.hook.api
 
-data class ApiRequest (
-    val title: String,
-    val description: String,
-    val url: String
-)
+import com.google.gson.annotations.SerializedName
 
-data class HookRequest (
-    val title: String,
-    val description: String,
-    val url: String
+data class ApiRequest (
+
+    @SerializedName("title"       ) var title       : String?           = null,
+    @SerializedName("description" ) var description : String?           = null,
+    @SerializedName("url"         ) var url         : String?           = null,
+    @SerializedName("tags"        ) var tags        : ArrayList<String> = arrayListOf()
+
 )

@@ -33,6 +33,9 @@ class AddHookActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityAddHookBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
 
         // ApiServiceManager 인스턴스 생성 (필요에 따라서)
         val apiServiceManager = ApiServiceManager()
@@ -52,67 +55,65 @@ class AddHookActivity : AppCompatActivity() {
 
         })
 
-        binding = ActivityAddHookBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
-
         val downArrow = binding.ivDownArrow
-        val tvUrlDescription = binding.tvUrlDescription
-        val tvTag = binding.tvTag
         val containerTag = binding.containerTag
         val containerInfoEtc = binding.containerLinkInfoEtc
-        val urlLink = binding.tvUrlLink
         val tagSelect = binding.containerTag
-        val backButton = binding.ivAppbarBackButton
-        val addNewHook = binding.ivAddNewHook
-        val tvTitle = binding.tvUrlTitle
         val tvLimit2 = binding.tvLimit2
+        val backButton = binding.ivAppbarBackButton
 
-        binding.tvLimit1.text = "${tvTitle.text.length} / 80"
-        tvLimit2.text = "${tvUrlDescription.text.length} / 80"
+        val tvTitle = binding.tvUrlTitle
+        val tvUrlDescription = binding.tvUrlDescription
+        val urlLink = binding.tvUrlLink
+        val tvTag = binding.tvTag
 
-        tvTitle.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+        binding.ivAddNewHook.setOnClickListener {
+            val title = tvTitle.text.toString()
+            val description = tvUrlDescription.text.toString()
+            val url = urlLink.text.toString()
+            val tagString = containerTag.text.toString()
+            val tagList = tagString.trim()
+                .split(",")
+                .filter { it.isNotEmpty() }
+                .map { it.replace("#", "").trim() }
+            val tag = ArrayList<String>(tagList)
 
-            }
+            viewModel.loadCreateMyHook(title, description, url, tag)
+            Toast.makeText(this, tag.joinToString(", "), Toast.LENGTH_LONG).show()
+            finish()
+        }
 
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                s?.let {
-                    binding.tvLimit1.text = "${s.length} / 80"
-                }
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-
-            }
-        })
-
-        tvUrlDescription.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                s?.let {
-                    tvLimit2.text = "${s.length} / 80"
-                }
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-
-            }
-
-        })
 
         backButton.setOnClickListener {
             onBackPressed()
         }
 
+        binding.tvLimit1.text = "${tvTitle.text.length} / 120"
+        tvLimit2.text = "${tvUrlDescription.text.length} / 80"
+
+        tvTitle.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                s?.let {
+                    binding.tvLimit1.text = "${s.length} / 120"
+                }
+            }
+            override fun afterTextChanged(s: Editable?) {}
+        })
+
+        tvUrlDescription.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                s?.let {
+                    tvLimit2.text = "${s.length} / 80"
+                }
+            }
+            override fun afterTextChanged(s: Editable?) {}
+        })
+
         tagSelect.setOnClickListener {
             val builder = AlertDialog.Builder(this, R.style.AlertDialogTheme)
-
             builder.setTitle("태그 선택")
-
             builder.setMultiChoiceItems(
                 multiChoiceList.keys.toTypedArray(),
                 multiChoiceList.values.toBooleanArray()

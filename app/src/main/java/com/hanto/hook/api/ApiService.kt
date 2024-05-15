@@ -9,6 +9,7 @@ import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.PUT
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 // 서버의 어떤 api랑 통신해서 어떤 응답을 어떤 식으로 가져올 건지 대해서 청사진을 그림
@@ -23,8 +24,8 @@ interface ApiService {
     @PUT("/api/hook/12")
     suspend fun updateHook() : Response<ApiResponse>
     // 200: ok, 400: Bad Request, 403: Forbidden, 404: Not Found by ID
-    @DELETE("/api/hook/7")
-    suspend fun deleteHook() : Response<ApiResponse>
+    @DELETE("/api/hook/{id}")
+    suspend fun deleteHook(@Path("id") id: Int) : Response<ApiResponse>
     // 200: ok, 404: Not Found by ID
 
     //============== TAG ==============//

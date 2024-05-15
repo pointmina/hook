@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.hanto.hook.api.ApiResponse
 import com.hanto.hook.api.ApiServiceManager
 import com.hanto.hook.api.ErrorResponse
 import com.hanto.hook.api.SuccessResponse
@@ -20,6 +21,47 @@ class HookViewModel(private val apiServiceManager: ApiServiceManager) : ViewMode
         get() = _successData
     val errorData: LiveData<ErrorResponse?>
         get() = _errorData
+
+    fun loadDeleteMyHook(id: Int) {
+        viewModelScope.launch {
+            try {
+                val response = apiServiceManager.deleteMyHook(id)
+                when (response) {
+                    is SuccessResponse -> {
+                        _successData.value = response
+                    }
+                    is ErrorResponse -> {
+                        _errorData.value = response
+                    }
+
+                    else -> {
+
+                    }
+                }
+            } catch (e: Exception) {
+                Log.d("HookViewModel", "기타 오류: ${e.message}")
+                _errorData.value = ErrorResponse(error = "네트워크 오류: ${e.message}")
+            }
+        }
+    }
+
+    fun loadCreateMyHook(title: String, description: String, url: String, tag: ArrayList<String>) {
+        viewModelScope.launch {
+            try {
+                val response = apiServiceManager.postCreateHook(title, description, url, tag)
+                when (response) {
+                    is SuccessResponse -> _successData.postValue(response)
+                    is ErrorResponse -> _errorData.postValue(response)
+                    else -> {
+                        // 예외 처리
+                    }
+                }
+            } catch (e: Exception) {
+                Log.d("HookViewModel", "기타 오류: ${e.message}")
+                _errorData.value = ErrorResponse(error = "네트워크 오류: ${e.message}")
+            }
+        }
+    }
 
     fun loadFindMyHooks() {
         viewModelScope.launch {
@@ -85,6 +127,29 @@ class HookViewModel(private val apiServiceManager: ApiServiceManager) : ViewMode
                 }
             } catch (e: Exception) {
                 // Handle exception
+            }
+        }
+    }
+
+    fun loadMyInfo() {
+        viewModelScope.launch {
+            try {
+                val response = apiServiceManager.getMyInfo()
+                when (response) {
+                    is SuccessResponse -> {
+                        _successData.value = response
+                    }
+                    is ErrorResponse -> {
+                        _errorData.value = response
+                    }
+
+                    else -> {
+
+                    }
+                }
+            } catch (e: Exception) {
+                Log.d("HookViewModel", "기타 오류: ${e.message}")
+                _errorData.value = ErrorResponse(error = "네트워크 오류: ${e.message}")
             }
         }
     }
