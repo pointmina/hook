@@ -182,6 +182,16 @@
 1. 영우님 작업물 합침 ☑️
 2. 디자인 수정 ☑️
 
+2024 05 15 -> 22th
+-
+1. HomeFragment에서 태그 RecyclerView 선택시 DetailActivity로 전환 ☑️
+2. SelectedTag뷰 추후에 수정해야함..
+3. 근데 태그뷰에서도 webView띄우는 거 있어야할듯..?
+
+2024 05 15 -> 23th
+-
+1. DetailActivity에서 태그 띄우기 ☑️
+
 
 해야할거
 -
