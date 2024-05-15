@@ -15,12 +15,40 @@ class HookViewModel(private val apiServiceManager: ApiServiceManager) : ViewMode
     private val _successData = MutableLiveData<SuccessResponse?>()
     private val _errorData = MutableLiveData<ErrorResponse?>()
     private val _tagDisplayNames = MutableLiveData<List<String>?>()
+    private val _tagCreateSuccess = MutableLiveData<SuccessResponse?>()
+    private val _tagCreateFail = MutableLiveData<ErrorResponse?>()
+    val tagCreateSuccess: LiveData<SuccessResponse?>
+        get() = _tagCreateSuccess
+    val tagCreateFail: LiveData<ErrorResponse?>
+        get() = _tagCreateFail
+
     val tagDisplayNames: LiveData<List<String>?>
         get() = _tagDisplayNames
     val successData: LiveData<SuccessResponse?>
         get() = _successData
     val errorData: LiveData<ErrorResponse?>
         get() = _errorData
+
+
+    fun loadCreateMyTag(name: String) {
+        viewModelScope.launch {
+            try {
+                val result = apiServiceManager.createMyTag(name)
+                if (result is SuccessResponse) {
+                    _tagCreateSuccess.postValue(result)
+                } else if (result is ErrorResponse) {
+                    _tagCreateFail.postValue(result)
+                }
+            } catch (e: Exception) {
+                val errorResponse = ErrorResponse(message = e.message)
+                _tagCreateFail.postValue(errorResponse)
+            }
+        }
+    }
+
+
+
+
 
     fun loadDeleteMyHook(id: Int) {
         viewModelScope.launch {
@@ -30,6 +58,7 @@ class HookViewModel(private val apiServiceManager: ApiServiceManager) : ViewMode
                     is SuccessResponse -> {
                         _successData.value = response
                     }
+
                     is ErrorResponse -> {
                         _errorData.value = response
                     }
@@ -45,10 +74,16 @@ class HookViewModel(private val apiServiceManager: ApiServiceManager) : ViewMode
         }
     }
 
-    fun loadCreateMyHook(title: String, description: String, url: String, tag: ArrayList<String>) {
+    fun loadCreateMyHook(
+        title: String,
+        description: String,
+        url: String,
+        tag: ArrayList<String>
+    ) {
         viewModelScope.launch {
             try {
-                val response = apiServiceManager.postCreateHook(title, description, url, tag)
+                val response =
+                    apiServiceManager.postCreateHook(title, description, url, tag)
                 when (response) {
                     is SuccessResponse -> _successData.postValue(response)
                     is ErrorResponse -> _errorData.postValue(response)
@@ -71,6 +106,7 @@ class HookViewModel(private val apiServiceManager: ApiServiceManager) : ViewMode
                     is SuccessResponse -> {
                         _successData.value = response
                     }
+
                     is ErrorResponse -> {
                         _errorData.value = response
                     }
@@ -94,6 +130,7 @@ class HookViewModel(private val apiServiceManager: ApiServiceManager) : ViewMode
                     is SuccessResponse -> {
                         _successData.value = response
                     }
+
                     is ErrorResponse -> {
                         _errorData.value = response
                     }
@@ -117,6 +154,7 @@ class HookViewModel(private val apiServiceManager: ApiServiceManager) : ViewMode
                     is SuccessResponse -> {
                         _tagDisplayNames.value = response.tag.mapNotNull { it.displayName }
                     }
+
                     is ErrorResponse -> {
                         // Handle error response
                     }
@@ -139,6 +177,7 @@ class HookViewModel(private val apiServiceManager: ApiServiceManager) : ViewMode
                     is SuccessResponse -> {
                         _successData.value = response
                     }
+
                     is ErrorResponse -> {
                         _errorData.value = response
                     }

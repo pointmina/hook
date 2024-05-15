@@ -7,12 +7,24 @@ import com.hanto.hook.api.RetroServer
 import com.hanto.hook.api.ErrorResponse
 import com.hanto.hook.api.SuccessResponse
 import com.hanto.hook.api.ApiServiceManager
+import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody
 import retrofit2.Response
 import retrofit2.http.Body
 
 class ApiServiceManager {
-    //ApiService 인터페이스의 인스턴스를 가짐 -> Retrofit을 사용하여 실제 네트워크 호출을 처리한다.
     private val apiService: ApiService = RetroServer.getInstance().create(ApiService::class.java)
+
+    suspend fun createMyTag(name: String): ApiResponse {
+        val request = TagRequest(name)
+        return handleApiResponse { apiService.createTag(request) }
+    }
+
+    /*suspend fun updateMyTagName(id: Int, name: String): ApiResponse {
+        val request = name
+        return handleApiResponse { apiService.updateTagName(id, request) }
+    }*/
 
     suspend fun deleteMyHook(id: Int): ApiResponse {
         return handleApiResponse { apiService.deleteHook(id) }

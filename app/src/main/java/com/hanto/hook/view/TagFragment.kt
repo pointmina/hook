@@ -10,7 +10,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.view.WindowManager
+import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.Toast
 import androidx.compose.ui.graphics.Color
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -38,6 +41,31 @@ class TagFragment : Fragment() {
         ViewModelProvider(this, viewModelFactory).get(HookViewModel::class.java)
     }
 
+    private val dialog by lazy {
+        Dialog(requireContext()).apply {
+            requestWindowFeature(Window.FEATURE_NO_TITLE) // 타이틀 제거
+            setContentView(R.layout.activity_add_tag) // AddTagActivity 레이아웃을 Dialog에 설정
+
+            val tvChangeTagName = findViewById<EditText>(R.id.tv_change_tag_name)
+            val btnChangeTagName = findViewById<Button>(R.id.btn_change_tag_name)
+
+            // btnChangeTagName 클릭 리스너 설정
+            btnChangeTagName.setOnClickListener {
+                val name = tvChangeTagName.text.toString()
+                hookViewModel.loadCreateMyTag(name)
+                observeViewModel()
+            }
+
+            // Dialog 크기 및 위치 설정
+            val layoutParams = WindowManager.LayoutParams()
+            layoutParams.copyFrom(window?.attributes)
+            layoutParams.width = WindowManager.LayoutParams.WRAP_CONTENT
+            layoutParams.height = WindowManager.LayoutParams.WRAP_CONTENT
+            layoutParams.gravity = Gravity.CENTER
+            window?.attributes = layoutParams
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -51,21 +79,7 @@ class TagFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val btAddTag: ImageButton = view.findViewById(R.id.btAddTag)
-        btAddTag.setOnClickListener{
-            // Dialog를 생성하고 설정
-            val dialog = Dialog(requireContext())
-            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE) // 타이틀 제거
-            dialog.setCancelable(true)
-            dialog.setContentView(R.layout.activity_add_tag) // AddTagActivity 레이아웃을 Dialog에 설정
-
-            // Dialog 크기 및 위치 설정
-            val layoutParams = WindowManager.LayoutParams()
-            layoutParams.copyFrom(dialog.window?.attributes)
-            layoutParams.width = WindowManager.LayoutParams.WRAP_CONTENT
-            layoutParams.height = WindowManager.LayoutParams.WRAP_CONTENT
-            layoutParams.gravity = Gravity.CENTER
-            dialog.window?.attributes = layoutParams
-
+        btAddTag.setOnClickListener {
             // Dialog 표시
             dialog.show()
         }
@@ -102,6 +116,24 @@ class TagFragment : Fragment() {
         hookViewModel.successData.observe(viewLifecycleOwner, Observer { successData ->
             if (successData != null) {
                 tagAdapter.updateData(successData)
+            }
+        })
+    }
+
+    private fun observeViewModel() {
+        hookViewModel.tagCreateSuccess.observe(viewLifecycleOwner, Observer { successResponse ->
+            successResponse?.let {
+                Toast.makeText(requireContext(), "${it.result?.message}", Toast.LENGTH_LONG).show()
+                dialog.dismiss() // Dismiss the dialog after success
+                hookViewModel.loadFindMyTags()
+            }
+        })
+
+        hookViewModel.tagCreateFail.observe(viewLifecycleOwner, Observer { errorResponse ->
+            errorResponse?.let {
+                Toast.makeText(requireContext(), "오류: ${it.message}", Toast.LENGTH_LONG).show()
+                dialog.dismiss()
+                hookViewModel.loadFindMyTags()
             }
         })
     }

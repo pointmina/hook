@@ -9,7 +9,8 @@ sealed class ApiResponse
 data class SuccessResponse(
     @SerializedName("count") var count: Int,
     @SerializedName("tag") var tag: List<Tag>,
-    @SerializedName("hooks") var hooks: ArrayList<Hook> = arrayListOf()
+    @SerializedName("hooks") var hooks: ArrayList<Hook> = arrayListOf(),
+    @SerializedName("result" ) var result : Result? = Result()
 ) : ApiResponse()
 
 data class ErrorResponse(
@@ -18,3 +19,6 @@ data class ErrorResponse(
     @SerializedName("error") var error: String? = null
 ) : ApiResponse()
 
+data class Result (
+    @SerializedName("message" ) var message : String? = null
+)

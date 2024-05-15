@@ -3,7 +3,9 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:background="@drawable/rounded_background_little">
+    android:background="@drawable/rounded_background_little"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".view.AddTagActivity">
 
 
     <View
@@ -58,7 +60,7 @@
         app:layout_constraintStart_toStartOf="@id/container_tag_name"
         app:layout_constraintTop_toTopOf="@id/container_tag_name" />
 
-    <TextView
+    <Button
         android:id="@+id/btn_change_tag_name"
         android:layout_width="327dp"
         android:layout_height="52dp"
@@ -71,9 +73,9 @@
         android:textColor="@color/white"
         android:textSize="14dp"
         android:textStyle="bold"
+        android:elevation="4dp"
         app:layout_constraintEnd_toEndOf="@id/container_tag_name"
         app:layout_constraintStart_toStartOf="@id/container_tag_name"
         app:layout_constraintTop_toBottomOf="@id/container_tag_name" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

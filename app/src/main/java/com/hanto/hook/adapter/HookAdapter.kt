@@ -81,7 +81,7 @@ class HookAdapter(
     }
 
     override fun getItemCount(): Int {
-        return hooks?.size ?: 0
+        return hooks.size
     }
 
     fun getItem(position: Int): Hook {
