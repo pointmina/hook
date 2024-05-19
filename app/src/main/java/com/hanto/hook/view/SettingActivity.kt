@@ -6,8 +6,6 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.hanto.hook.databinding.ActivitySettingBinding
-import com.kakao.sdk.user.Constants
-import com.kakao.sdk.user.UserApiClient
 
 class SettingActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySettingBinding
@@ -22,7 +20,7 @@ class SettingActivity : AppCompatActivity() {
         backButton.setOnClickListener {
             onBackPressed()
         }
-
+/*
         UserApiClient.instance.me { user, error ->
             if (error != null) {
                 Log.e(Constants.TAG, "사용자 정보 요청 실패 $error")
@@ -60,6 +58,6 @@ class SettingActivity : AppCompatActivity() {
                     finish()
                 }
             }
-        }
+        }*/
     }
 }
