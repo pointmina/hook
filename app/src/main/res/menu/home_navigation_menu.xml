@@ -5,14 +5,15 @@
         android:id="@+id/navigation_home"
         android:icon="@drawable/ic_home"
         android:title="@string/label_home" />
+
     <item
         android:id="@+id/navigation_tag"
         android:icon="@drawable/ic_hashtag"
         android:title="@string/label_tag" />
 
-<!--    <item-->
-<!--        android:id="@+id/navigation_setting"-->
-<!--        android:icon="@drawable/ic_setting_2"-->
-<!--        android:title="@string/label_setting" />-->
+    <!--    <item-->
+    <!--        android:id="@+id/navigation_setting"-->
+    <!--        android:icon="@drawable/ic_setting_2"-->
+    <!--        android:title="@string/label_setting" />-->
 
 </menu>

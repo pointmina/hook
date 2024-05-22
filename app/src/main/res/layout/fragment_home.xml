@@ -17,8 +17,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:title="@string/appbar_title_home_fragment"
-        app:titleMarginStart="20dp"
+        app:titleCentered="true"
         app:titleTextAppearance="@style/AppTexTitle.S16.Bold" />
+
+<!--    app:titleMarginStart="20dp"-->
 
     <ImageView
         android:id="@+id/iv_setting"
@@ -48,7 +50,7 @@
     <View
         android:id="@+id/view_tag_area"
         android:layout_width="0dp"
-        android:layout_height="55dp"
+        android:layout_height="40dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="20dp"
         android:layout_marginRight="16dp"
