@@ -18,9 +18,9 @@ class HomeActivity : AppCompatActivity() {
 
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.mainFAB.setOnClickListener{
+/*        binding.mainFAB.setOnClickListener{
             startActivity(Intent(this, AddHookActivity::class.java))
-        }
+        }*/
         setBottomNavigation()
     }
 

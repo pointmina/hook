@@ -2,15 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <queries>
-        <package android:name="com.kakao.talk" />
-    </queries>
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:name=".GlobalApplication"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -38,10 +34,6 @@
         <activity
             android:name=".urlHandler.PageDetailsDialog"
             android:exported="true" />
-
-        <activity
-            android:name=".view.AddTagActivity"
-            android:exported="false" />
         <activity
             android:name=".view.WebviewActivity"
             android:exported="false" />
@@ -80,20 +72,5 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data
-                    android:host="oauth"
-                    android:scheme="kakao9e323bbf72e71bd53ab75f947101fa0b" />
-            </intent-filter>
-        </activity>
     </application>
-
 </manifest>

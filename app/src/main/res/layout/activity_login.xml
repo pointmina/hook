@@ -16,32 +16,32 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
+    <ImageView
         android:id="@+id/tv_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text=" H o o k !"
+        android:src="@drawable/title2"
         android:textColor="@color/black"
+        android:layout_marginTop="130dp"
         android:textSize="50sp"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_login" />
+        app:layout_constraintTop_toTopOf="@+id/iv_login" />
 
 
     <TextView
         android:id="@+id/bt_kakaologin"
         android:layout_width="300dp"
         android:layout_height="60dp"
-        android:layout_marginTop="180dp"
+        android:layout_marginTop="120dp"
         android:backgroundTint="#FEE500"
         android:text="카카오톡으로 로그인"
         android:textAlignment="center"
         android:gravity="center"
         android:background="@drawable/button_border"
         android:textColor="@color/gray_700"
-        app:layout_constraintTop_toBottomOf="@+id/iv_login"
+        app:layout_constraintTop_toBottomOf="@+id/tv_login"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
 
@@ -68,7 +68,8 @@
         android:textColor="@color/gray_700"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bt_kakaologin" />
+        app:layout_constraintTop_toBottomOf="@+id/bt_kakaologin"
+        />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,7 @@
 package com.hanto.hook.viewmodel
 
+import android.app.Application
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -12,6 +14,9 @@ import com.hanto.hook.api.SuccessResponse
 import kotlinx.coroutines.launch
 
 class HookViewModel(private val apiServiceManager: ApiServiceManager) : ViewModel() {
+    private val _naviagteToHome = MutableLiveData<Boolean>()
+    val navigateToHome: LiveData<Boolean>
+        get() = _naviagteToHome
     private val _successData = MutableLiveData<SuccessResponse?>()
     private val _errorData = MutableLiveData<ErrorResponse?>()
     private val _tagDisplayNames = MutableLiveData<List<String>?>()
@@ -29,6 +34,38 @@ class HookViewModel(private val apiServiceManager: ApiServiceManager) : ViewMode
     val errorData: LiveData<ErrorResponse?>
         get() = _errorData
 
+    fun loadUserLogin() {
+        viewModelScope.launch {
+            runCatching {
+                apiServiceManager.managerUserLogin()
+            }.onSuccess { response ->
+                when (response) {
+                    is SuccessResponse -> {
+                        val accessToken = response.accessToken
+                        val refreshToken = response.refreshToken
+                        /*saveToken(accessToken, refreshToken)*/
+                        _naviagteToHome.value = true
+                        // API 호출 성공 -> 토큰 저장, 메인 페이지로 이동
+                    }
+                    is ErrorResponse -> {
+                        Log.e("LoginError", "Login failed: ${response.message}")
+                        // API 호출 실패
+                    }
+                }
+            }.onFailure { exception ->
+                Log.e("LoginError", "Login failed: ${exception.message}")
+                // API 호출 실패
+            }
+        }
+    }
+    /*private fun saveToken(accessToken: String, refreshToken: String) {
+        val sharedPref = application.getSharedPreferences("whdgkqtjfrPrpdlxmdnpdl", Context.MODE_PRIVATE)
+        with (sharedPref.edit()) {
+            putString("ACCESS_TOKEN", accessToken)
+            putString("REFRESH_TOKEN", refreshToken)
+            apply()
+        }
+    }*/
 
     fun loadCreateMyTag(name: String) {
         viewModelScope.launch {
@@ -52,24 +89,19 @@ class HookViewModel(private val apiServiceManager: ApiServiceManager) : ViewMode
 
     fun loadDeleteMyHook(id: Int) {
         viewModelScope.launch {
-            try {
-                val response = apiServiceManager.deleteMyHook(id)
+            runCatching {
+                apiServiceManager.deleteMyHook(id)
+            }.onSuccess { response ->
                 when (response) {
                     is SuccessResponse -> {
                         _successData.value = response
                     }
-
                     is ErrorResponse -> {
                         _errorData.value = response
                     }
-
-                    else -> {
-
-                    }
                 }
-            } catch (e: Exception) {
-                Log.d("HookViewModel", "기타 오류: ${e.message}")
-                _errorData.value = ErrorResponse(error = "네트워크 오류: ${e.message}")
+            }.onFailure { exception ->
+                Log.e("Delete Hook Error", "${exception.message}")
             }
         }
     }

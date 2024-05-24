@@ -10,7 +10,9 @@ data class SuccessResponse(
     @SerializedName("count") var count: Int,
     @SerializedName("tag") var tag: List<Tag>,
     @SerializedName("hooks") var hooks: ArrayList<Hook> = arrayListOf(),
-    @SerializedName("result" ) var result : Result? = Result()
+    @SerializedName("result" ) var result : Result? = Result(),
+    @SerializedName("accessToken"  ) var accessToken  : String,
+    @SerializedName("refreshToken" ) var refreshToken : String
 ) : ApiResponse()
 
 data class ErrorResponse(

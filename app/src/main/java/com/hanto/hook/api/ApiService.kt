@@ -15,8 +15,7 @@ import retrofit2.http.Query
 
 // 서버의 어떤 api랑 통신해서 어떤 응답을 어떤 식으로 가져올 건지 대해서 청사진을 그림
 interface ApiService {
-    //============== Hook ==============//
-    @GET("/api/auth")
+    @GET("/api/auth/kakao/signin") // 로그인
     suspend fun userLogin(): Response<ApiResponse>
     @GET("/api/hook")
     suspend fun findMyHooks(): Response<ApiResponse>

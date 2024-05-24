@@ -16,6 +16,10 @@ import retrofit2.http.Body
 class ApiServiceManager {
     private val apiService: ApiService = RetroServer.getInstance().create(ApiService::class.java)
 
+    suspend fun managerUserLogin(): ApiResponse {
+        return handleApiResponse { apiService.userLogin() }
+    }
+
     suspend fun createMyTag(name: String): ApiResponse {
         val request = TagRequest(name)
         return handleApiResponse { apiService.createTag(request) }
