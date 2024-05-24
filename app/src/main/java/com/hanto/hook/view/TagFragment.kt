@@ -2,7 +2,6 @@ package com.hanto.hook.view
 
 import android.app.Dialog
 import android.content.Intent
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -14,11 +13,9 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Toast
-import androidx.compose.ui.graphics.Color
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
@@ -26,7 +23,7 @@ import com.hanto.hook.R
 import com.hanto.hook.adapter.TagAdapter
 import com.hanto.hook.api.ApiServiceManager
 import com.hanto.hook.databinding.FragmentTagBinding
-import com.hanto.hook.viewmodel.HookViewModel
+import com.hanto.hook.viewmodel.MainViewModel
 import com.hanto.hook.viewmodel.ViewModelFactory
 
 class TagFragment : Fragment() {
@@ -37,8 +34,8 @@ class TagFragment : Fragment() {
 
     private val apiServiceManager by lazy { ApiServiceManager() }
     private val viewModelFactory by lazy { ViewModelFactory(apiServiceManager) }
-    private val hookViewModel: HookViewModel by lazy {
-        ViewModelProvider(this, viewModelFactory).get(HookViewModel::class.java)
+    private val hookViewModel: MainViewModel by lazy {
+        ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
     }
 
     private val dialog by lazy {
@@ -52,7 +49,7 @@ class TagFragment : Fragment() {
             // btnChangeTagName 클릭 리스너 설정
             btnChangeTagName.setOnClickListener {
                 val name = tvChangeTagName.text.toString()
-                hookViewModel.loadCreateMyTag(name)
+                hookViewModel.loadCreateTag(name)
                 observeViewModel()
             }
 
@@ -121,7 +118,7 @@ class TagFragment : Fragment() {
     }
 
     private fun observeViewModel() {
-        hookViewModel.tagCreateSuccess.observe(viewLifecycleOwner, Observer { successResponse ->
+        hookViewModel.successData.observe(viewLifecycleOwner, Observer { successResponse ->
             successResponse?.let {
                 Toast.makeText(requireContext(), "${it.result?.message}", Toast.LENGTH_LONG).show()
                 dialog.dismiss() // Dismiss the dialog after success
@@ -129,7 +126,7 @@ class TagFragment : Fragment() {
             }
         })
 
-        hookViewModel.tagCreateFail.observe(viewLifecycleOwner, Observer { errorResponse ->
+        hookViewModel.errorData.observe(viewLifecycleOwner, Observer { errorResponse ->
             errorResponse?.let {
                 Toast.makeText(requireContext(), "오류: ${it.message}", Toast.LENGTH_LONG).show()
                 dialog.dismiss()

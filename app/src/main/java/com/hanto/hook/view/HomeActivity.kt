@@ -34,9 +34,11 @@ class HomeActivity : AppCompatActivity() {
         binding.bottomNavigationHome.setupWithNavController(navController)
     }
 
-    var backPressedTime: Long = 0
+    /*var backPressedTime: Long = 0*/
     override fun onBackPressed() {
-        if (backPressedTime + 3000 > System.currentTimeMillis()) {
+        super.onBackPressed()
+        finishAffinity()
+/*        if (backPressedTime + 3000 > System.currentTimeMillis()) {
             super.onBackPressed()
             finish() //액티비티 종료
         } else {
@@ -45,6 +47,6 @@ class HomeActivity : AppCompatActivity() {
                 Toast.LENGTH_SHORT
             ).show()
         }
-        backPressedTime = System.currentTimeMillis()
+        backPressedTime = System.currentTimeMillis()*/
     }
 }

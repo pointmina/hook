@@ -18,16 +18,15 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.hanto.hook.R
 import com.hanto.hook.api.ApiServiceManager
-import com.hanto.hook.api.SuccessResponse
 import com.hanto.hook.databinding.ActivityAddHookBinding
-import com.hanto.hook.viewmodel.HookViewModel
+import com.hanto.hook.viewmodel.MainViewModel
 import com.hanto.hook.viewmodel.ViewModelFactory
 
 class AddHookActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAddHookBinding
     private var isExpanded = false
-    private lateinit var viewModel: HookViewModel
+    private lateinit var viewModel: MainViewModel
 
     private val multiChoiceList = linkedMapOf<String, Boolean>()
 
@@ -44,9 +43,9 @@ class AddHookActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(
             this,
             ViewModelFactory(apiServiceManager)
-        ).get(HookViewModel::class.java)
+        ).get(MainViewModel::class.java)
 
-        viewModel.loadFindMyDisplayName()
+        viewModel.loadFindMyTags()
 
         viewModel.tagDisplayNames.observe(this, Observer { tagDisplayNames ->
             tagDisplayNames?.let {
@@ -78,7 +77,7 @@ class AddHookActivity : AppCompatActivity() {
                 .map { it.replace("#", "").trim() }
             val tag = ArrayList<String>(tagList)
 
-            viewModel.loadCreateMyHook(title, description, url, tag)
+            viewModel.loadCreateHook(title, description, url, tag)
             Toast.makeText(this, tag.joinToString(", "), Toast.LENGTH_LONG).show()
             finish()
         }

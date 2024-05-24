@@ -1,7 +1,6 @@
 package com.hanto.hook.view
 
 
-import android.app.Application
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -15,14 +14,13 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.hanto.hook.R
 import com.hanto.hook.databinding.FragmentHomeBinding
 import com.hanto.hook.adapter.HookAdapter
 import com.hanto.hook.api.ApiServiceManager
 import com.hanto.hook.model.Hook
-import com.hanto.hook.viewmodel.HookViewModel
+import com.hanto.hook.viewmodel.MainViewModel
 import com.hanto.hook.viewmodel.ViewModelFactory
 
 class HomeFragment : Fragment() {
@@ -33,8 +31,8 @@ class HomeFragment : Fragment() {
 
     private val apiServiceManager by lazy { ApiServiceManager() }
     private val viewModelFactory by lazy { ViewModelFactory(apiServiceManager) }
-    private val hookViewModel: HookViewModel by lazy {
-        ViewModelProvider(this, viewModelFactory).get(HookViewModel::class.java)
+    private val viewModel: MainViewModel by lazy {
+        ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -75,7 +73,7 @@ class HomeFragment : Fragment() {
                 }
             })
 
-        hookViewModel.loadFindMyHooks()
+        viewModel.loadFindMyHooks()
         binding.rvHome.adapter = hookAdapter
 
         // DividerItemDecoration 설정
@@ -88,10 +86,10 @@ class HomeFragment : Fragment() {
         binding.rvHome.addItemDecoration(dividerItemDecoration)
 
         val shimmerContainer = binding.sfLoading
-        hookViewModel.successData.observe(viewLifecycleOwner, Observer {
-            successData ->
-            if (successData != null) {
-                hookAdapter.updateData(successData)
+        viewModel.hookData.observe(viewLifecycleOwner, Observer {
+            hookData ->
+            if (hookData != null) {
+                hookAdapter.updateData(hookData)
                 shimmerContainer.stopShimmer()
                 shimmerContainer.visibility = View.GONE
             } else {
@@ -122,8 +120,8 @@ class HomeFragment : Fragment() {
 
         val btHookDelete = view.findViewById<Button>(R.id.bt_HookDelete)
         btHookDelete.setOnClickListener {
-            selectedItem.id?.let { it1 -> hookViewModel.loadDeleteMyHook(it1) }
-            hookViewModel.loadFindMyHooks() // 뷰 화면 새로고침 (다시 불러오기)
+            selectedItem.id?.let { it1 -> viewModel.loadDeleteHook(it1) }
+            viewModel.loadFindMyHooks() // 뷰 화면 새로고침 (다시 불러오기)
             dialog.dismiss()
         }
 
