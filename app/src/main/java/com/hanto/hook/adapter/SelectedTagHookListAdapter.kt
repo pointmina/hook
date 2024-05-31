@@ -43,7 +43,8 @@ class SelectedTagHookListAdapter(
                 // RecyclerView에 TagAdapter와 LayoutManager 설정
                 rvTagContainer.apply {
                     // 기존 adapter 대신에 새로운 TagAdapter 객체를 생성하여 사용
-                    adapter = hook.tags?.mapNotNull { it.displayName }?.let { TagHomeAdapter(it) }
+                    //수정 필요함
+//                    adapter = hook.tags?.mapNotNull { it.displayName }?.let { TagHomeAdapter(it) }
                     val recyclerView = binding.rvTagContainer
                     layoutManager =
                         FlexboxLayoutManager(context)

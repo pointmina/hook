@@ -7,20 +7,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.ImageButton
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.hanto.hook.R
 import com.hanto.hook.databinding.FragmentHomeBinding
 import com.hanto.hook.adapter.HookAdapter
 import com.hanto.hook.api.ApiServiceManager
 import com.hanto.hook.model.Hook
-import com.hanto.hook.viewmodel.MainViewModel
+import com.hanto.hook.viewmodel.HookViewModel
 import com.hanto.hook.viewmodel.ViewModelFactory
 
 class HomeFragment : Fragment() {
@@ -31,9 +31,10 @@ class HomeFragment : Fragment() {
 
     private val apiServiceManager by lazy { ApiServiceManager() }
     private val viewModelFactory by lazy { ViewModelFactory(apiServiceManager) }
-    private val viewModel: MainViewModel by lazy {
-        ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
+    private val hookViewModel: HookViewModel by lazy {
+        ViewModelProvider(this, viewModelFactory).get(HookViewModel::class.java)
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,20 +42,26 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
+
+        // 세팅 버튼 클릭 시
+        binding.ivSetting.setOnClickListener {
+            findNavController().navigate(R.id.action_navigation_home_to_settingActivity)
+        }
+
+        // 추가 버튼 클릭 시
+//        binding.add.setOnClickListener {
+//            findNavController().navigate(R.id.action_navigation_home_to_addHookActivity)
+//        }
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val btSetting: ImageButton = view.findViewById(R.id.bt_setting)
-        btSetting.setOnClickListener {
-            findNavController().navigate(R.id.action_navigation_home_to_settingActivity)
-        }
-
         hookAdapter = HookAdapter(
             hooks = ArrayList(),
-            tag = emptyList(),
+            tag = ArrayList(),
             object : HookAdapter.OnItemClickListener {
                 override fun onClick(position: Int) {
                     val selectedHook = hookAdapter.getItem(position)
@@ -63,6 +70,9 @@ class HomeFragment : Fragment() {
                         putExtra("item_title", selectedHook.title)
                         putExtra("item_url", selectedHook.url)
                         putExtra("item_description", selectedHook.description)
+                        selectedHook.tags?.map { it.displayName }?.let {
+                            putStringArrayListExtra("item_tag_list", ArrayList(it))
+                        }
                         startActivity(this)
                     }
                 }
@@ -71,9 +81,10 @@ class HomeFragment : Fragment() {
                     val selectedHook = hookAdapter.getItem(position)
                     showBottomSheetDialog(selectedHook)
                 }
+
             })
 
-        viewModel.loadFindMyHooks()
+        hookViewModel.loadFindMyHooks()
         binding.rvHome.adapter = hookAdapter
 
         // DividerItemDecoration 설정
@@ -86,22 +97,24 @@ class HomeFragment : Fragment() {
         binding.rvHome.addItemDecoration(dividerItemDecoration)
 
         val shimmerContainer = binding.sfLoading
-        viewModel.hookData.observe(viewLifecycleOwner, Observer {
-            hookData ->
-            if (hookData != null) {
-                hookAdapter.updateData(hookData)
+        hookViewModel.successData.observe(viewLifecycleOwner, Observer { successData ->
+            if (successData != null) {
+                hookAdapter.updateData(successData)
                 shimmerContainer.stopShimmer()
                 shimmerContainer.visibility = View.GONE
             } else {
 
             }
         })
+
+
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+
 
     private fun showBottomSheetDialog(selectedItem: Hook) {
         val dialog = BottomSheetDialog(requireContext(), R.style.CustomBottomSheetDialogTheme)
@@ -118,10 +131,15 @@ class HomeFragment : Fragment() {
             dialog.dismiss()
         }
 
+//        val btHookShare = view.findViewById<Button>(R.id.bt_HookShare)
+//        btHookShare.setOnClickListener {
+//            // Share 기능 구현
+//            dialog.dismiss()
+//        }
+
         val btHookDelete = view.findViewById<Button>(R.id.bt_HookDelete)
         btHookDelete.setOnClickListener {
-            selectedItem.id?.let { it1 -> viewModel.loadDeleteHook(it1) }
-            viewModel.loadFindMyHooks() // 뷰 화면 새로고침 (다시 불러오기)
+            // Delete 기능 구현
             dialog.dismiss()
         }
 

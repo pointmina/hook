@@ -27,23 +27,36 @@
         app:layout_constraintVertical_bias="0.0"
         app:navGraph="@navigation/home_graph" />
 
+    <ImageButton
+        android:id="@+id/mainFAB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="45dp"
+        android:background="@drawable/bg_button_transparent_round"
+        android:contentDescription="@string/add_new_hook"
+        android:src="@drawable/ic_write_hook"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        />
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation_home"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_bottom_sheet_radius"
+        android:layout_height="70dp"
+        android:background="@drawable/shadow"
         android:backgroundTint="@color/white"
         app:itemActiveIndicatorStyle="@null"
-        app:itemIconSize="24dp"
+        app:itemIconSize="28dp"
         app:itemIconTint="@color/selector_botton_navigation_color"
         app:itemTextColor="@color/selector_botton_navigation_color"
         app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:paddingLeft="40dp"
-        android:paddingRight="40dp"
         app:menu="@menu/home_navigation_menu"
+
         />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

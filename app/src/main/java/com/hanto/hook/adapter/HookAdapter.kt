@@ -1,5 +1,6 @@
 package com.hanto.hook.adapter
 
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,8 +24,7 @@ class HookAdapter(
         fun onOptionButtonClick(position: Int)
     }
 
-    inner class ViewHolder(val binding: ItemHookBinding)
-        : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(val binding: ItemHookBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(hook: Hook) {
             binding.tvTitle.text = hook.title
@@ -38,12 +38,13 @@ class HookAdapter(
             }
 
             //tags가 null이 아닌 경우에만 RecyclerView에 어댑터 설정
-            hook.tags?.let { tag ->
+            hook.tags?.let { tags ->
                 val flexboxLayoutManager = FlexboxLayoutManager(binding.root.context)
                 flexboxLayoutManager.flexDirection = FlexDirection.ROW
                 flexboxLayoutManager.justifyContent = JustifyContent.FLEX_START
                 binding.rvTagContainer.layoutManager = flexboxLayoutManager
-                binding.rvTagContainer.adapter = hook.tags?.map { it.displayName }?.let { TagHomeAdapter(it) }
+                // TagHomeAdapter 초기화 시 selectedHook도 함께 전달
+                binding.rvTagContainer.adapter = TagHomeAdapter(tags.map { it.displayName }, hook)
                 binding.rvTagContainer.visibility = View.VISIBLE
             } ?: run {
                 binding.rvTagContainer.visibility = View.GONE

@@ -18,23 +18,21 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.hanto.hook.R
 import com.hanto.hook.api.ApiServiceManager
+import com.hanto.hook.api.SuccessResponse
 import com.hanto.hook.databinding.ActivityAddHookBinding
-import com.hanto.hook.viewmodel.MainViewModel
+import com.hanto.hook.viewmodel.HookViewModel
 import com.hanto.hook.viewmodel.ViewModelFactory
 
 class AddHookActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAddHookBinding
     private var isExpanded = false
-    private lateinit var viewModel: MainViewModel
+    private lateinit var viewModel: HookViewModel
 
     private val multiChoiceList = linkedMapOf<String, Boolean>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityAddHookBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
 
         // ApiServiceManager 인스턴스 생성 (필요에 따라서)
         val apiServiceManager = ApiServiceManager()
@@ -43,104 +41,72 @@ class AddHookActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(
             this,
             ViewModelFactory(apiServiceManager)
-        ).get(MainViewModel::class.java)
+        ).get(HookViewModel::class.java)
 
-        viewModel.loadFindMyTags()
+        viewModel.loadFindMyDisplayName()
 
         viewModel.tagDisplayNames.observe(this, Observer { tagDisplayNames ->
             tagDisplayNames?.let {
                 for (tag in tagDisplayNames) multiChoiceList[tag] = false
             }
-
         })
 
+        binding = ActivityAddHookBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
+
         val downArrow = binding.ivDownArrow
+        val tvUrlDescription = binding.tvUrlDescription
+        val tvTag = binding.tvTag
         val containerTag = binding.containerTag
         val containerInfoEtc = binding.containerLinkInfoEtc
-        val tagSelect = binding.containerTag
-        val tvLimit2 = binding.tvLimit2
-        val backButton = binding.ivAppbarBackButton
-
-        val tvTitle = binding.tvUrlTitle
-        val tvUrlDescription = binding.tvUrlDescription
         val urlLink = binding.tvUrlLink
-        val tvTag = binding.tvTag
+        val tagSelect = binding.containerTag
+        val backButton = binding.ivAppbarBackButton
+        val addNewHook = binding.ivAddNewHook
+        val tvTitle = binding.tvUrlTitle
+        val tvLimit2 = binding.tvLimit2
 
-        binding.ivAddNewHook.setOnClickListener {
-            val title = tvTitle.text.toString()
-            val description = tvUrlDescription.text.toString()
-            val url = urlLink.text.toString()
-            val tagString = containerTag.text.toString()
-            val tagList = tagString.trim()
-                .split(",")
-                .filter { it.isNotEmpty() }
-                .map { it.replace("#", "").trim() }
-            val tag = ArrayList<String>(tagList)
-
-            viewModel.loadCreateHook(title, description, url, tag)
-            Toast.makeText(this, tag.joinToString(", "), Toast.LENGTH_LONG).show()
-            finish()
-        }
-
-
-        backButton.setOnClickListener {
-            onBackPressed()
-        }
-
-        binding.tvLimit1.text = "${tvTitle.text.length} / 120"
+        binding.tvLimit1.text = "${tvTitle.text.length} / 80"
         tvLimit2.text = "${tvUrlDescription.text.length} / 80"
 
         tvTitle.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 s?.let {
-                    binding.tvLimit1.text = "${s.length} / 120"
+                    binding.tvLimit1.text = "${s.length} / 80"
                 }
             }
-            override fun afterTextChanged(s: Editable?) {}
+
+            override fun afterTextChanged(s: Editable?) {
+
+            }
         })
 
         tvUrlDescription.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 s?.let {
                     tvLimit2.text = "${s.length} / 80"
                 }
             }
-            override fun afterTextChanged(s: Editable?) {}
+
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
         })
 
-        tagSelect.setOnClickListener {
-            val builder = AlertDialog.Builder(this, R.style.AlertDialogTheme)
-            builder.setTitle("태그 선택")
-            builder.setMultiChoiceItems(
-                multiChoiceList.keys.toTypedArray(),
-                multiChoiceList.values.toBooleanArray()
-            ) { dialogInterface: DialogInterface, which: Int, isChecked: Boolean ->
-                multiChoiceList[multiChoiceList.keys.toTypedArray()[which]] = isChecked
-            }
-
-            builder.setPositiveButton("ok") { dialog, id ->
-                val selectedTags = mutableListOf<String>()
-                for ((tag, selected) in multiChoiceList) {
-                    if (selected) {
-                        selectedTags.add(tag)
-                    }
-                }
-                tvTag.text = selectedTags.joinToString(", ")
-                // 추가: 선택된 태그를 containerTag에 표시
-                containerTag.text = selectedTags.joinToString(", ")
-                Log.d("Selected Items", multiChoiceList.toString())
-                dialog.dismiss()
-            }
-
-            builder.setNegativeButton("cancel") { dialog, id ->
-                dialog.dismiss()
-            }
-
-            val alertDialog = builder.create()
-            alertDialog.show()
+        backButton.setOnClickListener {
+            onBackPressed()
         }
+
 
         containerTag.setOnClickListener {
             val tags = multiChoiceList.keys.toTypedArray()
@@ -178,7 +144,7 @@ class AddHookActivity : AppCompatActivity() {
                 // 추가: 새로운 항목 추가 기능 구현
                 val editText = EditText(this)
                 editText.hint = "태그 입력"
-                val dialogBuilder = AlertDialog.Builder(this,R.style.MyCheckBox)
+                val dialogBuilder = AlertDialog.Builder(this)
                     .setTitle("태그 추가")
                     .setView(editText)
                     .setPositiveButton("추가") { dialog, which ->
