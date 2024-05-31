@@ -53,11 +53,10 @@
             android:layout_height="wrap_content"
             android:background="@drawable/textview_detail_border"
             android:theme="@style/MyCheckBox"
-            android:hint="이름을 입력하세요"
             android:padding="15dp"
-            android:text="종합설계"
             android:textColor="@color/black"
             android:textSize="16dp"
+            android:maxLength="18"
             android:textStyle="bold"
             app:layout_constraintTop_toBottomOf="@id/txt_userName" />
 
@@ -81,7 +80,6 @@
             android:layout_marginTop="1dp"
             android:background="@drawable/textview_detail_border"
             android:padding="15dp"
-            android:text="hufs@hufs.ac.kr"
             android:textColor="@color/black"
             android:textSize="14sp"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -104,7 +102,6 @@
             android:layout_height="wrap_content"
             android:padding="16dp"
             android:text="개인정보 처리방침"
-            android:textColor="@color/black"
             android:textStyle="bold"
             app:layout_constraintTop_toBottomOf="@id/txt_service_center" />
 
@@ -114,7 +111,6 @@
             android:layout_height="wrap_content"
             android:padding="16dp"
             android:text="서비스 이용약관"
-            android:textColor="@color/black"
             android:textStyle="bold"
             app:layout_constraintTop_toBottomOf="@id/tv_privacy_policy" />
 
@@ -138,19 +134,19 @@
             app:layout_constraintTop_toBottomOf="@id/kakao_logout_button" />
 
 
-        <TextView
+        <Button
             android:id="@+id/btn_save_change"
             android:layout_width="300dp"
             android:layout_height="50dp"
             android:layout_marginBottom="50dp"
             android:layout_marginTop="50dp"
             android:background="@drawable/button_border"
-            android:backgroundTint="@color/purple"
             android:gravity="center"
             android:text="저장하기"
             android:textAlignment="center"
             android:textAppearance="@style/AppTextPrimary.S14.bold"
-            android:textColor="@color/white"
+            android:clickable="true"
+            android:focusable="true"
             app:layout_constraintTop_toBottomOf="@+id/kakao_unlink_button"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"

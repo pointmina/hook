@@ -16,7 +16,7 @@ interface ApiService {
     suspend fun getMyInfo(): Response<ApiResponse>
 
     @PUT("/api/user")
-    suspend fun updateNickName(@Body nickname: String): Response<ApiResponse>
+    suspend fun updateNickName(@Body request: NicknameRequest): Response<ApiResponse>
 
     //============== Hook ==============
     @GET("/api/hook")

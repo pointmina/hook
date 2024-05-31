@@ -57,6 +57,8 @@ android {
 dependencies {
     // DataStore
     implementation ("androidx.datastore:datastore-preferences:1.0.0")
+    implementation("androidx.datastore:datastore-preferences-core-jvm:1.1.1")
+    implementation("androidx.datastore:datastore-core-android:1.1.1")
 
     //recyclerView SwipeRefreshLayout
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
@@ -80,8 +82,7 @@ dependencies {
     implementation("androidx.activity:activity-ktx:1.9.0")
     implementation("com.google.firebase:firebase-database-ktx:21.0.0")
     implementation("androidx.activity:activity:1.8.0")
-    implementation("androidx.datastore:datastore-preferences-core-jvm:1.1.1")
-    implementation("androidx.datastore:datastore-core-android:1.1.1")
+
     val nav_version = "2.7.7"
 
     implementation("com.google.code.gson:gson:2.10.1")

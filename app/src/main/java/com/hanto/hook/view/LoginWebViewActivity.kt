@@ -68,6 +68,8 @@ class LoginWebViewActivity : AppCompatActivity() {
                 saveToken(accessToken, refreshToken)
 
                 withContext(Dispatchers.Main) {
+                    clearWebViewData()
+
                     val intent = Intent(this@LoginWebViewActivity, LoginActivity::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
                     startActivity(intent)
@@ -88,4 +90,19 @@ class LoginWebViewActivity : AppCompatActivity() {
             preferences[refreshTokenKey] = refreshToken
         }
     }
+
+    private fun clearWebViewData() {
+        val webView = findViewById<WebView>(R.id.mainWebView)
+        webView.apply {
+            clearHistory() // 방문 기록 삭제
+            clearCache(true) // 캐시 삭제
+            clearFormData() // 양식 데이터 삭제
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        clearWebViewData() // 액티비티가 종료될 때 웹뷰 데이터 삭제
+    }
 }
+

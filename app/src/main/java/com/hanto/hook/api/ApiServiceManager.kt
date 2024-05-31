@@ -13,7 +13,8 @@ class ApiServiceManager {
     }
 
     suspend fun managerUpdateNickName(nickname: String): ApiResponse {
-        return handleApiResponse { apiService.updateNickName(nickname) }
+        val request = NicknameRequest(nickname)
+        return handleApiResponse { apiService.updateNickName(request) }
     }
 
     //============== Hook ==============// get random hook 제외 총 5개

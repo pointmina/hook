@@ -26,6 +26,10 @@ class MainViewModel(private val apiServiceManager: ApiServiceManager) : ViewMode
     val tagDisplayNames: LiveData<List<String>?>
         get() = _tagDisplayNames
     // 유저 2개 ============================================================================
+    private val _userData = MutableLiveData<SuccessResponse?>()
+    val userData: LiveData<SuccessResponse?>
+        get() = _userData
+
     fun loadGetMyInfo() {
         viewModelScope.launch {
             runCatching {
@@ -33,10 +37,11 @@ class MainViewModel(private val apiServiceManager: ApiServiceManager) : ViewMode
             }.onSuccess { result ->
                 when (result) {
                     is SuccessResponse -> {
-                        _successData.postValue(result)
+                        _userData.postValue(result)
                     }
                     is ErrorResponse -> {
                         _errorData.postValue(result)
+                        Log.e("Error - loadGetMyInfo", "$errorData")
                     }
                 }
             }.onFailure { exception ->

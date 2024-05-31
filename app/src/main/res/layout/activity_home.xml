@@ -32,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="15dp"
-        android:layout_marginBottom="45dp"
+        android:layout_marginBottom="65dp"
         android:background="@drawable/bg_button_transparent_round"
         android:contentDescription="@string/add_new_hook"
         android:src="@drawable/ic_write_hook"
@@ -42,12 +42,12 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation_home"
-        android:layout_width="0dp"
-        android:layout_height="70dp"
-        android:background="@drawable/shadow"
-        android:backgroundTint="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
+        android:background="@drawable/bg_bottom_sheet_radius"
         app:itemActiveIndicatorStyle="@null"
-        app:itemIconSize="28dp"
         app:itemIconTint="@color/selector_botton_navigation_color"
         app:itemTextColor="@color/selector_botton_navigation_color"
         app:labelVisibilityMode="labeled"
@@ -55,8 +55,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/home_navigation_menu"
-
         />
 
+    <!--app:itemIconSize="28dp"-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

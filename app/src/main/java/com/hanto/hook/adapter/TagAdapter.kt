@@ -1,6 +1,5 @@
 package com.hanto.hook.adapter
 
-
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -34,7 +33,6 @@ class TagAdapter(
         }
     }
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemTagTagBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
@@ -46,7 +44,7 @@ class TagAdapter(
     }
 
     override fun getItemCount(): Int {
-        return tag.size
+        return tag?.size ?: 0
     }
 
     fun getItem(position: Int): Tag {

@@ -19,3 +19,9 @@ data class TagRequest (
     @SerializedName("name") val name: String
 
 ): ApiRequest()
+
+data class NicknameRequest (
+
+    @SerializedName("nickname"        ) var nickname        : String?           = null,
+
+): ApiRequest()

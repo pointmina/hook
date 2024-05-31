@@ -10,15 +10,14 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.hanto.hook.R
 import com.hanto.hook.api.ApiServiceManager
 import com.hanto.hook.databinding.ActivityHookDetailBinding
-import com.hanto.hook.viewmodel.HookViewModel
+import com.hanto.hook.viewmodel.MainViewModel
 import com.hanto.hook.viewmodel.ViewModelFactory
 
 class HookDetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHookDetailBinding
-    private lateinit var viewModel: HookViewModel
+    private lateinit var viewModel: MainViewModel
 
     private val multiChoiceList = linkedMapOf<String, Boolean>()
 
@@ -32,9 +31,9 @@ class HookDetailActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(
             this,
             ViewModelFactory(apiServiceManager)
-        ).get(HookViewModel::class.java)
+        ).get(MainViewModel::class.java)
 
-        viewModel.loadFindMyDisplayName()
+        viewModel.loadFindMyTags()
 
 
 

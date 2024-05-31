@@ -2,62 +2,69 @@ package com.hanto.hook.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.adapters.TextViewBindingAdapter.setText
+import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.stringPreferencesKey
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import com.hanto.hook.api.ApiServiceManager
 import com.hanto.hook.databinding.ActivitySettingBinding
+import com.hanto.hook.viewmodel.MainViewModel
+import com.hanto.hook.viewmodel.ViewModelFactory
+import kotlinx.coroutines.launch
 
 class SettingActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySettingBinding
+    private val apiServiceManager by lazy { ApiServiceManager() }
+    private val viewModelFactory by lazy { ViewModelFactory(apiServiceManager) }
+    private val viewModel: MainViewModel by lazy {
+        ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySettingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val backButton = binding.ivAppbarBackButton
-
-        backButton.setOnClickListener {
+        binding.ivAppbarBackButton.setOnClickListener{
             onBackPressed()
         }
-/*
-        UserApiClient.instance.me { user, error ->
-            if (error != null) {
-                Log.e(Constants.TAG, "사용자 정보 요청 실패 $error")
-            } else if (user != null) {
-                Log.d(Constants.TAG, "사용자 정보 요청 성공 : $user")
 
-                binding.tvUserName.setText(user.kakaoAccount?.profile?.nickname)
-                binding.tvEmail.text = user.kakaoAccount?.email
-            }
+        viewModel.loadGetMyInfo()
+        viewModel.userData.observe(this, Observer { user ->
+            val nickname = user?.user?.nickname ?: "종합설계"
+            val email = user?.user?.email ?: "이메일 정보 없음"
+            binding.tvUserName.setText(nickname)
+            binding.tvEmail.text = email
+        })
+
+        binding.btnSaveChange.setOnClickListener{
+            val newNickname = binding.tvUserName.text.toString()
+            viewModel.loadUpdateNickName(nickname = newNickname)
+            viewModel.successData.observe(this, Observer { result ->
+                Toast.makeText(this, "$result", Toast.LENGTH_SHORT).show() // TODO: 수정 필요
+            })
+            finish()
         }
 
         binding.kakaoLogoutButton.setOnClickListener {
-            UserApiClient.instance.logout { error ->
-                if (error != null) {
-                    Toast.makeText(this, "로그아웃 실패 $error", Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(this, "로그아웃 성공", Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this, LoginActivity::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
-                    startActivity(intent)
-                    finish()
-                }
+            lifecycleScope.launch {
+                clearTokens()
+                val intent = Intent(this@SettingActivity, SplashView::class.java)
+                startActivity(intent)
+                finish()
             }
         }
-
-        binding.kakaoUnlinkButton.setOnClickListener {
-            UserApiClient.instance.unlink { error ->
-                if (error != null) {
-                    Toast.makeText(this, "회원 탈퇴 실패 $error", Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(this, "회원 탈퇴 성공", Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this, LoginActivity::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
-                    startActivity(intent)
-                    finish()
-                }
-            }
-        }*/
+    }
+    private suspend fun clearTokens() {
+        val accessTokenKey = stringPreferencesKey("access_token")
+        val refreshTokenKey = stringPreferencesKey("refresh_token")
+        applicationContext.dataStore.edit { preferences ->
+            preferences.remove(accessTokenKey)
+            preferences.remove(refreshTokenKey)
+        }
     }
 }
