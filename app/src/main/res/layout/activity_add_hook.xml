@@ -10,7 +10,6 @@
     tools:context=".view.AddHookActivity"
     tools:ignore="MissingDefaultResource">
 
-
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar_new_hook"
         android:layout_width="0dp"
@@ -42,11 +41,11 @@
         app:layout_constraintBottom_toTopOf="@id/tv_url_link"
         app:layout_constraintTop_toBottomOf="@id/toolbar_new_hook" />
 
-
     <EditText
         android:id="@+id/tv_url_link"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="wrap_content"
+        android:minHeight="40dp"
         android:background="@drawable/textview_detail_border"
         android:hint="@string/hint_url_link"
         android:inputType="textMultiLine"
@@ -61,7 +60,6 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_link_info"
         tools:ignore="TextFields" />
-
 
     <ImageView
         android:id="@+id/iv_url_link"
@@ -78,18 +76,18 @@
         app:layout_constraintStart_toStartOf="@id/tv_url_link"
         app:layout_constraintTop_toTopOf="@id/tv_url_link" />
 
-
     <EditText
         android:id="@+id/tv_url_title"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
+        android:minHeight="40dp"
         android:layout_marginTop="10dp"
         android:autofillHints="제목"
         android:background="@drawable/textview_detail_border"
         android:gravity="top|start"
         android:hint="제목"
         android:inputType="textMultiLine"
-        android:maxLength="80"
+        android:maxLength="120"
         android:paddingStart="16dp"
         android:paddingTop="15dp"
         android:paddingEnd="16dp"
@@ -144,7 +142,8 @@
     <EditText
         android:id="@+id/tv_url_description"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="wrap_content"
+        android:minHeight="40dp"
         android:layout_marginTop="5dp"
         android:autofillHints="설명"
         android:background="@drawable/textview_detail_border"
@@ -174,7 +173,6 @@
         app:layout_constraintBottom_toBottomOf="@id/tv_url_description"
         app:layout_constraintRight_toRightOf="@id/tv_url_description" />
 
-
     <TextView
         android:id="@+id/tv_tag"
         android:layout_width="wrap_content"
@@ -186,7 +184,6 @@
         android:visibility="invisible"
         app:layout_constraintStart_toStartOf="@id/tv_link_info_etc"
         app:layout_constraintTop_toBottomOf="@id/tv_url_description" />
-
 
     <TextView
         android:id="@+id/container_tag"
@@ -207,7 +204,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_tag" />
 
-
     <ImageView
         android:id="@+id/iv_add_new_hook"
         android:layout_width="wrap_content"
@@ -219,6 +215,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.444"
         app:layout_constraintStart_toStartOf="parent" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
