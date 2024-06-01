@@ -2,7 +2,6 @@ package com.hanto.hook.view
 
 import android.app.Dialog
 import android.content.Intent
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -10,11 +9,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.view.WindowManager
-import androidx.compose.ui.graphics.Color
+import android.widget.Button
+import android.widget.EditText
+import android.widget.ImageButton
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
@@ -22,20 +22,46 @@ import com.hanto.hook.R
 import com.hanto.hook.adapter.TagAdapter
 import com.hanto.hook.api.ApiServiceManager
 import com.hanto.hook.databinding.FragmentTagBinding
-import com.hanto.hook.viewmodel.HookViewModel
+import com.hanto.hook.model.Tag
+import com.hanto.hook.viewmodel.MainViewModel
 import com.hanto.hook.viewmodel.ViewModelFactory
+import java.util.ArrayList
 
 class TagFragment : Fragment() {
-
     private var _binding: FragmentTagBinding? = null
     private val binding get() = _binding!!
     private lateinit var tagAdapter: TagAdapter
-
     private val apiServiceManager by lazy { ApiServiceManager() }
     private val viewModelFactory by lazy { ViewModelFactory(apiServiceManager) }
-    private val hookViewModel: HookViewModel by lazy {
-        ViewModelProvider(this, viewModelFactory).get(HookViewModel::class.java)
+    private val tagViewModel: MainViewModel by lazy {
+        ViewModelProvider(this, viewModelFactory).get(
+            MainViewModel::class.java
+        )
     }
+
+    /*    private val dialog by lazy {
+        Dialog(requireContext()).apply {
+            requestWindowFeature(Window.FEATURE_NO_TITLE)
+            setContentView(R.layout.activity_add_tag)
+
+            val tvChangeTagName = findViewById<EditText>(R.id.tv_change_tag_name)
+            val btnChangeTagName = findViewById<Button>(R.id.btn_change_tag_name)
+
+            btnChangeTagName.setOnClickListener {
+                val name = tvChangeTagName.text.toString()
+                tagViewModel.loadCreateTag(name)
+                dialog.dismiss() // 다이얼로그 닫기
+            }
+
+            val layoutParams = WindowManager.LayoutParams().apply {
+                copyFrom(window?.attributes)
+                width = WindowManager.LayoutParams.WRAP_CONTENT
+                height = WindowManager.LayoutParams.WRAP_CONTENT
+                gravity = Gravity.CENTER
+            }
+            window?.attributes = layoutParams
+        }
+    }*/
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,44 +75,30 @@ class TagFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // AddTag 버튼에 대한 클릭 리스너 설정
-        binding.ivAddTag.setOnClickListener {
-            // Dialog를 생성하고 설정
-            val dialog = Dialog(requireContext())
-            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE) // 타이틀 제거
-            dialog.setCancelable(true)
-            dialog.setContentView(R.layout.activity_add_tag) // AddTagActivity 레이아웃을 Dialog에 설정
+        val btAddTag: ImageButton = view.findViewById(R.id.btAddTag)
+        btAddTag.setOnClickListener {
+/*            dialog.show()*/
+        }
 
-            // Dialog 크기 및 위치 설정
-            val layoutParams = WindowManager.LayoutParams()
-            layoutParams.copyFrom(dialog.window?.attributes)
-            layoutParams.width = WindowManager.LayoutParams.WRAP_CONTENT
-            layoutParams.height = WindowManager.LayoutParams.WRAP_CONTENT
-            layoutParams.gravity = Gravity.CENTER
-            dialog.window?.attributes = layoutParams
-
-            // Dialog 표시
-            dialog.show()
+        binding.swipeLayout.setOnRefreshListener {
+            tagViewModel.loadFindMyTags()
+            binding.swipeLayout.isRefreshing = false
         }
 
         tagAdapter = TagAdapter(
-            tag = emptyList(),
+            tags = ArrayList(),
             object : TagAdapter.OnItemClickListener {
                 override fun onClick(position: Int) {
                     val selectedTag = tagAdapter.getItem(position)
                     val name = selectedTag.displayName
                     if (name != null) {
-                        // 선택된 태그에 대한 작업 수행
                         Intent(requireContext(), SelectedTagActivity::class.java).apply {
                             putExtra("selectedTag", selectedTag.displayName)
                             startActivity(this)
                         }
                     }
                 }
-            }
-        )
-
-        hookViewModel.loadFindMyTags()
+            })
 
         val flexboxLayoutManager = FlexboxLayoutManager(context).apply {
             justifyContent = JustifyContent.SPACE_EVENLY
@@ -98,12 +110,32 @@ class TagFragment : Fragment() {
             adapter = tagAdapter
         }
 
-        hookViewModel.successData.observe(viewLifecycleOwner, Observer { successData ->
-            if (successData != null) {
-                tagAdapter.updateData(successData)
-            }
-        })
+        observeViewModel()
+
+        tagViewModel.loadFindMyTags()
     }
+
+    private fun observeViewModel() {
+        tagViewModel.tagData.observe(viewLifecycleOwner) { tagData ->
+            if (tagData != null) {
+                tagAdapter.updateData(tagData.tag)
+                Toast.makeText(
+                    requireActivity(),
+                    "${tagData.count}개의 태그를 가져왔어요.",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+
+        tagViewModel.errorData.observe(viewLifecycleOwner) { errorResponse ->
+            errorResponse?.let {
+                Toast.makeText(requireContext(), "오류: ${it.message}", Toast.LENGTH_LONG)
+                    .show()
+                tagViewModel.loadFindMyTags()
+            }
+        }
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

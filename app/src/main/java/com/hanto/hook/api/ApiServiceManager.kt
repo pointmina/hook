@@ -2,28 +2,68 @@ package com.hanto.hook.api
 
 import android.util.Log
 import com.google.gson.Gson
-import com.hanto.hook.api.ApiService
-import com.hanto.hook.api.RetroServer
-import com.hanto.hook.api.ErrorResponse
-import com.hanto.hook.api.SuccessResponse
-import com.hanto.hook.api.ApiServiceManager
 import retrofit2.Response
 
-//Api 호출을 관리하기 위한 클래스 -> ApiServiceManager
-//Retrofit을 사용하여 서버에 API요청을 보낸다.
-
 class ApiServiceManager {
-    //ApiService 인터페이스의 인스턴스를 가짐 -> Retrofit을 사용하여 실제 네트워크 호출을 처리한다.
     private val apiService: ApiService = RetroServer.getInstance().create(ApiService::class.java)
 
+    //============== User ==============// 카카오 로그인 제외 총 2개
+    suspend fun managerGetMyInfo(): ApiResponse {
+        return handleApiResponse { apiService.getMyInfo() }
+    }
 
-    suspend fun getFindMyTags(): ApiResponse {
+    suspend fun managerUpdateNickName(nickname: String): ApiResponse {
+        val request = NicknameRequest(nickname)
+        return handleApiResponse { apiService.updateNickName(request) }
+    }
+
+    //============== Hook ==============// get random hook 제외 총 5개
+
+    suspend fun managerFindMyHooks(): ApiResponse {
+        return handleApiResponse { apiService.findMyHooks() }
+    }
+
+    suspend fun managerFindHookById(id: Int): ApiResponse {
+        return handleApiResponse { apiService.findHookById(id) }
+    }
+
+    suspend fun managerCreateHook(title: String, description: String, url: String, tag: ArrayList<String>): ApiResponse {
+        val request = HookRequest(title, description, url, tag)
+        return handleApiResponse { apiService.createHook(request) }
+    }
+
+    suspend fun managerUpdateHook(id: Int, title: String, description: String, url: String, tag: ArrayList<String>): ApiResponse {
+        val request = HookRequest(title, description, url, tag)
+        return handleApiResponse { apiService.updateHook(id, request) }
+    }
+    suspend fun managerDeleteHook(id: Int): ApiResponse {
+        return handleApiResponse { apiService.deleteHook(id) }
+    }
+
+    //============== TAG ==============// 랜덤 제외 현재 총 5개
+
+    suspend fun managerFindMyTags(): ApiResponse {
         return handleApiResponse { apiService.findMyTags() }
     }
 
-    suspend fun getFindMyHooks(): ApiResponse {
-        return handleApiResponse { apiService.findMyHooks() }
+    suspend fun managerGetTagByName(name:String): ApiResponse {
+        return handleApiResponse { apiService.getTagByName(name) }
     }
+
+    suspend fun managerCreateTag(name: String): ApiResponse {
+        val request = TagRequest(name)
+        return handleApiResponse { apiService.createTag(request) }
+    }
+
+    suspend fun managerUpdateTagName(id: Int, name: String): ApiResponse {
+        return handleApiResponse { apiService.updateTagName(id, name) }
+    }
+
+    suspend fun managerDeleteTag(id:Int): ApiResponse {
+        return handleApiResponse { apiService.deleteTag(id) }
+    }
+
+    // 핸들러 ==============================================================================
 
     private suspend fun handleApiResponse(apiCall: suspend () -> Response<ApiResponse>): ApiResponse {
         return try {
@@ -35,7 +75,6 @@ class ApiServiceManager {
                     it as SuccessResponse
                 } ?: ErrorResponse()
             } else {
-                // Parse the error response
                 Gson().fromJson(response.errorBody()?.string(), ErrorResponse::class.java).also {
                     Log.d("ApiServiceManager", "에러 -- ${it.error}")
                 }

@@ -83,6 +83,11 @@
         android:name="com.hanto.hook.view.ChangeTagFragment"
         android:label="ChangeTagFragment"
         tools:layout="@layout/fragment_change_tag" />
+    <activity
+        android:id="@+id/loginActivity"
+        android:name="com.hanto.hook.view.LoginActivity"
+        android:label="LoginActivity">
+    </activity>
 
 
 </navigation>

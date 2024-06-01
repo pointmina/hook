@@ -29,6 +29,7 @@ class HookAdapter(
         fun bind(hook: Hook) {
             binding.tvTitle.text = hook.title
             binding.tvUrlLink.text = hook.url
+            binding.hookID.text = hook.id.toString()
 
             if (!hook.description.isNullOrEmpty()) {
                 binding.tvTagDescription.visibility = View.VISIBLE

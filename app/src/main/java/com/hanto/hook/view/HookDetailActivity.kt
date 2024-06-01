@@ -10,41 +10,43 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.hanto.hook.R
 import com.hanto.hook.api.ApiServiceManager
 import com.hanto.hook.databinding.ActivityHookDetailBinding
-import com.hanto.hook.viewmodel.HookViewModel
+import com.hanto.hook.viewmodel.MainViewModel
 import com.hanto.hook.viewmodel.ViewModelFactory
 
 class HookDetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHookDetailBinding
-    private lateinit var viewModel: HookViewModel
+
+    private val apiServiceManager by lazy { ApiServiceManager() }
+    private val viewModelFactory by lazy { ViewModelFactory(apiServiceManager) }
+    private val viewModel: MainViewModel by lazy { ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java) }
 
     private val multiChoiceList = linkedMapOf<String, Boolean>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // ApiServiceManager 인스턴스 생성 (필요에 따라서)
-        val apiServiceManager = ApiServiceManager()
-
-        // HookViewModel 인스턴스 생성
-        viewModel = ViewModelProvider(
-            this,
-            ViewModelFactory(apiServiceManager)
-        ).get(HookViewModel::class.java)
-
-        viewModel.loadFindMyDisplayName()
-
-
-
         binding = ActivityHookDetailBinding.inflate(layoutInflater)
+
+        viewModel.loadFindMyTags()
+        viewModel.tagData.observe(this, Observer { tagData ->
+            tagData?.let {
+                for (tag in tagData.tag) {
+                    tag.displayName?.let { displayName ->
+                        multiChoiceList[displayName] = false
+                    }
+                }
+            }
+        })
+
         setContentView(binding.root)
 
+        val id = intent.getStringExtra("item_id")
         val title = intent.getStringExtra("item_title")
         val url = intent.getStringExtra("item_url")
         val description = intent.getStringExtra("item_description")
         val tags = intent.getStringArrayListExtra("item_tag_list")
+
         val backButton = binding.ivAppbarUrlHookDetailBackButton
         val tvTag = binding.tvTag
 
@@ -52,8 +54,7 @@ class HookDetailActivity : AppCompatActivity() {
             multiChoiceList[tag] = true
         }
 
-
-        viewModel.tagDisplayNames.observe(this, Observer { tagDisplayNames ->
+/*        viewModel.tagDisplayNames.observe(this, Observer { tagDisplayNames ->
             tagDisplayNames?.let {
                 for (tag in tagDisplayNames) {
                     // 중복되는 태그가 있으면 해당 태그를 true로 설정
@@ -64,7 +65,7 @@ class HookDetailActivity : AppCompatActivity() {
                     }
                 }
             }
-        })
+        })*/
 
 
         backButton.setOnClickListener {
@@ -74,6 +75,7 @@ class HookDetailActivity : AppCompatActivity() {
         binding.tvHandedTitle.setText(title)
         binding.tvHandedUrl.setText(url)
         binding.tvHandedDesc.setText(description)
+        binding.testId.text = id
 
         // 태그 리스트를 문자열로 변환
         val tagString = tags?.joinToString(" ") { "#$it " }
@@ -82,7 +84,7 @@ class HookDetailActivity : AppCompatActivity() {
 
 
 
-        binding.tvLimit1.text = "${binding.tvHandedTitle.text.length} / 80"
+        binding.tvLimit1.text = "${binding.tvHandedTitle.text.length} / 120"
         binding.tvLimit2.text = "${binding.tvHandedDesc.text.length} / 80"
 
 
@@ -96,7 +98,7 @@ class HookDetailActivity : AppCompatActivity() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 s?.let {
-                    binding.tvLimit1.text = "${s.length} / 80"
+                    binding.tvLimit1.text = "${s.length} / 120"
                 }
             }
 
@@ -182,8 +184,20 @@ class HookDetailActivity : AppCompatActivity() {
 
             val dialog = builder.create()
             dialog.show()
-
         }
 
+        binding.hookEdit.setOnClickListener {
+            val intId = (binding.testId.text as String?)?.toInt()
+            val newTitle = binding.tvHandedTitle.text.toString()
+            val newDesc = binding.tvHandedDesc.text.toString()
+            val newUrl = binding.tvHandedUrl.text.toString()
+            val newTag = ArrayList(binding.tvTag.text.split("  ")
+                .map { it.trim().replace("#", "") })
+
+            if (intId != null) {
+                viewModel.loadUpdateHook(intId, newTitle, newDesc, newUrl, newTag)
+            }
+            finish()
+        }
     }
 }

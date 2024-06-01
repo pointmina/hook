@@ -1,6 +1,5 @@
 package com.hanto.hook.view
 
-
 import android.content.DialogInterface
 import android.os.Bundle
 import android.text.Editable
@@ -20,95 +19,68 @@ import com.hanto.hook.R
 import com.hanto.hook.api.ApiServiceManager
 import com.hanto.hook.api.SuccessResponse
 import com.hanto.hook.databinding.ActivityAddHookBinding
-import com.hanto.hook.viewmodel.HookViewModel
+import com.hanto.hook.viewmodel.MainViewModel
 import com.hanto.hook.viewmodel.ViewModelFactory
 
 class AddHookActivity : AppCompatActivity() {
-
     private lateinit var binding: ActivityAddHookBinding
-    private var isExpanded = false
-    private lateinit var viewModel: HookViewModel
 
+    private val apiServiceManager by lazy { ApiServiceManager() }
+    private val viewModelFactory by lazy { ViewModelFactory(apiServiceManager) }
+    private val viewModel: MainViewModel by lazy { ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java) }
+
+    private var isExpanded = false
     private val multiChoiceList = linkedMapOf<String, Boolean>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityAddHookBinding.inflate(layoutInflater)
+        val view = binding.root
 
-        // ApiServiceManager 인스턴스 생성 (필요에 따라서)
-        val apiServiceManager = ApiServiceManager()
 
-        // HookViewModel 인스턴스 생성
-        viewModel = ViewModelProvider(
-            this,
-            ViewModelFactory(apiServiceManager)
-        ).get(HookViewModel::class.java)
-
-        viewModel.loadFindMyDisplayName()
-
-        viewModel.tagDisplayNames.observe(this, Observer { tagDisplayNames ->
-            tagDisplayNames?.let {
-                for (tag in tagDisplayNames) multiChoiceList[tag] = false
+        viewModel.loadFindMyTags()
+        viewModel.tagData.observe(this, Observer { tagData ->
+            tagData?.let {
+                for (tag in tagData.tag) {
+                    tag.displayName?.let { displayName ->
+                        multiChoiceList[displayName] = false
+                    }
+                }
             }
         })
 
-        binding = ActivityAddHookBinding.inflate(layoutInflater)
-        val view = binding.root
         setContentView(view)
 
-        val downArrow = binding.ivDownArrow
-        val tvUrlDescription = binding.tvUrlDescription
-        val tvTag = binding.tvTag
-        val containerTag = binding.containerTag
-        val containerInfoEtc = binding.containerLinkInfoEtc
-        val urlLink = binding.tvUrlLink
-        val tagSelect = binding.containerTag
-        val backButton = binding.ivAppbarBackButton
-        val addNewHook = binding.ivAddNewHook
-        val tvTitle = binding.tvUrlTitle
-        val tvLimit2 = binding.tvLimit2
+        binding.ivAppbarBackButton.setOnClickListener {
+            onBackPressed()
+        } // 앱바 - 뒤로 가기 버튼
 
-        binding.tvLimit1.text = "${tvTitle.text.length} / 80"
-        tvLimit2.text = "${tvUrlDescription.text.length} / 80"
+        // 59~80: 글자 수 확인
+        binding.tvLimit1.text = "${binding.tvUrlTitle.text.length} / 80"
+        binding.tvLimit2.text = "${binding.tvUrlDescription.text.length} / 80"
 
-        tvTitle.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
-            }
-
+        binding.tvUrlTitle.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) { }
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 s?.let {
                     binding.tvLimit1.text = "${s.length} / 80"
                 }
             }
-
-            override fun afterTextChanged(s: Editable?) {
-
-            }
+            override fun afterTextChanged(s: Editable?) { }
         })
 
-        tvUrlDescription.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
-            }
-
+        binding.tvUrlDescription.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) { }
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 s?.let {
-                    tvLimit2.text = "${s.length} / 80"
+                    binding.tvLimit2.text = "${s.length} / 80"
                 }
             }
-
-            override fun afterTextChanged(s: Editable?) {
-
-            }
-
+            override fun afterTextChanged(s: Editable?) { }
         })
 
-        backButton.setOnClickListener {
-            onBackPressed()
-        }
-
-
-        containerTag.setOnClickListener {
+        // 82~148: 태그 선택
+        binding.containerTag.setOnClickListener {
             val tags = multiChoiceList.keys.toTypedArray()
             val tagArray = Array(tags.size) { i -> tags[i] }
 
@@ -131,7 +103,7 @@ class AddHookActivity : AppCompatActivity() {
                     }
                 }
                 // 추가: 선택된 태그를 containerTag에 표시
-                containerTag.text = selectedTags.joinToString("  ")
+                binding.containerTag.text = selectedTags.joinToString("  ")
                 dialog.dismiss()
             }
 
@@ -158,7 +130,7 @@ class AddHookActivity : AppCompatActivity() {
                                 }
                             }
                             // 추가: 선택된 태그를 containerTag에 표시
-                            containerTag.text = selectedTags.joinToString("  ")
+                            binding.containerTag.text = selectedTags.joinToString("  ")
                         } else {
                             Toast.makeText(this, "태그를 입력하세요.", Toast.LENGTH_SHORT).show()
                         }
@@ -175,15 +147,31 @@ class AddHookActivity : AppCompatActivity() {
             dialog.show()
         }
 
-        containerInfoEtc.setOnClickListener {
+        // 더보기 뷰
+        binding.containerLinkInfoEtc.setOnClickListener {
+            val tvUrlDescription = binding.tvUrlDescription
+            val tvTag = binding.tvTag
+            val containerTag = binding.containerTag
+            val downArrow = binding.ivDownArrow
+            val tvLimit2 = binding.tvLimit2
             toggleExpandCollapse(tvUrlDescription, tvTag, containerTag, downArrow, tvLimit2)
         }
 
-        urlLink.setOnClickListener {
-            showKeyboardAndFocus(urlLink)
-        }
-    }
+        binding.ivAddNewHook.setOnClickListener {
+            val title = binding.tvUrlTitle.text.toString()
+            val description = binding.tvUrlDescription.text.toString()
+            val url = binding.tvUrlLink.text.toString()
+            val tags = ArrayList(binding.containerTag.text.split("  ")
+                .map { it.trim().replace("#", "") })
 
+            viewModel.loadCreateHook(title, description, url, tags)
+            finish()
+        }
+
+/*        binding.tvUrlLink.setOnClickListener {
+            showKeyboardAndFocus()
+        }*/
+    }
     private fun toggleExpandCollapse(
         tvUrlDescription: TextView,
         tvTag: TextView,
@@ -199,8 +187,6 @@ class AddHookActivity : AppCompatActivity() {
             containerTag.visibility = View.VISIBLE
             downArrow.setImageResource(R.drawable.ic_up_arrow)
             tvLimit2.visibility = View.VISIBLE
-
-
         } else {
             tvUrlDescription.visibility = View.INVISIBLE
             tvTag.visibility = View.INVISIBLE
@@ -210,9 +196,9 @@ class AddHookActivity : AppCompatActivity() {
         }
     }
 
-    private fun showKeyboardAndFocus(editText: EditText) {
+/*    private fun showKeyboardAndFocus(editText: EditText) {
         editText.requestFocus()
         val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
         imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT)
-    }
+    }*/
 }

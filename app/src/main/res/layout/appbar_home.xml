@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.appbar.AppBarLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/appbarHome"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:fitsSystemWindows="true">
+
+    <androidx.appcompat.widget.Toolbar
+        app:layout_scrollFlags="scroll|enterAlways"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:contentScrim="@color/gray_100"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_hook_kr"
+            style="@style/AppTexTitle.S16.Bold"
+            android:layout_gravity="center"
+            android:layout_marginStart="24dp"/>
+
+        <ImageButton
+            android:id="@+id/bt_setting"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@color/white"
+            android:src="@drawable/ic_gear"
+            android:layout_gravity="end"
+            android:layout_marginEnd="24dp" />
+
+    </androidx.appcompat.widget.Toolbar>
+</com.google.android.material.appbar.AppBarLayout>
+
+<!--style="@style/BaseToolbarStyle"-->
+

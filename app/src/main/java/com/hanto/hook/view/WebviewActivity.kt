@@ -16,7 +16,7 @@ class WebviewActivity : AppCompatActivity() {
         val binding = ActivityWebviewBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        webView = binding.webview
+        webView = binding.mainWebView
         val url = intent.getStringExtra(EXTRA_URL) ?: return
 
         webView.apply {

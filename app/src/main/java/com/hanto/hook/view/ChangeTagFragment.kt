@@ -37,6 +37,10 @@ class ChangeTagFragment : DialogFragment() {
         changeTagName.setOnClickListener {
             showKeyboardAndFocus(changeTagName)
         }
+
+        binding.btnChangeTagName.setOnClickListener{
+            //updateTagName(changeTagName)
+        }
     }
 
     override fun onDestroy() {

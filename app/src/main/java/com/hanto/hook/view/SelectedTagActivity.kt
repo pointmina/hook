@@ -23,7 +23,7 @@ class SelectedTagActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // Intent로부터 데이터 받기
-        val selectedTag = intent.getStringExtra("selectedTag")
+        val selectedTag = intent.getStringExtra("selectedTag") // displayName만 가져옴
         binding.tvSelectedTag.text = selectedTag
 
         val backButton = binding.ivAppbarSelectedTagBackButton
@@ -59,5 +59,4 @@ class SelectedTagActivity : AppCompatActivity() {
 
         binding.rvUrlHookList.addItemDecoration(dividerItemDecoration)
     }
-
 }
