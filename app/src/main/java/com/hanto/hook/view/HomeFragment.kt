@@ -49,22 +49,23 @@ class HomeFragment : Fragment() {
         val btSetting = view.findViewById<ImageButton>(R.id.bt_setting)
         btSetting.setOnClickListener{
             findNavController().navigate(R.id.action_navigation_home_to_settingActivity)
-        }
+        }  // 환경 설정 버튼
 
         binding.swipeLayout.setOnRefreshListener {
             hookViewModel.loadFindMyHooks()
             binding.swipeLayout.isRefreshing = false
-        }
+        }  // 새로 고침
 
         hookAdapter = HookAdapter(
             hooks = ArrayList(),
             tag = ArrayList(),
-            object : HookAdapter.OnItemClickListener {
+            // 어댑터 선언 디폴트
 
+            object : HookAdapter.OnItemClickListener {
                 override fun onClick(position: Int) {
                     val selectedHook = hookAdapter.getItem(position)
                     Intent(requireContext(), HookDetailActivity::class.java).apply {
-                        putExtra("item_id", selectedHook.id)
+                        putExtra("item_id", selectedHook.id) // TODO: id 제대로 넘어가고 있는 건지 확인해야함
                         putExtra("item_title", selectedHook.title)
                         putExtra("item_url", selectedHook.url)
                         putExtra("item_description", selectedHook.description)
@@ -73,12 +74,12 @@ class HomeFragment : Fragment() {
                         }
                         startActivity(this)
                     }
-                }
+                } // 아이템 누르면 디테일 뷰로 이동
 
                 override fun onOptionButtonClick(position: Int) {
                     val selectedHook = hookAdapter.getItem(position)
                     showBottomSheetDialog(selectedHook)
-                }
+                } // 점 세 개 버튼 -> dialog 열기
             })
 
         val dividerItemDecoration =
@@ -87,30 +88,26 @@ class HomeFragment : Fragment() {
             dividerItemDecoration.setDrawable(it)
         }
         binding.rvHome.addItemDecoration(dividerItemDecoration)
+        // 85~90: rv 각 아이템 사이에 구분선 넣는 데코
 
-        binding.rvHome.adapter = hookAdapter
-        hookViewModel.loadFindMyHooks()
+        binding.rvHome.adapter = hookAdapter // rv 에 어댑터 붙이기
+
+        hookViewModel.loadFindMyHooks() // fragment 진입 -> 데이터 로딩
 
         val shimmerContainer = binding.sfLoading
         hookViewModel.hookData.observe(viewLifecycleOwner) { hookData ->
             if (hookData != null) {
                 hookAdapter.updateData(hookData)
-                shimmerContainer.stopShimmer()
+                shimmerContainer.stopShimmer() // shimmer 는 원래 자동 시작 ... hookData 오면 stop
                 shimmerContainer.visibility = View.GONE
-                Toast.makeText(requireActivity(), "${hookData.count}개의 훅을 가져왔습니다.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireActivity(), "${hookData.count}개의 훅이 업데이트 됐어요.", Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(requireActivity(), "불러오기 실패", Toast.LENGTH_SHORT).show()
             }
         }
-
-
     }
 
-/*    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }*/
-
+    // 111~132: 바텀 시트 dialog
     private fun showBottomSheetDialog(selectedItem: Hook) {
         val dialog = BottomSheetDialog(requireContext(), R.style.CustomBottomSheetDialogTheme)
         val view = layoutInflater.inflate(R.layout.bottom_dialog_home, null)
@@ -132,18 +129,12 @@ class HomeFragment : Fragment() {
             dialog.dismiss()
         }
 
-        hookViewModel.successData.observe(viewLifecycleOwner) { successResponse ->
-            successResponse?.let {
-                Toast.makeText(requireActivity(), it.result?.message ?: "성공쓰", Toast.LENGTH_SHORT).show()
-            }
-        }
-
-        hookViewModel.errorData.observe(viewLifecycleOwner) { errorResponse ->
-            errorResponse?.let {
-                Toast.makeText(requireActivity(), it.message, Toast.LENGTH_SHORT).show()
-            }
-        }
         dialog.show()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
 
