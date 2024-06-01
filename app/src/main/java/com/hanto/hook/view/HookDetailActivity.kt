@@ -17,31 +17,36 @@ import com.hanto.hook.viewmodel.ViewModelFactory
 
 class HookDetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHookDetailBinding
-    private lateinit var viewModel: MainViewModel
+
+    private val apiServiceManager by lazy { ApiServiceManager() }
+    private val viewModelFactory by lazy { ViewModelFactory(apiServiceManager) }
+    private val viewModel: MainViewModel by lazy { ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java) }
+
     private val multiChoiceList = linkedMapOf<String, Boolean>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // ApiServiceManager 인스턴스 생성 (필요에 따라서)
-        val apiServiceManager = ApiServiceManager()
-
-        // HookViewModel 인스턴스 생성
-        viewModel = ViewModelProvider(
-            this,
-            ViewModelFactory(apiServiceManager)
-        ).get(MainViewModel::class.java)
+        binding = ActivityHookDetailBinding.inflate(layoutInflater)
 
         viewModel.loadFindMyTags()
+        viewModel.tagData.observe(this, Observer { tagData ->
+            tagData?.let {
+                for (tag in tagData.tag) {
+                    tag.displayName?.let { displayName ->
+                        multiChoiceList[displayName] = false
+                    }
+                }
+            }
+        })
 
-        binding = ActivityHookDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val id = intent.getStringExtra("item_id")?.toIntOrNull() ?: 0
+        val id = intent.getStringExtra("item_id")
         val title = intent.getStringExtra("item_title")
         val url = intent.getStringExtra("item_url")
         val description = intent.getStringExtra("item_description")
         val tags = intent.getStringArrayListExtra("item_tag_list")
+
         val backButton = binding.ivAppbarUrlHookDetailBackButton
         val tvTag = binding.tvTag
 
@@ -70,6 +75,7 @@ class HookDetailActivity : AppCompatActivity() {
         binding.tvHandedTitle.setText(title)
         binding.tvHandedUrl.setText(url)
         binding.tvHandedDesc.setText(description)
+        binding.testId.text = id
 
         // 태그 리스트를 문자열로 변환
         val tagString = tags?.joinToString(" ") { "#$it " }
@@ -178,19 +184,20 @@ class HookDetailActivity : AppCompatActivity() {
 
             val dialog = builder.create()
             dialog.show()
-
         }
 
         binding.hookEdit.setOnClickListener {
+            val intId = (binding.testId.text as String?)?.toInt()
             val newTitle = binding.tvHandedTitle.text.toString()
             val newDesc = binding.tvHandedDesc.text.toString()
             val newUrl = binding.tvHandedUrl.text.toString()
-            val newTagString = binding.tvTag.text.toString()
+            val newTag = ArrayList(binding.tvTag.text.split("  ")
+                .map { it.trim().replace("#", "") })
 
-            // newTagString을 List<String>으로 변환 후 ArrayList<String>으로 변환
-            val newTagList = newTagString.split(" ").map { it.trim() }.filter { it.isNotEmpty() }.toCollection(ArrayList())
-
-            viewModel.loadUpdateHook(id, newTitle, newDesc, newUrl, newTagList)
+            if (intId != null) {
+                viewModel.loadUpdateHook(intId, newTitle, newDesc, newUrl, newTag)
+            }
+            finish()
         }
     }
 }

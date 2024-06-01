@@ -34,6 +34,9 @@ class AddHookActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityAddHookBinding.inflate(layoutInflater)
+        val view = binding.root
+
 
         viewModel.loadFindMyTags()
         viewModel.tagData.observe(this, Observer { tagData ->
@@ -46,10 +49,13 @@ class AddHookActivity : AppCompatActivity() {
             }
         })
 
-        binding = ActivityAddHookBinding.inflate(layoutInflater)
-        val view = binding.root
         setContentView(view)
 
+        binding.ivAppbarBackButton.setOnClickListener {
+            onBackPressed()
+        } // 앱바 - 뒤로 가기 버튼
+
+        // 59~80: 글자 수 확인
         binding.tvLimit1.text = "${binding.tvUrlTitle.text.length} / 80"
         binding.tvLimit2.text = "${binding.tvUrlDescription.text.length} / 80"
 
@@ -73,10 +79,7 @@ class AddHookActivity : AppCompatActivity() {
             override fun afterTextChanged(s: Editable?) { }
         })
 
-        binding.ivAppbarBackButton.setOnClickListener {
-            onBackPressed()
-        }
-
+        // 82~148: 태그 선택
         binding.containerTag.setOnClickListener {
             val tags = multiChoiceList.keys.toTypedArray()
             val tagArray = Array(tags.size) { i -> tags[i] }
@@ -144,6 +147,7 @@ class AddHookActivity : AppCompatActivity() {
             dialog.show()
         }
 
+        // 더보기 뷰
         binding.containerLinkInfoEtc.setOnClickListener {
             val tvUrlDescription = binding.tvUrlDescription
             val tvTag = binding.tvTag
@@ -152,10 +156,6 @@ class AddHookActivity : AppCompatActivity() {
             val tvLimit2 = binding.tvLimit2
             toggleExpandCollapse(tvUrlDescription, tvTag, containerTag, downArrow, tvLimit2)
         }
-
-/*        binding.tvUrlLink.setOnClickListener {
-            showKeyboardAndFocus()
-        }*/
 
         binding.ivAddNewHook.setOnClickListener {
             val title = binding.tvUrlTitle.text.toString()
@@ -167,6 +167,10 @@ class AddHookActivity : AppCompatActivity() {
             viewModel.loadCreateHook(title, description, url, tags)
             finish()
         }
+
+/*        binding.tvUrlLink.setOnClickListener {
+            showKeyboardAndFocus()
+        }*/
     }
     private fun toggleExpandCollapse(
         tvUrlDescription: TextView,

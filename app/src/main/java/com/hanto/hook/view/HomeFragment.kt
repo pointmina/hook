@@ -56,16 +56,15 @@ class HomeFragment : Fragment() {
             binding.swipeLayout.isRefreshing = false
         }  // 새로 고침
 
+        // 60~82: 디폴트 어댑터 선언
         hookAdapter = HookAdapter(
             hooks = ArrayList(),
             tag = ArrayList(),
-            // 어댑터 선언 디폴트
-
             object : HookAdapter.OnItemClickListener {
                 override fun onClick(position: Int) {
                     val selectedHook = hookAdapter.getItem(position)
                     Intent(requireContext(), HookDetailActivity::class.java).apply {
-                        putExtra("item_id", selectedHook.id) // TODO: id 제대로 넘어가고 있는 건지 확인해야함
+                        putExtra("item_id", selectedHook.id.toString())
                         putExtra("item_title", selectedHook.title)
                         putExtra("item_url", selectedHook.url)
                         putExtra("item_description", selectedHook.description)
@@ -128,7 +127,6 @@ class HomeFragment : Fragment() {
             selectedItem.id?.let { it1 -> hookViewModel.loadDeleteHook(it1) }
             dialog.dismiss()
         }
-
         dialog.show()
     }
 
