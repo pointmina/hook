@@ -12,19 +12,21 @@ import kotlinx.coroutines.launch
 
 class MainViewModel(private val apiServiceManager: ApiServiceManager) : ViewModel() {
     private val _successData = MutableLiveData<SuccessResponse?>()
-    private val _errorData = MutableLiveData<ErrorResponse?>()
-
-    private val _hookData = MutableLiveData<SuccessResponse?>()
-    private val _tagDisplayNames = MutableLiveData<List<String>?>()
-
     val successData: LiveData<SuccessResponse?>
         get() = _successData
+
+    private val _errorData = MutableLiveData<ErrorResponse?>()
     val errorData: LiveData<ErrorResponse?>
         get() = _errorData
+
+    private val _hookData = MutableLiveData<SuccessResponse?>()
     val hookData: LiveData<SuccessResponse?>
         get() = _hookData
+
+    private val _tagDisplayNames = MutableLiveData<List<String>?>()
     val tagDisplayNames: LiveData<List<String>?>
         get() = _tagDisplayNames
+
     // 유저 2개 ============================================================================
     private val _userData = MutableLiveData<SuccessResponse?>()
     val userData: LiveData<SuccessResponse?>
@@ -77,6 +79,7 @@ class MainViewModel(private val apiServiceManager: ApiServiceManager) : ViewMode
                 when (result) {
                     is SuccessResponse -> {
                         _hookData.value = result
+                        Log.d("MainViewModel","$hookData")
                     }
                     is ErrorResponse -> {
                         _errorData.value = result
