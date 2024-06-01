@@ -122,7 +122,9 @@
             android:text="로그아웃"
             android:textColor="@color/black"
             android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@id/tv_service_agreement" />
+            android:clickable="true"
+            app:layout_constraintTop_toBottomOf="@id/tv_service_agreement"
+            android:focusable="true" />
 
         <TextView
             android:id="@+id/kakao_unlink_button"
@@ -145,7 +147,6 @@
             android:text="저장하기"
             android:textAlignment="center"
             android:textAppearance="@style/AppTextPrimary.S14.bold"
-            android:clickable="true"
             android:focusable="true"
             app:layout_constraintTop_toBottomOf="@+id/kakao_unlink_button"
             app:layout_constraintBottom_toBottomOf="parent"

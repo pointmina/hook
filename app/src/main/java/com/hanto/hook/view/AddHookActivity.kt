@@ -1,6 +1,5 @@
 package com.hanto.hook.view
 
-
 import android.content.DialogInterface
 import android.os.Bundle
 import android.text.Editable
@@ -28,7 +27,6 @@ class AddHookActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddHookBinding
     private var isExpanded = false
     private lateinit var viewModel: MainViewModel
-
     private val multiChoiceList = linkedMapOf<String, Boolean>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,9 +43,13 @@ class AddHookActivity : AppCompatActivity() {
 
         viewModel.loadFindMyTags()
 
-        viewModel.tagDisplayNames.observe(this, Observer { tagDisplayNames ->
-            tagDisplayNames?.let {
-                for (tag in tagDisplayNames) multiChoiceList[tag] = false
+        viewModel.tagData.observe(this, Observer { tagData ->
+            tagData?.let {
+                for (tag in tagData.tag) {
+                    tag.displayName?.let { displayName ->
+                        multiChoiceList[displayName] = false
+                    }
+                }
             }
         })
 
@@ -199,8 +201,6 @@ class AddHookActivity : AppCompatActivity() {
             containerTag.visibility = View.VISIBLE
             downArrow.setImageResource(R.drawable.ic_up_arrow)
             tvLimit2.visibility = View.VISIBLE
-
-
         } else {
             tvUrlDescription.visibility = View.INVISIBLE
             tvTag.visibility = View.INVISIBLE

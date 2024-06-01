@@ -18,7 +18,6 @@ import com.hanto.hook.viewmodel.ViewModelFactory
 class HookDetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHookDetailBinding
     private lateinit var viewModel: MainViewModel
-
     private val multiChoiceList = linkedMapOf<String, Boolean>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,11 +34,10 @@ class HookDetailActivity : AppCompatActivity() {
 
         viewModel.loadFindMyTags()
 
-
-
         binding = ActivityHookDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val id = intent.getStringExtra("item_id")?.toIntOrNull() ?: 0
         val title = intent.getStringExtra("item_title")
         val url = intent.getStringExtra("item_url")
         val description = intent.getStringExtra("item_description")
@@ -51,8 +49,7 @@ class HookDetailActivity : AppCompatActivity() {
             multiChoiceList[tag] = true
         }
 
-
-        viewModel.tagDisplayNames.observe(this, Observer { tagDisplayNames ->
+/*        viewModel.tagDisplayNames.observe(this, Observer { tagDisplayNames ->
             tagDisplayNames?.let {
                 for (tag in tagDisplayNames) {
                     // 중복되는 태그가 있으면 해당 태그를 true로 설정
@@ -63,7 +60,7 @@ class HookDetailActivity : AppCompatActivity() {
                     }
                 }
             }
-        })
+        })*/
 
 
         backButton.setOnClickListener {
@@ -81,7 +78,7 @@ class HookDetailActivity : AppCompatActivity() {
 
 
 
-        binding.tvLimit1.text = "${binding.tvHandedTitle.text.length} / 80"
+        binding.tvLimit1.text = "${binding.tvHandedTitle.text.length} / 120"
         binding.tvLimit2.text = "${binding.tvHandedDesc.text.length} / 80"
 
 
@@ -95,7 +92,7 @@ class HookDetailActivity : AppCompatActivity() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 s?.let {
-                    binding.tvLimit1.text = "${s.length} / 80"
+                    binding.tvLimit1.text = "${s.length} / 120"
                 }
             }
 
@@ -184,5 +181,16 @@ class HookDetailActivity : AppCompatActivity() {
 
         }
 
+        binding.hookEdit.setOnClickListener {
+            val newTitle = binding.tvHandedTitle.text.toString()
+            val newDesc = binding.tvHandedDesc.text.toString()
+            val newUrl = binding.tvHandedUrl.text.toString()
+            val newTagString = binding.tvTag.text.toString()
+
+            // newTagString을 List<String>으로 변환 후 ArrayList<String>으로 변환
+            val newTagList = newTagString.split(" ").map { it.trim() }.filter { it.isNotEmpty() }.toCollection(ArrayList())
+
+            viewModel.loadUpdateHook(id, newTitle, newDesc, newUrl, newTagList)
+        }
     }
 }

@@ -19,15 +19,7 @@ class MainViewModel(private val apiServiceManager: ApiServiceManager) : ViewMode
     val errorData: LiveData<ErrorResponse?>
         get() = _errorData
 
-    private val _hookData = MutableLiveData<SuccessResponse?>()
-    val hookData: LiveData<SuccessResponse?>
-        get() = _hookData
-
-    private val _tagDisplayNames = MutableLiveData<List<String>?>()
-    val tagDisplayNames: LiveData<List<String>?>
-        get() = _tagDisplayNames
-
-    // 유저 2개 ============================================================================
+    // 유저 2개 ===========================================================================
     private val _userData = MutableLiveData<SuccessResponse?>()
     val userData: LiveData<SuccessResponse?>
         get() = _userData
@@ -71,6 +63,9 @@ class MainViewModel(private val apiServiceManager: ApiServiceManager) : ViewMode
         }
     }
     // 훅 5개 ==============================================================================
+    private val _hookData = MutableLiveData<SuccessResponse?>()
+    val hookData: LiveData<SuccessResponse?>
+        get() = _hookData
     fun loadFindMyHooks() {
         viewModelScope.launch {
             runCatching {
@@ -170,6 +165,14 @@ class MainViewModel(private val apiServiceManager: ApiServiceManager) : ViewMode
     }
 
     // 태그 5개 ==========================================================================
+    private val _tagData = MutableLiveData<SuccessResponse?>()
+    val tagData : LiveData<SuccessResponse?>
+
+        get() = _tagData
+    private val _tagDisplayNames = MutableLiveData<List<String?>>()
+    val tagDisplayNames : LiveData<List<String?>>
+
+        get() = _tagDisplayNames
     fun loadFindMyTags() {
         viewModelScope.launch {
             runCatching {
@@ -177,10 +180,11 @@ class MainViewModel(private val apiServiceManager: ApiServiceManager) : ViewMode
             }.onSuccess { result ->
                 when (result) {
                     is SuccessResponse -> {
-                        _tagDisplayNames.value = result.tag.mapNotNull {it.displayName}
+                        _tagData.postValue(result)
+                        _tagDisplayNames.postValue(result.tag.mapNotNull { it.displayName })
                     }
                     is ErrorResponse -> {
-                        _errorData.value = result
+                        _errorData.postValue(result)
                     }
                 }
             }.onFailure { exception ->

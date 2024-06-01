@@ -3,14 +3,14 @@ package com.hanto.hook.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.hanto.hook.api.SuccessResponse
 import com.hanto.hook.databinding.ItemTagTagBinding
 import com.hanto.hook.model.Tag
 
 class TagAdapter(
-    private var tag: List<Tag>,
+    private var tags: ArrayList<Tag>,
     private val listener: OnItemClickListener
 ) : RecyclerView.Adapter<TagAdapter.ViewHolder>() {
+
     interface OnItemClickListener {
         fun onClick(position: Int)
     }
@@ -39,20 +39,21 @@ class TagAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val tag = tag[position]
+        val tag = tags[position]
         holder.bind(tag)
     }
 
     override fun getItemCount(): Int {
-        return tag?.size ?: 0
+        return tags.size
     }
 
     fun getItem(position: Int): Tag {
-        return tag[position]
+        return tags[position]
     }
 
-    fun updateData(response: SuccessResponse) {
-        this.tag = response.tag
-        notifyDataSetChanged() // 데이터셋 변경을 알림
+    fun updateData(newTags: List<Tag>) {
+        tags.clear()
+        tags.addAll(newTags)
+        notifyDataSetChanged()
     }
 }

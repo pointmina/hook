@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.Toast
@@ -14,7 +15,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.hanto.hook.R
 import com.hanto.hook.databinding.FragmentHomeBinding
 import com.hanto.hook.adapter.HookAdapter
@@ -26,14 +29,10 @@ import com.hanto.hook.viewmodel.ViewModelFactory
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-
     private lateinit var hookAdapter: HookAdapter
-
     private val apiServiceManager by lazy { ApiServiceManager() }
     private val viewModelFactory by lazy { ViewModelFactory(apiServiceManager) }
-    private val hookViewModel: MainViewModel by lazy {
-        ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
-    }
+    private val hookViewModel: MainViewModel by lazy { ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -57,14 +56,15 @@ class HomeFragment : Fragment() {
             binding.swipeLayout.isRefreshing = false
         }
 
-
         hookAdapter = HookAdapter(
             hooks = ArrayList(),
             tag = ArrayList(),
             object : HookAdapter.OnItemClickListener {
+
                 override fun onClick(position: Int) {
                     val selectedHook = hookAdapter.getItem(position)
                     Intent(requireContext(), HookDetailActivity::class.java).apply {
+                        putExtra("item_id", selectedHook.id)
                         putExtra("item_title", selectedHook.title)
                         putExtra("item_url", selectedHook.url)
                         putExtra("item_description", selectedHook.description)
@@ -79,7 +79,6 @@ class HomeFragment : Fragment() {
                     val selectedHook = hookAdapter.getItem(position)
                     showBottomSheetDialog(selectedHook)
                 }
-
             })
 
         val dividerItemDecoration =
@@ -103,6 +102,8 @@ class HomeFragment : Fragment() {
                 Toast.makeText(requireActivity(), "불러오기 실패", Toast.LENGTH_SHORT).show()
             }
         }
+
+
     }
 
 /*    override fun onDestroyView() {
@@ -130,20 +131,18 @@ class HomeFragment : Fragment() {
             selectedItem.id?.let { it1 -> hookViewModel.loadDeleteHook(it1) }
             dialog.dismiss()
         }
-        // 성공 메시지 관찰
+
         hookViewModel.successData.observe(viewLifecycleOwner) { successResponse ->
             successResponse?.let {
                 Toast.makeText(requireActivity(), it.result?.message ?: "성공쓰", Toast.LENGTH_SHORT).show()
             }
         }
 
-        // 에러 메시지 관찰
         hookViewModel.errorData.observe(viewLifecycleOwner) { errorResponse ->
             errorResponse?.let {
                 Toast.makeText(requireActivity(), it.message, Toast.LENGTH_SHORT).show()
             }
         }
-
         dialog.show()
     }
 }

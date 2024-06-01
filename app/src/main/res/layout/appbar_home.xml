@@ -8,7 +8,7 @@
     android:fitsSystemWindows="true">
 
     <androidx.appcompat.widget.Toolbar
-        app:layout_scrollFlags="scroll|exitUntilCollapsed"
+        app:layout_scrollFlags="scroll|enterAlways"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"

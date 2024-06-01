@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,6 +10,10 @@
     android:paddingEnd="24dp"
     tools:context=".view.HookDetailActivity"
     tools:ignore="MissingDefaultResource">
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar_detail"
@@ -30,7 +35,6 @@
         app:layout_constraintStart_toStartOf="@id/toolbar_detail"
         app:layout_constraintTop_toTopOf="parent" />
 
-
     <TextView
         android:id="@+id/tv_link_info"
         android:layout_width="match_parent"
@@ -44,7 +48,6 @@
         app:layout_constraintBottom_toTopOf="@id/tv_handed_title"
         app:layout_constraintTop_toBottomOf="@id/toolbar_detail" />
 
-
     <EditText
         android:id="@+id/tv_handed_title"
         android:layout_width="match_parent"
@@ -52,7 +55,7 @@
         android:background="@drawable/textview_detail_border"
         android:hint="제목을 입력해주세요"
         android:inputType="textMultiLine"
-        android:maxLength="80"
+        android:maxLength="120"
         android:padding="20dp"
         android:textAppearance="@style/AppTextPrimary.S16"
         android:textColor="@color/black"
@@ -70,7 +73,6 @@
         android:padding="5dp"
         app:layout_constraintBottom_toBottomOf="@+id/tv_handed_title"
         app:layout_constraintRight_toRightOf="@+id/tv_handed_title" />
-
 
     <EditText
         android:id="@+id/tv_handed_desc"
@@ -101,7 +103,8 @@
     <EditText
         android:id="@+id/tv_handed_url"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="wrap_content"
+        android:minHeight="40dp"
         android:layout_marginTop="12dp"
         android:background="@drawable/textview_detail_border"
         android:hint="@string/hint_url_link"
@@ -122,10 +125,10 @@
         android:id="@+id/bt_paste_link"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/bg_button_transparent_round"
         android:src="@drawable/ic_link"
-        app:layout_constraintBottom_toBottomOf="@id/tv_handed_url"
         app:layout_constraintLeft_toLeftOf="@+id/tv_handed_url"
         app:layout_constraintTop_toTopOf="@+id/tv_handed_url" />
 
@@ -139,7 +142,6 @@
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@id/tv_link_info"
         app:layout_constraintTop_toBottomOf="@id/tv_handed_url" />
-
 
     <TextView
         android:id="@+id/tv_tag"
@@ -159,8 +161,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/txt_tag" />
 
-
-    <TextView
+    <Button
         android:id="@+id/hook_edit"
         android:layout_width="300dp"
         android:layout_height="52dp"
@@ -173,9 +174,10 @@
         android:textAlignment="center"
         android:textAppearance="@style/AppTextPrimary.S14.bold"
         android:textColor="@color/white"
+        app:layout_constraintTop_toBottomOf="@+id/tv_tag"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
