@@ -70,7 +70,7 @@ class LoginWebViewActivity : AppCompatActivity() {
                 withContext(Dispatchers.Main) {
                     clearWebViewData()
 
-                    val intent = Intent(this@LoginWebViewActivity, LoginActivity::class.java)
+                    val intent = Intent(this@LoginWebViewActivity, SplashView::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
                     startActivity(intent)
                     finish()
