@@ -131,6 +131,7 @@ class HomeFragment : Fragment() {
         btHookDelete.setOnClickListener {
             selectedItem.id?.let { it1 -> hookViewModel.loadDeleteHook(it1) }
             dialog.dismiss()
+            Toast.makeText(requireActivity(),"삭제 완료!", Toast.LENGTH_SHORT).show()
         }
         dialog.show()
     }

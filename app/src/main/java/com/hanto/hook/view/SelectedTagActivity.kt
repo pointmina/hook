@@ -2,6 +2,7 @@ package com.hanto.hook.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.ui.input.key.Key.Companion.Delete
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -40,6 +41,11 @@ class SelectedTagActivity : AppCompatActivity() {
                 }
             }
             changeTagFragment.show(supportFragmentManager, "ChangeTagFragment")
+        }
+
+        val ivTagDelete = binding.ivTagDelete
+        ivTagDelete.setOnClickListener {
+            DeleteTagFragment().show(supportFragmentManager, "DeleteTagFragment")
         }
 
         //homeFragment참고! 해당 태그와 관련된 항목 목록이어야 합니다.

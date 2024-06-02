@@ -77,7 +77,21 @@ class TagFragment : Fragment() {
 
         val btAddTag: ImageButton = view.findViewById(R.id.btAddTag)
         btAddTag.setOnClickListener {
-/*            dialog.show()*/
+            val dialog = Dialog(requireContext())
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE) // 타이틀 제거
+            dialog.setCancelable(true)
+            dialog.setContentView(R.layout.activity_add_tag) // AddTagActivity 레이아웃을 Dialog에 설정
+
+            // Dialog 크기 및 위치 설정
+            val layoutParams = WindowManager.LayoutParams()
+            layoutParams.copyFrom(dialog.window?.attributes)
+            layoutParams.width = WindowManager.LayoutParams.WRAP_CONTENT
+            layoutParams.height = WindowManager.LayoutParams.WRAP_CONTENT
+            layoutParams.gravity = Gravity.CENTER
+            dialog.window?.attributes = layoutParams
+
+            // Dialog 표시
+            dialog.show()
         }
 
         binding.swipeLayout.setOnRefreshListener {
