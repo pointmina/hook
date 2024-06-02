@@ -18,10 +18,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/label_hook_kr"
+            android:text="H o o k !"
             style="@style/AppTexTitle.S16.Bold"
-            android:layout_gravity="center"
-            android:layout_marginStart="24dp"/>
+            android:layout_gravity="center"/>
 
         <ImageButton
             android:id="@+id/bt_setting"

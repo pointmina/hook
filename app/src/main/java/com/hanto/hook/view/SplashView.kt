@@ -28,7 +28,7 @@ class SplashView : AppCompatActivity() {
 
         if (accessToken.isNotEmpty()) {
             RetroServer.accessToken = accessToken
-            Toast.makeText(this, "토큰 확인 성공: 자동 로그인", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(this, "토큰 확인 성공: 자동 로그인", Toast.LENGTH_SHORT).show()
             splashToMain()
         } else {
             val intent = Intent(this@SplashView, LoginActivity::class.java)

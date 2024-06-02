@@ -16,18 +16,18 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
+    <TextView
         android:id="@+id/tv_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/title2"
+        android:text="H o o k !"
         android:textColor="@color/black"
-        android:layout_marginTop="130dp"
+        android:layout_marginTop="10dp"
         android:textSize="50sp"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/iv_login" />
+        app:layout_constraintTop_toBottomOf="@+id/iv_login" />
 
 
     <TextView

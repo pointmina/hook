@@ -32,7 +32,7 @@ class ApiServiceManager {
         return handleApiResponse { apiService.createHook(request) }
     }
 
-    suspend fun managerUpdateHook(id: Int, title: String, description: String, url: String, tag: ArrayList<String>): ApiResponse {
+    suspend fun managerUpdateHook(id: Int, title: String, description: String, url: String, tag: ArrayList<String>?): ApiResponse {
         val request = HookRequest(title, description, url, tag)
         return handleApiResponse { apiService.updateHook(id, request) }
     }

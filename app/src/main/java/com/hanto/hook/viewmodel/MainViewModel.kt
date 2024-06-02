@@ -126,7 +126,7 @@ class MainViewModel(private val apiServiceManager: ApiServiceManager) : ViewMode
         }
     }
 
-    fun loadUpdateHook(id:Int, title: String, description: String, url: String, tag: ArrayList<String>) {
+    fun loadUpdateHook(id:Int, title: String, description: String, url: String, tag: ArrayList<String>?) {
         viewModelScope.launch {
             runCatching {
                 apiServiceManager.managerUpdateHook(id, title, description, url, tag)

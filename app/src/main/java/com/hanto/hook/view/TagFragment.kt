@@ -119,11 +119,11 @@ class TagFragment : Fragment() {
         tagViewModel.tagData.observe(viewLifecycleOwner) { tagData ->
             if (tagData != null) {
                 tagAdapter.updateData(tagData.tag)
-                Toast.makeText(
-                    requireActivity(),
-                    "${tagData.count}개의 태그를 가져왔어요.",
-                    Toast.LENGTH_SHORT
-                ).show()
+//                Toast.makeText(
+//                    requireActivity(),
+//                    "${tagData.count}개의 태그를 가져왔어요.",
+//                    Toast.LENGTH_SHORT
+//                ).show()
             }
         }
 

@@ -5,14 +5,10 @@
 
     <!-- home -->
     <string name="label_home">홈</string>
-    <string name="label_tag">태그</string>
-    <string name="label_folder">폴더</string>
-    <string name="label_setting">설정</string>
+    <string name="label_tag">태 그</string>
+    <string name="label_folder">폴 더</string>
+    <string name="label_setting">설 정</string>
 
-
-
-
-    <string name="label_add_card">결제 수단을 등록해주세요</string>
 
     <!--    folder -->
     <string name="appbar_title_folder_screen">폴 더</string>
