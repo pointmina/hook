@@ -44,7 +44,9 @@ class SettingActivity : AppCompatActivity() {
         binding.btnSaveChange.setOnClickListener{
             val newNickname = binding.tvUserName.text.toString()
             viewModel.loadUpdateNickName(nickname = newNickname)
-            Toast.makeText(this, "${newNickname}(으)로 닉네임을 변경했어요.", Toast.LENGTH_SHORT).show()
+            viewModel.successData.observe(this, Observer { successData ->
+                Toast.makeText(this, "${successData?.result?.message}", Toast.LENGTH_SHORT).show()
+            })
             finish()
         }
 

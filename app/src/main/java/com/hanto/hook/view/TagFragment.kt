@@ -13,6 +13,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.flexbox.FlexDirection
@@ -39,7 +40,7 @@ class TagFragment : Fragment() {
         )
     }
 
-    /*    private val dialog by lazy {
+        private val dialog by lazy {
         Dialog(requireContext()).apply {
             requestWindowFeature(Window.FEATURE_NO_TITLE)
             setContentView(R.layout.activity_add_tag)
@@ -50,7 +51,7 @@ class TagFragment : Fragment() {
             btnChangeTagName.setOnClickListener {
                 val name = tvChangeTagName.text.toString()
                 tagViewModel.loadCreateTag(name)
-                dialog.dismiss() // 다이얼로그 닫기
+                this.dismiss()
             }
 
             val layoutParams = WindowManager.LayoutParams().apply {
@@ -61,7 +62,7 @@ class TagFragment : Fragment() {
             }
             window?.attributes = layoutParams
         }
-    }*/
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -77,7 +78,7 @@ class TagFragment : Fragment() {
 
         val btAddTag: ImageButton = view.findViewById(R.id.btAddTag)
         btAddTag.setOnClickListener {
-/*            dialog.show()*/
+            dialog.show()
         }
 
         binding.swipeLayout.setOnRefreshListener {
@@ -110,12 +111,11 @@ class TagFragment : Fragment() {
             adapter = tagAdapter
         }
 
-        observeViewModel()
-
-        tagViewModel.loadFindMyTags()
+        setTagData()
     }
 
-    private fun observeViewModel() {
+    private fun setTagData() {
+        tagViewModel.loadFindMyTags()
         tagViewModel.tagData.observe(viewLifecycleOwner) { tagData ->
             if (tagData != null) {
                 tagAdapter.updateData(tagData.tag)
@@ -126,16 +126,12 @@ class TagFragment : Fragment() {
                 ).show()
             }
         }
-
-        tagViewModel.errorData.observe(viewLifecycleOwner) { errorResponse ->
-            errorResponse?.let {
-                Toast.makeText(requireContext(), "오류: ${it.message}", Toast.LENGTH_LONG)
-                    .show()
-                tagViewModel.loadFindMyTags()
+        tagViewModel.errorData.observe(viewLifecycleOwner) {errorData ->
+            if (errorData != null) {
+                Toast.makeText(requireContext(), "오류: ${errorData.message}", Toast.LENGTH_LONG).show()
             }
         }
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

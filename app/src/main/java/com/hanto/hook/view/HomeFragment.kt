@@ -54,6 +54,7 @@ class HomeFragment : Fragment() {
         binding.swipeLayout.setOnRefreshListener {
             hookViewModel.loadFindMyHooks()
             binding.swipeLayout.isRefreshing = false
+
         }  // 새로 고침
 
         // 60~82: 디폴트 어댑터 선언
@@ -126,6 +127,7 @@ class HomeFragment : Fragment() {
         btHookDelete.setOnClickListener {
             selectedItem.id?.let { it1 -> hookViewModel.loadDeleteHook(it1) }
             dialog.dismiss()
+            hookViewModel.loadFindMyHooks()
         }
         dialog.show()
     }
