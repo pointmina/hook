@@ -57,7 +57,10 @@ class LoginWebViewActivity : AppCompatActivity() {
     private fun handleRedirect(url: String) {
         lifecycleScope.launch {
             try {
-                val response = URL(url).readText()
+                // 네트워크 작업을 Dispatchers.IO에서 실행
+                val response = withContext(Dispatchers.IO) {
+                    URL(url).readText()
+                }
                 val jsonObject = JSONObject(response)
                 val accessToken = jsonObject.getString("accessToken")
                 val refreshToken = jsonObject.getString("refreshToken")

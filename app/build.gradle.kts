@@ -26,14 +26,14 @@ android {
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro")
-            buildConfigField("String", "BASE_URL", "\"http://ec2-43-201-63-64.ap-northeast-2.compute.amazonaws.com:3030\"")
-            buildConfigField("String", "KAKAO_LOGIN_URL", "\"http://ec2-43-201-63-64.ap-northeast-2.compute.amazonaws.com:3030/api/auth/kakao/signin\"")
-            buildConfigField("String", "KAKAO_REDIRECT", "\"http://ec2-43-201-63-64.ap-northeast-2.compute.amazonaws.com:3030/api/auth/kakao/get-authorization-code?code=\"")
+            buildConfigField("String", "BASE_URL", "\"http://ec2-3-39-192-148.ap-northeast-2.compute.amazonaws.com:3030\"")
+            buildConfigField("String", "KAKAO_LOGIN_URL", "\"http://ec2-3-39-192-148.ap-northeast-2.compute.amazonaws.com:3030/api/auth/kakao/signin\"")
+            buildConfigField("String", "KAKAO_REDIRECT", "\"http://ec2-3-39-192-148.ap-northeast-2.compute.amazonaws.com:3030/api/auth/kakao/get-authorization-code?code=\"")
         }
         debug {
-            buildConfigField("String", "BASE_URL", "\"http://ec2-43-201-63-64.ap-northeast-2.compute.amazonaws.com:3030\"")
-            buildConfigField("String", "KAKAO_LOGIN_URL", "\"http://ec2-43-201-63-64.ap-northeast-2.compute.amazonaws.com:3030/api/auth/kakao/signin\"")
-            buildConfigField("String", "KAKAO_REDIRECT", "\"http://ec2-43-201-63-64.ap-northeast-2.compute.amazonaws.com:3030/api/auth/kakao/get-authorization-code?code=\"")
+            buildConfigField("String", "BASE_URL", "\"http://ec2-3-39-192-148.ap-northeast-2.compute.amazonaws.com:3030\"")
+            buildConfigField("String", "KAKAO_LOGIN_URL", "\"http://ec2-3-39-192-148.ap-northeast-2.compute.amazonaws.com:3030/api/auth/kakao/signin\"")
+            buildConfigField("String", "KAKAO_REDIRECT", "\"http://ec2-3-39-192-148.ap-northeast-2.compute.amazonaws.com:3030/api/auth/kakao/get-authorization-code?code=\"")
         }
     }
     compileOptions {
@@ -81,6 +81,7 @@ dependencies {
     implementation("com.google.firebase:firebase-database-ktx:21.0.0")
     implementation("androidx.activity:activity:1.8.0")
     implementation("androidx.datastore:datastore-preferences-core-jvm:1.1.1")
+    implementation("androidx.datastore:datastore-core-android:1.1.1")
     val nav_version = "2.7.7"
 
     implementation("com.google.code.gson:gson:2.10.1")
