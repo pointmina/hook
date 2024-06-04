@@ -81,7 +81,7 @@
             android:layout_marginTop="12dp"
             android:fontFamily="@font/notosans_m"
             android:textStyle="bold"
-            android:text="@string/label_tag_count"
+            android:text="0개의 훅"
             android:textColor="@color/gray_300"
             android:textSize="14sp"
             app:layout_constraintStart_toEndOf="@id/tv_selected_tag"

@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hanto.hook.api.ApiServiceManager
 import com.hanto.hook.api.ErrorResponse
+import com.hanto.hook.api.SelectedTagAndHookResponse
 import com.hanto.hook.api.SuccessResponse
 import kotlinx.coroutines.launch
 
@@ -83,6 +84,31 @@ class MainViewModel(private val apiServiceManager: ApiServiceManager) : ViewMode
                 }
             }.onFailure { exception ->
                 Log.e("Fail - loadFindMyHooks", "${exception.message}")
+            }
+        }
+    }
+
+    private val _tagFilteredHooks = MutableLiveData<SelectedTagAndHookResponse?>()
+    val tagFilteredHooks: LiveData<SelectedTagAndHookResponse?>
+        get() = _tagFilteredHooks
+
+    fun loadFindMyHookByTag(tagID: Int) {
+        viewModelScope.launch {
+            runCatching {
+                apiServiceManager.managerFindMyHookByTag(tagID)
+            }.onSuccess { result ->
+                when (result) {
+                    is SelectedTagAndHookResponse -> {
+                        _tagFilteredHooks.value = result
+                        Log.d("MainViewModel","$_tagFilteredHooks")
+                    }
+                    is ErrorResponse -> {
+                        _errorData.value = result
+                        Log.e("Error - loadFindMyHookByTag", "$errorData")
+                    }
+                }
+            }.onFailure { exception ->
+                Log.e("Fail - loadFindMyHookByTag", "${exception.message}")
             }
         }
     }

@@ -94,7 +94,8 @@ class TagFragment : Fragment() {
                     val name = selectedTag.displayName
                     if (name != null) {
                         Intent(requireContext(), SelectedTagActivity::class.java).apply {
-                            putExtra("selectedTag", selectedTag.displayName)
+                            putExtra("selectedTagName", selectedTag.displayName)
+                            putExtra("selectedTagId", selectedTag.id)
                             startActivity(this)
                         }
                     }

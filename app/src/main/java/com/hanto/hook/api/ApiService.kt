@@ -22,6 +22,9 @@ interface ApiService {
     @GET("/api/hook")
     suspend fun findMyHooks(): Response<ApiResponse>
 
+    @GET("/api/hook")
+    suspend fun findMyHookByTag(@Query("tag") tag: Int): Response<ApiResponse>
+
     @GET("/api/hook/{id}")
     suspend fun findHookById(@Path("id") id: Int): Response<ApiResponse>
 
