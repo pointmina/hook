@@ -23,6 +23,10 @@ class ApiServiceManager {
         return handleApiResponse { apiService.findMyHooks() }
     }
 
+    suspend fun managerFindMyHookByTag(tagID: Int): ApiResponse {
+        return customHandleApiResponse { apiService.findMyHookByTag(tagID) }
+    }
+
     suspend fun managerFindHookById(id: Int): ApiResponse {
         return handleApiResponse { apiService.findHookById(id) }
     }
@@ -32,7 +36,7 @@ class ApiServiceManager {
         return handleApiResponse { apiService.createHook(request) }
     }
 
-    suspend fun managerUpdateHook(id: Int, title: String, description: String, url: String, tag: ArrayList<String>?): ApiResponse {
+    suspend fun managerUpdateHook(id: Int, title: String, description: String, url: String, tag: ArrayList<String>): ApiResponse {
         val request = HookRequest(title, description, url, tag)
         return handleApiResponse { apiService.updateHook(id, request) }
     }
@@ -73,6 +77,26 @@ class ApiServiceManager {
                 response.body()?.let {
                     Log.d("ApiServiceManager", "성공 -- $it")
                     it as SuccessResponse
+                } ?: ErrorResponse()
+            } else {
+                Gson().fromJson(response.errorBody()?.string(), ErrorResponse::class.java).also {
+                    Log.d("ApiServiceManager", "에러 -- ${it.error}")
+                }
+            }
+        } catch (e: Exception) {
+            Log.d("ApiServiceManager", "예상치 못한 오류", e)
+            ErrorResponse(error = "예상치 못한 오류 발생: ${e.message}")
+        }
+    }
+
+    private suspend fun customHandleApiResponse(apiCall: suspend () -> Response<ApiResponse>): ApiResponse {
+        return try {
+            val response = apiCall()
+            if (response.isSuccessful) {
+                // Parse the successful response
+                response.body()?.let {
+                    Log.d("ApiServiceManager", "성공 -- $it")
+                    it as SelectedTagAndHookResponse
                 } ?: ErrorResponse()
             } else {
                 Gson().fromJson(response.errorBody()?.string(), ErrorResponse::class.java).also {

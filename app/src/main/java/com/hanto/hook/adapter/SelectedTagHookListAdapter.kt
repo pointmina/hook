@@ -6,12 +6,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
+import com.hanto.hook.api.SelectedTagAndHookResponse
 import com.hanto.hook.databinding.ItemSelectedTagHookListBinding
 import com.hanto.hook.model.Hook
 import com.hanto.hook.model.Tag
 
 class SelectedTagHookListAdapter(
-    private val items: List<Hook>
+    private var hooks: ArrayList<Hook>
 ) : RecyclerView.Adapter<SelectedTagHookListAdapter.SelectedTagHookViewHolder>() {
 
     // 뷰홀더 생성
@@ -23,11 +24,16 @@ class SelectedTagHookListAdapter(
 
     // 데이터와 뷰 바인딩
     override fun onBindViewHolder(holder: SelectedTagHookViewHolder, position: Int) {
-        holder.bind(items[position])
+        holder.bind(hooks[position])
     }
 
     // 아이템 개수 반환
-    override fun getItemCount(): Int = items.size
+    override fun getItemCount(): Int = hooks.size
+
+    fun updateData(response: SelectedTagAndHookResponse) {
+        this.hooks = response.hooks
+        notifyDataSetChanged() // 데이터셋 변경을 알림
+    }
 
     // 뷰홀더 클래스
     inner class SelectedTagHookViewHolder(private val binding: ItemSelectedTagHookListBinding) :
@@ -57,20 +63,3 @@ class SelectedTagHookListAdapter(
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

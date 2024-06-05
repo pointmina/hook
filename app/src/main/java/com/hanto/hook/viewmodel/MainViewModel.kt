@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hanto.hook.api.ApiServiceManager
 import com.hanto.hook.api.ErrorResponse
+import com.hanto.hook.api.SelectedTagAndHookResponse
 import com.hanto.hook.api.SuccessResponse
 import kotlinx.coroutines.launch
 
@@ -87,6 +88,31 @@ class MainViewModel(private val apiServiceManager: ApiServiceManager) : ViewMode
         }
     }
 
+    private val _tagFilteredHooks = MutableLiveData<SelectedTagAndHookResponse?>()
+    val tagFilteredHooks: LiveData<SelectedTagAndHookResponse?>
+        get() = _tagFilteredHooks
+
+    fun loadFindMyHookByTag(tagID: Int) {
+        viewModelScope.launch {
+            runCatching {
+                apiServiceManager.managerFindMyHookByTag(tagID)
+            }.onSuccess { result ->
+                when (result) {
+                    is SelectedTagAndHookResponse -> {
+                        _tagFilteredHooks.value = result
+                        Log.d("MainViewModel","$_tagFilteredHooks")
+                    }
+                    is ErrorResponse -> {
+                        _errorData.value = result
+                        Log.e("Error - loadFindMyHookByTag", "$errorData")
+                    }
+                }
+            }.onFailure { exception ->
+                Log.e("Fail - loadFindMyHookByTag", "${exception.message}")
+            }
+        }
+    }
+
     fun loadFindHookById(id: Int) {
         viewModelScope.launch {
             runCatching {
@@ -129,7 +155,7 @@ class MainViewModel(private val apiServiceManager: ApiServiceManager) : ViewMode
     fun loadUpdateHook(id:Int, title: String, description: String, url: String, tag: ArrayList<String>?) {
         viewModelScope.launch {
             runCatching {
-                apiServiceManager.managerUpdateHook(id, title, description, url, tag)
+                tag?.let { apiServiceManager.managerUpdateHook(id, title, description, url, it) }
             }.onSuccess { result ->
                 when (result) {
                     is SuccessResponse -> {
@@ -269,10 +295,3 @@ class MainViewModel(private val apiServiceManager: ApiServiceManager) : ViewMode
         }
     }
 }
-
-
-
-
-
-
-

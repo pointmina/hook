@@ -22,6 +22,9 @@ interface ApiService {
     @GET("/api/hook")
     suspend fun findMyHooks(): Response<ApiResponse>
 
+    @GET("/api/hook")
+    suspend fun findMyHookByTag(@Query("tag") tag: Int): Response<ApiResponse>
+
     @GET("/api/hook/{id}")
     suspend fun findHookById(@Path("id") id: Int): Response<ApiResponse>
 
@@ -49,6 +52,4 @@ interface ApiService {
 
     @DELETE("/api/tag/{id}")
     suspend fun deleteTag(@Path("id") id: Int) : Response<ApiResponse>
-
-
 }
