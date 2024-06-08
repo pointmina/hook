@@ -2,6 +2,8 @@ package com.hanto.hook.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +13,7 @@ import android.widget.ImageButton
 import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -25,6 +28,7 @@ import com.hanto.hook.api.ApiServiceManager
 import com.hanto.hook.model.Hook
 import com.hanto.hook.viewmodel.MainViewModel
 import com.hanto.hook.viewmodel.ViewModelFactory
+import okhttp3.internal.notify
 
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
@@ -57,11 +61,10 @@ class HomeFragment : Fragment() {
         }  // 환경 설정 버튼
 
         binding.swipeLayout.setOnRefreshListener {
-            hookViewModel.loadFindMyHooks()
+            loadData()
             binding.swipeLayout.isRefreshing = false
         }  // 새로 고침
 
-        // 60~82: 디폴트 어댑터 선언
         hookAdapter = HookAdapter(
             hooks = ArrayList(),
             tag = ArrayList(),
@@ -78,7 +81,7 @@ class HomeFragment : Fragment() {
                         }
                         startActivity(this)
                     }
-                } // 아이템 누르면 디테일 뷰로 이동
+                } // 디폴트 어댑터 선언, 아이템 누르면 디테일 뷰로 이동
 
                 override fun onOptionButtonClick(position: Int) {
                     val selectedHook = hookAdapter.getItem(position)
@@ -92,26 +95,39 @@ class HomeFragment : Fragment() {
             dividerItemDecoration.setDrawable(it)
         }
         binding.rvHome.addItemDecoration(dividerItemDecoration)
-        // 85~90: rv 각 아이템 사이에 구분선 넣는 데코
+        // 아이템 사이에 구분선 넣는 데코
 
         binding.rvHome.adapter = hookAdapter // rv 에 어댑터 붙이기
 
-        hookViewModel.loadFindMyHooks() // fragment 진입 -> 데이터 로딩
+        // loadData()
+    }
 
-        val shimmerContainer = binding.sfLoading
+    private fun loadData() {
+        /*binding.sfLoading.startShimmer() 자동 시작 */
+        hookViewModel.loadFindMyHooks()
         hookViewModel.hookData.observe(viewLifecycleOwner) { hookData ->
             if (hookData != null) {
                 hookAdapter.updateData(hookData)
-                shimmerContainer.stopShimmer() // shimmer 는 원래 자동 시작 ... hookData 오면 stop
+                val shimmerContainer = binding.sfLoading
+                shimmerContainer.stopShimmer()
                 shimmerContainer.visibility = View.GONE
-//                Toast.makeText(requireActivity(), "${hookData.count}개의 훅이 업데이트 됐어요.", Toast.LENGTH_SHORT).show()
+
+/*                val successToast = Toast.makeText(requireActivity(),"${hookData.count}개의 훅을 불러왔습니다.",Toast.LENGTH_SHORT)
+                successToast.show()
+                Handler(Looper.getMainLooper()).postDelayed({
+                    successToast.cancel()
+                }, 500)*/
+
             } else {
-                Toast.makeText(requireActivity(), "불러오기 실패", Toast.LENGTH_SHORT).show()
+                hookViewModel.hookData.observe(viewLifecycleOwner) { errorData ->
+                    if (errorData != null) {
+                        Toast.makeText(requireActivity(), "${errorData.result?.message}", Toast.LENGTH_SHORT).show()
+                    }
+                }
             }
         }
     }
 
-    // 111~132: 바텀 시트 dialog
     private fun showBottomSheetDialog(selectedItem: Hook) {
         val dialog = BottomSheetDialog(requireContext(), R.style.CustomBottomSheetDialogTheme)
         val view = layoutInflater.inflate(R.layout.bottom_dialog_home, null)
@@ -130,8 +146,35 @@ class HomeFragment : Fragment() {
         val btHookDelete = view.findViewById<Button>(R.id.bt_HookDelete)
         btHookDelete.setOnClickListener {
             selectedItem.id?.let { it1 -> hookViewModel.loadDeleteHook(it1) }
+            hookViewModel.deleteSuccessData.observe(viewLifecycleOwner) { deleteSuccessData ->
+                if (deleteSuccessData != null) {
+                    loadData()
+                    val deleteSuccessToast = Toast.makeText(
+                        requireActivity(),
+                        "${deleteSuccessData.result?.message}",
+                        Toast.LENGTH_SHORT
+                    )
+                    deleteSuccessToast.show()
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        deleteSuccessToast.cancel()
+                    }, 500)
+                } else {
+                    hookViewModel.deleteSuccessData.observe(viewLifecycleOwner) { errorData ->
+                        if (errorData != null) {
+                            val deleteErrorToast = Toast.makeText(
+                                requireActivity(),
+                                "${selectedItem.title} 삭제 실패",
+                                Toast.LENGTH_SHORT
+                            )
+                            deleteErrorToast.show()
+                            Handler(Looper.getMainLooper()).postDelayed({
+                                deleteErrorToast.cancel()
+                            }, 500)
+                        }
+                    }
+                }
+            }
             dialog.dismiss()
-            Toast.makeText(requireActivity(),"삭제 완료!", Toast.LENGTH_SHORT).show()
         }
         dialog.show()
     }
@@ -139,6 +182,13 @@ class HomeFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Handler(Looper.getMainLooper()).postDelayed({
+            loadData()
+        }, 500)
     }
 }
 

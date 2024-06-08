@@ -171,6 +171,10 @@ class MainViewModel(private val apiServiceManager: ApiServiceManager) : ViewMode
         }
     }
 
+    private val _deleteSuccessData = MutableLiveData<SuccessResponse?>()
+    val deleteSuccessData: LiveData<SuccessResponse?>
+        get() = _deleteSuccessData
+
     fun loadDeleteHook(id: Int) {
         viewModelScope.launch {
             runCatching {
@@ -178,7 +182,7 @@ class MainViewModel(private val apiServiceManager: ApiServiceManager) : ViewMode
             }.onSuccess { result ->
                 when (result) {
                     is SuccessResponse -> {
-                        _successData.postValue(result)
+                        _deleteSuccessData.postValue(result)
                     }
                     is ErrorResponse -> {
                         _errorData.postValue(result)
