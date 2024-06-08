@@ -1,40 +1,34 @@
 package com.hanto.hook.view
 
 import android.content.ClipboardManager
-import android.content.Context.CLIPBOARD_SERVICE
 import android.content.DialogInterface
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil.setContentView
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.hanto.hook.BaseActivity
 import com.hanto.hook.R
 import com.hanto.hook.api.ApiServiceManager
-import com.hanto.hook.api.SuccessResponse
 import com.hanto.hook.databinding.ActivityAddHookBinding
 import com.hanto.hook.viewmodel.MainViewModel
 import com.hanto.hook.viewmodel.ViewModelFactory
 
+@Suppress("DEPRECATION")
 class AddHookActivity : BaseActivity() {
     private lateinit var binding: ActivityAddHookBinding
 
     private val apiServiceManager by lazy { ApiServiceManager() }
     private val viewModelFactory by lazy { ViewModelFactory(apiServiceManager) }
-    private val viewModel: MainViewModel by lazy { ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java) }
+    private val viewModel: MainViewModel by lazy { ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java] }
 
     private var isUrlValid = false
     private var isTitleValid = false
@@ -47,7 +41,7 @@ class AddHookActivity : BaseActivity() {
         val view = binding.root
 
         viewModel.loadFindMyTags()
-        viewModel.tagData.observe(this, Observer { tagData ->
+        viewModel.tagData.observe(this) { tagData ->
             tagData?.let {
                 for (tag in tagData.tag) {
                     tag.displayName?.let { displayName ->
@@ -55,7 +49,7 @@ class AddHookActivity : BaseActivity() {
                     }
                 }
             }
-        })
+        }
         setContentView(view)
         updateButtonState()
 
@@ -87,8 +81,10 @@ class AddHookActivity : BaseActivity() {
             finish()
         } // 앱바 - 뒤로 가기 버튼
 
-        binding.tvLimit1.text = "${binding.tvUrlTitle.text.length} / 80"
-        binding.tvLimit2.text = "${binding.tvUrlDescription.text.length} / 80"
+        val limitString1 = "${binding.tvUrlTitle.text.length} / 80"
+        val limitString2 = "${binding.tvUrlDescription.text.length} / 80"
+        binding.tvLimit1.text = limitString1
+        binding.tvLimit2.text = limitString2
 
         binding.tvUrlLink.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -106,7 +102,7 @@ class AddHookActivity : BaseActivity() {
             override fun afterTextChanged(s: Editable?) {
             }
         })
-        binding.tvUrlLink.setOnEditorActionListener { v, actionId, event ->
+        binding.tvUrlLink.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_NEXT) {
                 binding.tvUrlTitle.requestFocus()
                 true
@@ -119,7 +115,8 @@ class AddHookActivity : BaseActivity() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 s?.let {
-                    binding.tvLimit1.text = "${s.length} / 120"
+                    val innerLimitString1 = "${s.length} / 120"
+                    binding.tvLimit1.text = innerLimitString1
 
                     isTitleValid = s.toString().trim().isNotEmpty()
                     if (!isTitleValid) {
@@ -132,7 +129,7 @@ class AddHookActivity : BaseActivity() {
             }
             override fun afterTextChanged(s: Editable?) { }
         })
-        binding.tvUrlTitle.setOnEditorActionListener { v, actionId, event ->
+        binding.tvUrlTitle.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_NEXT && isExpanded) {
                 binding.tvUrlDescription.requestFocus()
                 true
@@ -145,7 +142,8 @@ class AddHookActivity : BaseActivity() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 s?.let {
-                    binding.tvLimit2.text = "${s.length} / 80"
+                    val innerLimitString2 = "${s.length} / 80"
+                    binding.tvLimit2.text = innerLimitString2
                 }
             }
             override fun afterTextChanged(s: Editable?) {}
@@ -162,12 +160,12 @@ class AddHookActivity : BaseActivity() {
             builder.setMultiChoiceItems(
                 tagArray,
                 multiChoiceList.values.toBooleanArray()
-            ) { dialogInterface: DialogInterface, which: Int, isChecked: Boolean ->
+            ) { _: DialogInterface, which: Int, isChecked: Boolean ->
                 val selectedTag = multiChoiceList.keys.toTypedArray()[which]
                 multiChoiceList[selectedTag] = isChecked
             }
 
-            builder.setPositiveButton("OK") { dialog, which ->
+            builder.setPositiveButton("OK") { dialog, _ ->
                 val selectedTags = mutableListOf<String>()
                 for ((tag, selected) in multiChoiceList) {
                     if (selected) {
@@ -179,19 +177,19 @@ class AddHookActivity : BaseActivity() {
                 dialog.dismiss()
             }
 
-            builder.setNegativeButton("Cancel") { dialog, which ->
+            builder.setNegativeButton("Cancel") { dialog, _ ->
                 dialog.dismiss()
             }
 
             //add버튼 누르면 태그 항목에 추가
-            builder.setNeutralButton("Add") { dialog, which ->
+            builder.setNeutralButton("Add") { dialog, _ ->
                 // 추가: 새로운 항목 추가 기능 구현
                 val editText = EditText(this)
                 editText.hint = "태그 입력"
                 val dialogBuilder = AlertDialog.Builder(this)
                     .setTitle("태그 추가")
                     .setView(editText)
-                    .setPositiveButton("추가") { dialog, which ->
+                    .setPositiveButton("추가") { _, _ ->
                         val newTag = editText.text.toString().trim()
                         if (newTag.isNotEmpty()) {
                             multiChoiceList[newTag] = true
@@ -208,11 +206,10 @@ class AddHookActivity : BaseActivity() {
                         }
                         dialog.dismiss()
                     }
-                    .setNegativeButton("취소") { dialog, which ->
+                    .setNegativeButton("취소") { _, _ ->
                         dialog.dismiss()
                     }
-                val dialog = dialogBuilder.create()
-                dialog.show()
+                dialogBuilder.create().show()
             }
             val dialog = builder.create()
             dialog.show()

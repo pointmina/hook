@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.hanto.hook.api.ApiResponse
 import com.hanto.hook.api.ApiServiceManager
 import com.hanto.hook.api.ErrorResponse
 import com.hanto.hook.api.MultipleErrorResponse

@@ -2,7 +2,6 @@ package com.hanto.hook.view
 
 import android.os.Bundle
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import com.hanto.hook.BaseActivity
 import com.hanto.hook.BuildConfig
 import com.hanto.hook.api.RetroServer

@@ -2,7 +2,6 @@ package com.hanto.hook.view
 
 import android.os.Bundle
 import android.text.Editable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,20 +9,12 @@ import android.widget.Toast
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.DialogFragment
 import com.hanto.hook.databinding.FragmentChangeTagBinding
 import androidx.lifecycle.ViewModelProvider
-import com.hanto.hook.R
 import com.hanto.hook.api.ApiServiceManager
 import com.hanto.hook.viewmodel.MainViewModel
 import com.hanto.hook.viewmodel.ViewModelFactory
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import com.hanto.hook.api.ErrorResponse
-import com.hanto.hook.api.SuccessResponse
-import androidx.lifecycle.Observer
 
 
 class ChangeTagFragment(private val onTagUpdated: (String) -> Unit) : DialogFragment() {
@@ -50,8 +41,7 @@ class ChangeTagFragment(private val onTagUpdated: (String) -> Unit) : DialogFrag
 
         val apiServiceManager = ApiServiceManager()
         val viewModelFactory = ViewModelFactory(apiServiceManager)
-        viewModel =
-            ViewModelProvider(requireActivity(), viewModelFactory).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(requireActivity(), viewModelFactory)[MainViewModel::class.java]
 
         val selectedTag = arguments?.getString("selectedTag")
         selectedTagId = arguments?.getInt("selectedTagId", -1) ?: -1
@@ -77,15 +67,15 @@ class ChangeTagFragment(private val onTagUpdated: (String) -> Unit) : DialogFrag
         changeTagName.setOnClickListener {
             showKeyboardAndFocus(changeTagName)
         }
-        viewModel.successData.observe(viewLifecycleOwner, Observer { successResponse ->
+        viewModel.successData.observe(viewLifecycleOwner) { successResponse ->
             successResponse?.let {
                 Toast.makeText(requireContext(), "태그 이름이 수정되었습니다.", Toast.LENGTH_SHORT).show()
                 onTagUpdated(binding.tvChangeTagName.text.toString()) // 수정된 태그 이름을 반환
                 dismiss()
             }
-        })
+        }
 
-        viewModel.errorData.observe(viewLifecycleOwner, Observer { errorResponse ->
+        viewModel.errorData.observe(viewLifecycleOwner) { errorResponse ->
             errorResponse?.let {
                 Toast.makeText(
                     requireContext(),
@@ -93,7 +83,7 @@ class ChangeTagFragment(private val onTagUpdated: (String) -> Unit) : DialogFrag
                     Toast.LENGTH_SHORT
                 ).show()
             }
-        })
+        }
     }
 
     override fun onDestroy() {

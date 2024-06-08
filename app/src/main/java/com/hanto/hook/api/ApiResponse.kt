@@ -5,7 +5,7 @@ import com.hanto.hook.model.Hook
 import com.hanto.hook.model.Tag
 import com.hanto.hook.model.User
 
-open class ApiResponse()
+open class ApiResponse
 
 data class SuccessResponse(
 

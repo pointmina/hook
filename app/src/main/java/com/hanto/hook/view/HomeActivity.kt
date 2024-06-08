@@ -1,9 +1,7 @@
 package com.hanto.hook.view
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.hanto.hook.BaseActivity
@@ -33,17 +31,8 @@ class HomeActivity : BaseActivity() {
         binding.bottomNavigationHome.setupWithNavController(navController)
     }
 
-    var backPressedTime: Long = 0
     override fun onBackPressed() {
-        if (backPressedTime + 3000 > System.currentTimeMillis()) {
-            super.onBackPressed()
-            finish() //액티비티 종료
-        } else {
-            Toast.makeText(
-                applicationContext, "한 번 더 뒤로가기 버튼을 누르면 종료됩니다.",
-                Toast.LENGTH_SHORT
-            ).show()
-        }
-        backPressedTime = System.currentTimeMillis()
+        super.onBackPressed()
+        finishAffinity()
     }
 }

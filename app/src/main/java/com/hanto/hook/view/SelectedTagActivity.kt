@@ -3,17 +3,10 @@ package com.hanto.hook.view
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.view.View
 import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.core.content.ContextCompat.startActivity
 import androidx.core.content.res.ResourcesCompat
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -26,7 +19,6 @@ import com.hanto.hook.databinding.ActivitySelectedTagBinding
 import com.hanto.hook.model.Hook
 import com.hanto.hook.viewmodel.MainViewModel
 import com.hanto.hook.viewmodel.ViewModelFactory
-import kotlin.properties.Delegates
 
 class SelectedTagActivity : BaseActivity() {
 
@@ -36,7 +28,7 @@ class SelectedTagActivity : BaseActivity() {
     private val apiServiceManager by lazy { ApiServiceManager() }
     private val viewModelFactory by lazy { ViewModelFactory(apiServiceManager) }
     private val viewModel: MainViewModel by lazy {
-        ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
+        ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,7 +41,7 @@ class SelectedTagActivity : BaseActivity() {
             finish()
         }
 
-        // Intent로부터 데이터 받기
+        // Intent 로부터 데이터 받기
         val selectedTagName = intent.getStringExtra("selectedTagName")
         val selectedTagId = intent.getIntExtra("selectedTagId", -1) // 아이디 (기본값 -1으로 설정)
         binding.tvSelectedTag.text = selectedTagName
@@ -102,7 +94,8 @@ class SelectedTagActivity : BaseActivity() {
             viewModel.tagFilteredHooks.observe(this) { tagFilteredHooks ->
                 if (tagFilteredHooks != null) {
                     selectedTagHookListAdapter.updateData(tagFilteredHooks)
-                    binding.tvTagCount.text = "${tagFilteredHooks.count}개의 훅"
+                    val countString = "${tagFilteredHooks.count}개의 훅"
+                    binding.tvTagCount.text = countString
                 } else {
                     Toast.makeText(this, "불러오기 실패", Toast.LENGTH_SHORT).show()
                 }
@@ -133,6 +126,7 @@ class SelectedTagActivity : BaseActivity() {
         dialogBuilder.show()
     }
 
+    @SuppressLint("InflateParams")
     private fun showBottomSheetDialog(selectedItem: Hook) {
         val dialog = BottomSheetDialog(this, R.style.CustomBottomSheetDialogTheme)
         val view = layoutInflater.inflate(R.layout.bottom_dialog_home, null)

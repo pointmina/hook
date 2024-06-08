@@ -13,8 +13,6 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.flexbox.FlexDirection
@@ -24,7 +22,6 @@ import com.hanto.hook.R
 import com.hanto.hook.adapter.TagAdapter
 import com.hanto.hook.api.ApiServiceManager
 import com.hanto.hook.databinding.FragmentTagBinding
-import com.hanto.hook.model.Tag
 import com.hanto.hook.viewmodel.MainViewModel
 import com.hanto.hook.viewmodel.ViewModelFactory
 import java.util.ArrayList
@@ -36,9 +33,7 @@ class TagFragment : Fragment() {
     private val apiServiceManager by lazy { ApiServiceManager() }
     private val viewModelFactory by lazy { ViewModelFactory(apiServiceManager) }
     private val tagViewModel: MainViewModel by lazy {
-        ViewModelProvider(this, viewModelFactory).get(
-            MainViewModel::class.java
-        )
+        ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
     }
 
     // 태그 추가 다이알로그
@@ -126,7 +121,7 @@ class TagFragment : Fragment() {
         tagViewModel.tagData.observe(viewLifecycleOwner) { tagData ->
             if (tagData != null) {
                 tagAdapter.updateData(tagData.tag)
-                Toast.makeText( requireActivity(),"${tagData.count}개의 태그를 가져왔어요.", Toast.LENGTH_SHORT).show()
+                //Toast.makeText( requireActivity(),"${tagData.count}개의 태그를 가져왔어요.", Toast.LENGTH_SHORT).show()
             }
         }
 //        tagViewModel.errorData.observe(viewLifecycleOwner) {errorData ->
