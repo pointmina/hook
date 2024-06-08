@@ -165,6 +165,7 @@ class AddHookActivity : AppCompatActivity() {
                 .map { it.trim().replace("#", "") })
 
             viewModel.loadCreateHook(title, description, url, tags)
+//            Log.d("addnewhook", "$title, $description, $url, $tags")
             finish()
         }
 

@@ -41,22 +41,11 @@ Members
 
 |이동원|고유진|이채영|김민아|이예진|조영우
 |:---:|:---:|:---:|:---:|:---:|:---:|
-|||||||
+|<img src="https://github.com/pointmina/hook/assets/68779817/1cdbef47-5608-4685-b7de-37779093762c" width="100">|<img src="https://github.com/pointmina/hook/assets/68779817/c6dbac4b-c060-4ad5-8f5b-f7ae2efeb60c" width="100">|<img src="https://github.com/pointmina/hook/assets/68779817/ef5d3d14-4f32-423e-8a0e-da1615a1123d" width="100">|<img src="https://github.com/pointmina/hook/assets/68779817/11f73b42-4f6b-40b5-8bdd-27aeab4bfa4c" width="100">|<img src="https://github.com/pointmina/hook/assets/68779817/8f2e9a54-397a-4b17-931a-3358b71b77b0" width="100">|<img src="https://github.com/pointmina/hook/assets/68779817/7c500406-f577-41af-a094-e0cc1d482433" width="100">|
 |PM|Backend|Backend|Frontend|Frontend|Frontend|
 
 
-<table>
-  <tbody>
-    <tr>
-      <td align="center"><a href=""><img src="" width="100px;" alt=""/><br /><sub><b>PM : 이동원</b></sub></a><br /></td>
-      <td align="center"><a href=""><img src="" width="100px;" alt=""/><br /><sub><b>FE : 김민아</b></sub></a><br /></td>
-      <td align="center"><a href=""><img src="" width="100px;" alt=""/><br /><sub><b>FE : 이예진</b></sub></a><br /></td>
-      <td align="center"><a href=""><img src="" width="100px;" alt=""/><br /><sub><b>FE : 조영우</b></sub></a><br /></td>
-      <td align="center"><a href=""><img src="" width="100px;" alt=""/><br /><sub><b>BE : 고유진</b></sub></a><br /></td>
-      <td align="center"><a href=""><img src="" width="100px;" alt=""/><br /><sub><b>BE : 이채영</b></sub></a><br /></td>
-    </tr>
-  </tbody>
-</table>
+
 
 
 
