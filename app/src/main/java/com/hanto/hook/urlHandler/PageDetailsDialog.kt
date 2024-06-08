@@ -1,7 +1,7 @@
 package com.hanto.hook.urlHandler
 
 import android.annotation.SuppressLint
-import android.app.ActivityManager
+import android.app.Activity
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
@@ -14,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.hanto.hook.R
 import com.hanto.hook.api.ApiServiceManager
+import com.hanto.hook.api.ErrorResponse
+import com.hanto.hook.api.SuccessResponse
 import com.hanto.hook.databinding.ActivityUrlHandlingBinding
 import com.hanto.hook.viewmodel.MainViewModel
 import com.hanto.hook.viewmodel.ViewModelFactory
@@ -26,6 +28,7 @@ class PageDetailsDialog(val activity: AppCompatActivity, val title: String, val 
     private lateinit var viewModel: MainViewModel
     private lateinit var binding: ActivityUrlHandlingBinding
 
+    @SuppressLint("WrongViewCast")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -40,53 +43,6 @@ class PageDetailsDialog(val activity: AppCompatActivity, val title: String, val 
         viewModel = ViewModelProvider(activity, viewModelFactory).get(MainViewModel::class.java)
 
         viewModel.loadFindMyTags()
-
-        val tagBox = binding.tvTag
-
-        with(binding) {
-            tvBookmark.text = " 훅 저장하기"
-            editTextUrl.setText(url)
-            editTextTitle.setText(title)
-            editTextDescription.setText("")
-
-            checkboxExpand.setOnCheckedChangeListener { _, isChecked ->
-                if (isChecked) {
-                    tagBox.visibility = android.view.View.VISIBLE
-                } else {
-                    tagBox.visibility = android.view.View.GONE
-                }
-            }
-
-            tagBox.setOnClickListener {
-                showTagSelectionDialog(tagBox)
-            }
-
-            btnCancel.setOnClickListener {
-                dismiss()
-                (context as? Sharing)?.finishAffinity()
-                forceQuit()
-            }
-
-            btnCreate.setOnClickListener {
-                val inputUrl = editTextUrl.text.toString()
-                val inputTitle = editTextTitle.text.toString()
-                val inputTag = tagBox.text.toString()
-                val inputDescription = editTextDescription.text.toString()
-
-                val converter = DataToJsonConverter()
-
-                val jsonString = converter.convertToJson(inputTitle, inputDescription, inputUrl, inputTag)
-
-                dismiss()
-                (context as? Sharing)?.finishAffinity()
-                forceQuit()
-            }
-            dismiss()
-        }
-    }
-
-    private fun reload(){
-        viewModel.loadFindMyTags()
         viewModel.tagData.observe(activity) { tagData ->
             tagData?.let {
                 for (tag in tagData.tag) {
@@ -96,21 +52,58 @@ class PageDetailsDialog(val activity: AppCompatActivity, val title: String, val 
                 }
             }
         }
+
+        with(binding) {
+            tvBookmark.text = " 훅 저장하기"
+            editTextUrl.setText(url)
+            editTextTitle.setText(title)
+            editTextDescription.setText("")
+
+            checkboxExpand.setOnCheckedChangeListener { _, isChecked ->
+                if (isChecked) {
+                    tvTag.visibility = android.view.View.VISIBLE
+                } else {
+                    tvTag.visibility = android.view.View.GONE
+                }
+            }
+
+            tvTag.setOnClickListener {
+                showTagSelectionDialog(tvTag)
+            }
+
+            btnCancel.setOnClickListener {
+                dismiss()
+                (context as? Activity)?.finishAndRemoveTask()
+            }
+
+            btnCreate.setOnClickListener {
+                val inputUrl = editTextUrl.text.toString()
+                val inputTitle = editTextTitle.text.toString()
+                val inputTag = tvTag.text.toString()
+                val inputDescription = editTextDescription.text.toString()
+
+                val converter = DataToJsonConverter()
+
+                val jsonString = converter.convertToJson(inputTitle, inputDescription, inputUrl, inputTag)
+
+                dismiss()
+                (context as? Activity)?.finishAndRemoveTask()
+            }
+        }
     }
 
     private fun showTagSelectionDialog(editTextTag: TextView) {
         val tags = multiChoiceList.keys.toTypedArray()
-        val tagArray = Array(tags.size) { i -> tags[i] }
+        val checkedItems = BooleanArray(tags.size) { i -> multiChoiceList[tags[i]] == true }
 
         val builder = AlertDialog.Builder(context)
         builder.setTitle("태그 선택")
 
         builder.setMultiChoiceItems(
-            tagArray,
-            multiChoiceList.values.toBooleanArray()
+            tags,
+            checkedItems
         ) { _, which, isChecked ->
-            val selectedTag = multiChoiceList.keys.toTypedArray()[which]
-            multiChoiceList[selectedTag] = isChecked
+            multiChoiceList[tags[which]] = isChecked
         }
 
         builder.setPositiveButton("OK") { dialog, _ ->
@@ -139,16 +132,10 @@ class PageDetailsDialog(val activity: AppCompatActivity, val title: String, val 
                     if (newTag.isNotEmpty()) {
                         GlobalScope.launch(Dispatchers.Main) {
                             val response = viewModel.loadCreateTag(newTag)
-                            reload()
+
                             multiChoiceList[newTag] = true
-                            val selectedTags = mutableListOf<String>()
-                            for ((tag, selected) in multiChoiceList) {
-                                if (selected) {
-                                    selectedTags.add("#$tag")
-                                }
-                            }
-                            editTextTag.text = selectedTags.joinToString("  ")
                             showTagSelectionDialog(editTextTag)
+
                         }
                     } else {
                         Toast.makeText(context, "태그를 입력하세요.", Toast.LENGTH_SHORT).show()
@@ -164,12 +151,5 @@ class PageDetailsDialog(val activity: AppCompatActivity, val title: String, val 
 
         val dialog = builder.create()
         dialog.show()
-    }
-
-    @SuppressLint("ServiceCast")
-    private fun forceQuit() {
-        val activityManager = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
-        activityManager.killBackgroundProcesses(context.packageName)
-        System.exit(0)
     }
 }
