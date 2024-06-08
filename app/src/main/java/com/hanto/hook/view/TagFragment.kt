@@ -81,10 +81,10 @@ class TagFragment : Fragment() {
             dialog.show()
         }
 
-        binding.swipeLayout.setOnRefreshListener {
-            tagViewModel.loadFindMyTags()
-            binding.swipeLayout.isRefreshing = false
-        }
+//        binding.swipeLayout.setOnRefreshListener {
+//            tagViewModel.loadFindMyTags()
+//            binding.swipeLayout.isRefreshing = false
+//        }
 
         tagAdapter = TagAdapter(
             tags = ArrayList(),

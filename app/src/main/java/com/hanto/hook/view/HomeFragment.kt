@@ -2,33 +2,46 @@ package com.hanto.hook.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.hanto.hook.R
+import com.hanto.hook.databinding.FragmentHomeBinding
 import com.hanto.hook.adapter.HookAdapter
 import com.hanto.hook.api.ApiServiceManager
-import com.hanto.hook.databinding.FragmentHomeBinding
 import com.hanto.hook.model.Hook
 import com.hanto.hook.viewmodel.MainViewModel
 import com.hanto.hook.viewmodel.ViewModelFactory
+import okhttp3.internal.notify
 
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private lateinit var hookAdapter: HookAdapter
     private val apiServiceManager by lazy { ApiServiceManager() }
-    private lateinit var hookViewModel: MainViewModel
     private val viewModelFactory by lazy { ViewModelFactory(apiServiceManager) }
+    private val hookViewModel: MainViewModel by lazy {
+        ViewModelProvider(
+            this,
+            viewModelFactory
+        ).get(MainViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,32 +60,34 @@ class HomeFragment : Fragment() {
             findNavController().navigate(R.id.action_navigation_home_to_settingActivity)
         }  // 환경 설정 버튼
 
-        binding.swipeLayout.setOnRefreshListener {
-            hookViewModel.loadFindMyHooks()
-            binding.swipeLayout.isRefreshing = false
-        }  // 새로 고침
+//        binding.swipeLayout.setOnRefreshListener {
+//            loadData()
+//            binding.swipeLayout.isRefreshing = false
+//        }  // 새로 고침
 
-        // RecyclerView Adapter 초기화
-        hookAdapter = HookAdapter(ArrayList(), ArrayList(), object : HookAdapter.OnItemClickListener {
-            override fun onClick(position: Int) {
-                val selectedHook = hookAdapter.getItem(position)
-                Intent(requireContext(), HookDetailActivity::class.java).apply {
-                    putExtra("item_id", selectedHook.id.toString())
-                    putExtra("item_title", selectedHook.title)
-                    putExtra("item_url", selectedHook.url)
-                    putExtra("item_description", selectedHook.description)
-                    selectedHook.tags?.map { it.displayName }?.let {
-                        putStringArrayListExtra("item_tag_list", ArrayList(it))
+        hookAdapter = HookAdapter(
+            hooks = ArrayList(),
+            tag = ArrayList(),
+            object : HookAdapter.OnItemClickListener {
+                override fun onClick(position: Int) {
+                    val selectedHook = hookAdapter.getItem(position)
+                    Intent(requireContext(), HookDetailActivity::class.java).apply {
+                        putExtra("item_id", selectedHook.id.toString())
+                        putExtra("item_title", selectedHook.title)
+                        putExtra("item_url", selectedHook.url)
+                        putExtra("item_description", selectedHook.description)
+                        selectedHook.tags?.map { it.displayName }?.let {
+                            putStringArrayListExtra("item_tag_list", ArrayList(it))
+                        }
+                        startActivity(this)
                     }
-                    startActivity(this)
-                }
-            } // 아이템 누르면 디테일 뷰로 이동
+                } // 디폴트 어댑터 선언, 아이템 누르면 디테일 뷰로 이동
 
-            override fun onOptionButtonClick(position: Int) {
-                val selectedHook = hookAdapter.getItem(position)
-                showBottomSheetDialog(selectedHook)
-            } // 점 세 개 버튼 -> dialog 열기
-        })
+                override fun onOptionButtonClick(position: Int) {
+                    val selectedHook = hookAdapter.getItem(position)
+                    showBottomSheetDialog(selectedHook)
+                } // 점 세 개 버튼 -> dialog 열기
+            })
 
         val dividerItemDecoration =
             DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
@@ -80,28 +95,33 @@ class HomeFragment : Fragment() {
             dividerItemDecoration.setDrawable(it)
         }
         binding.rvHome.addItemDecoration(dividerItemDecoration)
-        // rv 각 아이템 사이에 구분선 넣는 데코
+        // 아이템 사이에 구분선 넣는 데코
 
         binding.rvHome.adapter = hookAdapter // rv 에 어댑터 붙이기
 
-        // ViewModel 인스턴스 생성
-        hookViewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
+        // loadData()
+    }
 
-        // 데이터 로딩
+    private fun loadData() {
+        /*binding.sfLoading.startShimmer() 자동 시작 */
         hookViewModel.loadFindMyHooks()
-
-        val shimmerContainer = binding.sfLoading
-        // ViewModel 데이터 관찰
         hookViewModel.hookData.observe(viewLifecycleOwner) { hookData ->
             if (hookData != null) {
                 hookAdapter.updateData(hookData)
-                shimmerContainer.stopShimmer() // shimmer 는 원래 자동 시작 ... hookData 오면 stop
+                val shimmerContainer = binding.sfLoading
+                shimmerContainer.stopShimmer()
                 shimmerContainer.visibility = View.GONE
             } else {
-                Toast.makeText(requireActivity(), "불러오기 실패", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireActivity(),
+                    "Data loading failed",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }
+
+
 
     private fun showBottomSheetDialog(selectedItem: Hook) {
         val dialog = BottomSheetDialog(requireContext(), R.style.CustomBottomSheetDialogTheme)
@@ -121,15 +141,54 @@ class HomeFragment : Fragment() {
         val btHookDelete = view.findViewById<Button>(R.id.bt_HookDelete)
         btHookDelete.setOnClickListener {
             selectedItem.id?.let { it1 -> hookViewModel.loadDeleteHook(it1) }
+            hookViewModel.deleteSuccessData.observe(viewLifecycleOwner) { deleteSuccessData ->
+                if (deleteSuccessData != null) {
+                    loadData()
+                    val deleteSuccessToast = Toast.makeText(
+                        requireActivity(),
+                        "${deleteSuccessData.result?.message}",
+                        Toast.LENGTH_SHORT
+                    )
+                    deleteSuccessToast.show()
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        deleteSuccessToast.cancel()
+                    }, 500)
+                } else {
+                    hookViewModel.deleteSuccessData.observe(viewLifecycleOwner) { errorData ->
+                        if (errorData != null) {
+                            val deleteErrorToast = Toast.makeText(
+                                requireActivity(),
+                                "${selectedItem.title} 삭제 실패",
+                                Toast.LENGTH_SHORT
+                            )
+                            deleteErrorToast.show()
+                            Handler(Looper.getMainLooper()).postDelayed({
+                                deleteErrorToast.cancel()
+                            }, 500)
+                        }
+                    }
+                }
+            }
             dialog.dismiss()
-            Toast.makeText(requireActivity(),"삭제 완료!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireActivity(), "삭제 완료!", Toast.LENGTH_SHORT).show()
         }
         dialog.show()
     }
 
+
+    override fun onResume() {
+        super.onResume()
+        loadData()
+    }
+
+
     override fun onDestroyView() {
         super.onDestroyView()
+        // RecyclerView Adapter 레퍼런스 해제
+        binding.rvHome.adapter = null
         _binding = null
-        hookViewModel.hookData.removeObservers(viewLifecycleOwner) // ViewModel Observer 제거
+
+        // ViewModel Observer 제거
+        hookViewModel.hookData.removeObservers(viewLifecycleOwner)
     }
 }

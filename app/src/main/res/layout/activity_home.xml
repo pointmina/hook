@@ -30,6 +30,8 @@
         android:layout_height="70dp"
         app:itemActiveIndicatorStyle="@null"
         app:itemIconSize="28dp"
+        android:paddingStart="35dp"
+        android:paddingEnd="35dp"
         app:itemIconTint="@color/selector_botton_navigation_color"
         app:itemTextColor="@color/selector_botton_navigation_color"
         app:labelVisibilityMode="labeled"

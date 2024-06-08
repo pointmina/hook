@@ -111,20 +111,14 @@
         app:layout_constraintStart_toEndOf="@id/iv_tag_change"
         app:layout_constraintTop_toTopOf="@id/iv_tag_change" />
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipeLayout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_url_hook_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/view_tag_area">
+        app:layout_constraintTop_toBottomOf="@id/view_tag_area"
+        tools:listitem="@layout/item_selected_tag_hook_list" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_url_hook_list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:listitem="@layout/item_selected_tag_hook_list" />
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

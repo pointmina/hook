@@ -93,10 +93,10 @@ class SelectedTagActivity : AppCompatActivity() {
             }
         }
 
-        binding.swipeLayout.setOnRefreshListener {
-            viewModel.loadFindMyHookByTag(tagID = selectedTagId)
-            binding.swipeLayout.isRefreshing = false
-        }
+//        binding.swipeLayout.setOnRefreshListener {
+//            viewModel.loadFindMyHookByTag(tagID = selectedTagId)
+//            binding.swipeLayout.isRefreshing = false
+//        }
 
         binding.ivAppbarSelectedTagBackButton.setOnClickListener {
             onBackPressed()
