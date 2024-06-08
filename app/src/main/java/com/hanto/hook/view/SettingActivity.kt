@@ -46,7 +46,6 @@ class SettingActivity : BaseActivity() {
             viewModel.successData.observe(this, Observer { successData ->
                 Toast.makeText(this, "${successData?.result?.message}", Toast.LENGTH_SHORT).show()
             })
-            finish()
         }
 
         binding.kakaoLogoutButton.setOnClickListener {
