@@ -13,6 +13,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -50,8 +51,14 @@ class TagFragment : Fragment() {
 
             btnChangeTagName.setOnClickListener {
                 val name = tvChangeTagName.text.toString()
-                tagViewModel.loadCreateTag(name)
-                this.dismiss()
+                if (name.isNotEmpty()) {
+                    tagViewModel.loadCreateTag(name)
+                    clearEditText(tvChangeTagName)
+                    this.dismiss()
+                    refreshTagList()
+                } else {
+                    Toast.makeText(requireContext(), "태그 이름을 입력하세요.", Toast.LENGTH_SHORT).show()
+                }
             }
 
             val layoutParams = WindowManager.LayoutParams().apply {
@@ -81,10 +88,10 @@ class TagFragment : Fragment() {
             dialog.show()
         }
 
-        binding.swipeLayout.setOnRefreshListener {
-            tagViewModel.loadFindMyTags()
-            binding.swipeLayout.isRefreshing = false
-        }
+//        binding.swipeLayout.setOnRefreshListener {
+//            tagViewModel.loadFindMyTags()
+//            binding.swipeLayout.isRefreshing = false
+//        }
 
         tagAdapter = TagAdapter(
             tags = ArrayList(),
@@ -93,11 +100,12 @@ class TagFragment : Fragment() {
                     val selectedTag = tagAdapter.getItem(position)
                     val name = selectedTag.displayName
                     if (name != null) {
-                        Intent(requireContext(), SelectedTagActivity::class.java).apply {
+                        val intent = Intent(requireContext(), SelectedTagActivity::class.java).apply {
                             putExtra("selectedTagName", selectedTag.displayName)
                             putExtra("selectedTagId", selectedTag.id)
                             startActivity(this)
                         }
+                        startActivityForResult(intent, 1) // Activity 시작
                     }
                 }
             })
@@ -133,9 +141,22 @@ class TagFragment : Fragment() {
 //            }
 //        }
     }
+    private fun clearEditText(editText: EditText) {
+        editText.text.clear()
+    }
 
+    private fun refreshTagList() {
+        tagViewModel.loadFindMyTags()
+    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 1 && resultCode == AppCompatActivity.RESULT_OK) {
+            // SelectedTagActivity 종료 후 태그 목록 새로고침zz
+            refreshTagList()
+        }
     }
 }

@@ -20,7 +20,7 @@
     <!--    Splashview-->
     <string name="label_splah_title">h o o k!</string>
 
-    <string name="label_tag_count">28개의 훅</string>
+    <string name="label_tag_count">0개의 훅</string>
 
 
     <string name="label_google_login">로그인 버튼</string>
@@ -42,5 +42,6 @@
     <string name="share">공유하기</string>
     <string name="delete">삭제하기</string>
     <string name="option">option</string>
+    <string name="add_hook">훅 추가</string>
 
 </resources>

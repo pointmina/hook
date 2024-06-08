@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.hanto.hook.api.ApiResponse
 import com.hanto.hook.api.ApiServiceManager
 import com.hanto.hook.api.ErrorResponse
 import com.hanto.hook.api.MultipleErrorResponse
@@ -166,10 +167,10 @@ class MainViewModel(private val apiServiceManager: ApiServiceManager) : ViewMode
             }.onSuccess { result ->
                 when (result) {
                     is SuccessResponse -> {
-                        _successData.postValue(result)
+                        _createHookSuccessData.postValue(result)
                     }
-                    is ErrorResponse -> {
-                        _errorData.postValue(result)
+                    is MultipleErrorResponse -> {
+                        _createFailData.postValue(result)
                     }
                 }
             }.onFailure { exception ->

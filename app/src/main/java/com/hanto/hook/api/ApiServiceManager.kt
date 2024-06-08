@@ -60,7 +60,8 @@ class ApiServiceManager {
     }
 
     suspend fun managerUpdateTagName(id: Int, name: String): ApiResponse {
-        return handleApiResponse { apiService.updateTagName(id, name) }
+        val requestBody = mapOf("name" to name)
+        return handleApiResponse { apiService.updateTagName(id, requestBody) }
     }
 
     suspend fun managerDeleteTag(id:Int): ApiResponse {

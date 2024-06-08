@@ -3,6 +3,7 @@ package com.hanto.hook.view
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
@@ -47,9 +48,14 @@ class SelectedTagActivity : BaseActivity() {
 
         val ivTagChange = binding.ivTagChange
         ivTagChange.setOnClickListener {
-            val changeTagFragment = ChangeTagFragment().apply {
+            val changeTagFragment = ChangeTagFragment { newTagName ->
+                viewModel.loadFindMyTags() // 태그 목록 새로고침
+                setResult(RESULT_OK)
+                binding.tvSelectedTag.text = newTagName // 텍스트 뷰 업데이트
+            }.apply {
                 arguments = Bundle().apply {
                     putString("selectedTag", selectedTagName)
+                    putInt("selectedTagId", selectedTagId)
                 }
             }
             changeTagFragment.show(supportFragmentManager, "ChangeTagFragment")
@@ -57,7 +63,14 @@ class SelectedTagActivity : BaseActivity() {
 
         val ivTagDelete = binding.ivTagDelete
         ivTagDelete.setOnClickListener {
-            val deleteTagFragment = DeleteTagFragment().apply {
+            val deleteTagFragment = DeleteTagFragment {
+                viewModel.loadFindMyTags() // 태그 목록 새로고침
+                setResult(RESULT_OK) // 결과 설정
+                finish()
+            }.apply {
+                arguments = Bundle().apply {
+                    putInt("selectedTagId", selectedTagId)
+                }
             }
             deleteTagFragment.show(supportFragmentManager, "DeleteTagFragment")
         }
@@ -97,10 +110,10 @@ class SelectedTagActivity : BaseActivity() {
             }
         }
 
-        binding.swipeLayout.setOnRefreshListener {
-            viewModel.loadFindMyHookByTag(tagID = selectedTagId)
-            binding.swipeLayout.isRefreshing = false
-        }
+//        binding.swipeLayout.setOnRefreshListener {
+//            viewModel.loadFindMyHookByTag(tagID = selectedTagId)
+//            binding.swipeLayout.isRefreshing = false
+//        }
 
         binding.ivAppbarSelectedTagBackButton.setOnClickListener {
             onBackPressed()
@@ -133,6 +146,7 @@ class SelectedTagActivity : BaseActivity() {
 
 
     override fun onDestroy() {
+        Log.d("SelectedTagActivity", "onDestroy() 호출됨")
         super.onDestroy()
         // ViewModel의 관찰자를 해제하여 메모리 누수 방지
         viewModel.tagFilteredHooks.removeObservers(this)

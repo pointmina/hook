@@ -78,13 +78,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextDescription" />
 
-    <EditText
+    <TextView
         android:id="@+id/tv_tag"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:background="@drawable/textview_detail_border"
-        android:hint="Tag 입력"
+        android:hint="#"
         android:padding="15dp"
         android:theme="@style/MyCheckBox"
         android:visibility="gone"
