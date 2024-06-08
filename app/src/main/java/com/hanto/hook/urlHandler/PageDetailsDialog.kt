@@ -97,6 +97,7 @@ class PageDetailsDialog(val activity: AppCompatActivity, val title: String, val 
         val checkedItems = BooleanArray(tags.size) { i -> multiChoiceList[tags[i]] == true }
 
         val builder = AlertDialog.Builder(context)
+        //태그
         builder.setTitle("태그 선택")
 
         builder.setMultiChoiceItems(
