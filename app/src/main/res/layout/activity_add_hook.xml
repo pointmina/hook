@@ -43,12 +43,13 @@
 
     <EditText
         android:id="@+id/tv_url_link"
+        android:imeOptions="actionNext"
+        android:inputType="text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="40dp"
         android:background="@drawable/textview_detail_border"
         android:hint="@string/hint_url_link"
-        android:inputType="textMultiLine"
         android:paddingLeft="40dp"
         android:paddingTop="20dp"
         android:paddingRight="20dp"
@@ -94,6 +95,7 @@
 
     <EditText
         android:id="@+id/tv_url_title"
+        android:imeOptions="actionNext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="40dp"
@@ -115,6 +117,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvGuide" />
+
+    <TextView
+        android:id="@+id/tvGuideTitle"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginTop="5dp"
+        android:text="제목의 첫 글자는 공백 문자가 허용되지 않습니다."
+        android:textColor="@color/purple"
+        android:textSize="12dp"
+        android:padding="4dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_url_title"
+        />
 
     <TextView
         android:id="@+id/tv_limit_1"
@@ -143,7 +160,7 @@
         android:textSize="14dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_url_title" />
+        app:layout_constraintTop_toBottomOf="@id/tvGuideTitle" />
 
     <ImageView
         android:id="@+id/iv_downArrow"
@@ -157,6 +174,7 @@
 
     <EditText
         android:id="@+id/tv_url_description"
+        android:imeOptions="actionNext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="40dp"
