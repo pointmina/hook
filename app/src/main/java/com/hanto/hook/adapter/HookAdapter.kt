@@ -1,7 +1,6 @@
 package com.hanto.hook.adapter
 
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,9 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
+import com.hanto.hook.api.SuccessResponse
 import com.hanto.hook.databinding.ItemHookBinding
 import com.hanto.hook.model.Hook
-import com.hanto.hook.api.SuccessResponse
 import com.hanto.hook.model.Tag
 
 class HookAdapter(
