@@ -15,12 +15,19 @@ class ApiResponseAdapter : TypeAdapter<ApiResponse>() {
         val gson = Gson()
         val jsonObject = JsonParser.parseReader(reader).asJsonObject
 
-        return if (jsonObject.has("statusCode")) {
-            gson.fromJson(jsonObject, ErrorResponse::class.java)
-        } else if (jsonObject.has("hooks") && !jsonObject.get("tag").isJsonNull) {
-            gson.fromJson(jsonObject, SelectedTagAndHookResponse::class.java)
-        } else {
-            gson.fromJson(jsonObject, SuccessResponse::class.java)
+        return when {
+            jsonObject.has("statusCode") && jsonObject.get("message").isJsonArray -> {
+                gson.fromJson(jsonObject, MultipleErrorResponse::class.java)
+            }
+            jsonObject.has("statusCode") -> {
+                gson.fromJson(jsonObject, ErrorResponse::class.java)
+            }
+            jsonObject.has("hooks") && jsonObject.has("tag") && !jsonObject.get("tag").isJsonNull -> {
+                gson.fromJson(jsonObject, SelectedTagAndHookResponse::class.java)
+            }
+            else -> {
+                gson.fromJson(jsonObject, SuccessResponse::class.java)
+            }
         }
     }
 }

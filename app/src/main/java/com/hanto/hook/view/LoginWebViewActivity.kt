@@ -14,6 +14,7 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.lifecycleScope
+import com.hanto.hook.BaseActivity
 import com.hanto.hook.BuildConfig
 import com.hanto.hook.R
 import kotlinx.coroutines.Dispatchers
@@ -24,7 +25,7 @@ import java.net.URL
 
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "user_prefs")
 
-class LoginWebViewActivity : AppCompatActivity() {
+class LoginWebViewActivity : BaseActivity() {
     companion object {
         const val EXTRA_URL = "EXTRA_URL"
     }

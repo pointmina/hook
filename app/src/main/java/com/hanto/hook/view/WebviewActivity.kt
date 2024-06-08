@@ -5,9 +5,10 @@ import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
+import com.hanto.hook.BaseActivity
 import com.hanto.hook.databinding.ActivityWebviewBinding
 
-class WebviewActivity : AppCompatActivity() {
+class WebviewActivity : BaseActivity() {
     private lateinit var webView: WebView // 변수명 수정
 
     override fun onCreate(savedInstanceState: Bundle?) {

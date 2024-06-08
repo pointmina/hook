@@ -3,20 +3,19 @@ package com.hanto.hook.view
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.adapters.TextViewBindingAdapter.setText
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import com.hanto.hook.BaseActivity
 import com.hanto.hook.api.ApiServiceManager
 import com.hanto.hook.databinding.ActivitySettingBinding
 import com.hanto.hook.viewmodel.MainViewModel
 import com.hanto.hook.viewmodel.ViewModelFactory
 import kotlinx.coroutines.launch
 
-class SettingActivity : AppCompatActivity() {
+class SettingActivity : BaseActivity() {
     private lateinit var binding: ActivitySettingBinding
     private val apiServiceManager by lazy { ApiServiceManager() }
     private val viewModelFactory by lazy { ViewModelFactory(apiServiceManager) }
@@ -44,7 +43,9 @@ class SettingActivity : AppCompatActivity() {
         binding.btnSaveChange.setOnClickListener{
             val newNickname = binding.tvUserName.text.toString()
             viewModel.loadUpdateNickName(nickname = newNickname)
-            Toast.makeText(this, "${newNickname}(으)로 닉네임을 변경했어요.", Toast.LENGTH_SHORT).show()
+            viewModel.successData.observe(this, Observer { successData ->
+                Toast.makeText(this, "${successData?.result?.message}", Toast.LENGTH_SHORT).show()
+            })
             finish()
         }
 
