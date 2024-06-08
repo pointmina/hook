@@ -10,13 +10,14 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import com.hanto.hook.BaseActivity
 import com.hanto.hook.api.ApiServiceManager
 import com.hanto.hook.databinding.ActivitySettingBinding
 import com.hanto.hook.viewmodel.MainViewModel
 import com.hanto.hook.viewmodel.ViewModelFactory
 import kotlinx.coroutines.launch
 
-class SettingActivity : AppCompatActivity() {
+class SettingActivity : BaseActivity() {
     private lateinit var binding: ActivitySettingBinding
     private val apiServiceManager by lazy { ApiServiceManager() }
     private val viewModelFactory by lazy { ViewModelFactory(apiServiceManager) }

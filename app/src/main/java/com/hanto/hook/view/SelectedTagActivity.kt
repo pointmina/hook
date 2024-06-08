@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.hanto.hook.BaseActivity
 import com.hanto.hook.R
 import com.hanto.hook.adapter.SelectedTagHookListAdapter
 import com.hanto.hook.api.ApiServiceManager
@@ -22,7 +23,7 @@ import com.hanto.hook.viewmodel.MainViewModel
 import com.hanto.hook.viewmodel.ViewModelFactory
 
 @Suppress("DEPRECATION")
-class SelectedTagActivity : AppCompatActivity() {
+class SelectedTagActivity : BaseActivity() {
 
     private lateinit var binding: ActivitySelectedTagBinding
     private lateinit var selectedTagHookListAdapter: SelectedTagHookListAdapter

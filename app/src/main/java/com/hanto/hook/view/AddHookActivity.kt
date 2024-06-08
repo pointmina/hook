@@ -1,6 +1,7 @@
 package com.hanto.hook.view
 
 import android.content.ClipboardManager
+import android.content.Context.CLIPBOARD_SERVICE
 import android.content.DialogInterface
 import android.os.Bundle
 import android.os.Handler
@@ -9,6 +10,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
@@ -16,8 +18,10 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil.setContentView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.hanto.hook.BaseActivity
 import com.hanto.hook.R
 import com.hanto.hook.api.ApiServiceManager
 import com.hanto.hook.api.SuccessResponse
@@ -25,7 +29,7 @@ import com.hanto.hook.databinding.ActivityAddHookBinding
 import com.hanto.hook.viewmodel.MainViewModel
 import com.hanto.hook.viewmodel.ViewModelFactory
 
-class AddHookActivity : AppCompatActivity() {
+class AddHookActivity : BaseActivity() {
     private lateinit var binding: ActivityAddHookBinding
 
     private val apiServiceManager by lazy { ApiServiceManager() }
@@ -89,15 +93,28 @@ class AddHookActivity : AppCompatActivity() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 s?.let {
-                    binding.tvLimit1.text = "${s.length} / 80"
+                    binding.tvLimit1.text = "${s.length} / 120"
                 }
             }
 
             override fun afterTextChanged(s: Editable?) {
                 isTitleValid = s.toString().trim().isNotEmpty()
+                if (!isTitleValid) {
+                    binding.tvGuideTitle.visibility = View.VISIBLE
+                } else {
+                    binding.tvGuideTitle.visibility = View.GONE
+                }
                 updateButtonState()
             }
         })
+        binding.tvUrlTitle.setOnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_NEXT && isExpanded) {
+                binding.tvUrlDescription.requestFocus()
+                true
+            } else {
+                false
+            }
+        }
 
         binding.tvUrlDescription.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -106,7 +123,6 @@ class AddHookActivity : AppCompatActivity() {
                     binding.tvLimit2.text = "${s.length} / 80"
                 }
             }
-
             override fun afterTextChanged(s: Editable?) {}
         })
 
@@ -127,6 +143,14 @@ class AddHookActivity : AppCompatActivity() {
                 updateButtonState() // 버튼 상태 업데이트
             }
         })
+        binding.tvUrlLink.setOnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_NEXT) {
+                binding.tvUrlTitle.requestFocus()
+                true
+            } else {
+                false
+            }
+        }
 
         // 82~148: 태그 선택
         binding.containerTag.setOnClickListener {

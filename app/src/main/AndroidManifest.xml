@@ -38,9 +38,6 @@
             android:name=".view.WebviewActivity"
             android:exported="false" />
         <activity
-            android:name=".view.UrlHookDetailActivity"
-            android:exported="false" />
-        <activity
             android:name=".view.HookDetailActivity"
             android:exported="false" />
         <activity
