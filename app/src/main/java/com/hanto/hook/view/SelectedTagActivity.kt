@@ -1,10 +1,14 @@
 package com.hanto.hook.view
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -41,11 +45,26 @@ class SelectedTagActivity : AppCompatActivity() {
         val selectedTagId = intent.getIntExtra("selectedTagId", -1) // 아이디 (기본값 -1으로 설정)
         binding.tvSelectedTag.text = selectedTagName
 
+//        val ivTagChange = binding.ivTagChange
+//        ivTagChange.setOnClickListener {
+//            val changeTagFragment = ChangeTagFragment().apply {
+//                arguments = Bundle().apply {
+//                    putString("selectedTag", selectedTagName)
+//                    putInt("selectedTagId", selectedTagId)
+//                }
+//            }
+//            changeTagFragment.show(supportFragmentManager, "ChangeTagFragment")
+//        }
         val ivTagChange = binding.ivTagChange
         ivTagChange.setOnClickListener {
-            val changeTagFragment = ChangeTagFragment().apply {
+            val changeTagFragment = ChangeTagFragment { newTagName ->
+                viewModel.loadFindMyTags() // 태그 목록 새로고침
+                setResult(RESULT_OK)
+                binding.tvSelectedTag.text = newTagName // 텍스트 뷰 업데이트
+            }.apply {
                 arguments = Bundle().apply {
                     putString("selectedTag", selectedTagName)
+                    putInt("selectedTagId", selectedTagId)
                 }
             }
             changeTagFragment.show(supportFragmentManager, "ChangeTagFragment")
@@ -53,9 +72,19 @@ class SelectedTagActivity : AppCompatActivity() {
 
         val ivTagDelete = binding.ivTagDelete
         ivTagDelete.setOnClickListener {
-            val deleteTagFragment = DeleteTagFragment().apply {
+            val deleteTagFragment = DeleteTagFragment {
+                Log.d("SelectedTagActivity", "태그 삭제 후 태그 목록 새로고침")
+                viewModel.loadFindMyTags() // 태그 목록 새로고침
+                setResult(RESULT_OK) // 결과 설정
+                finish() // 태그가 삭제된 후 액티비티를 종료
+
+            }.apply {
+                arguments = Bundle().apply {
+                    putInt("selectedTagId", selectedTagId)
+                }
             }
             deleteTagFragment.show(supportFragmentManager, "DeleteTagFragment")
+
         }
 
 
@@ -133,4 +162,6 @@ class SelectedTagActivity : AppCompatActivity() {
         // ViewModel의 관찰자를 해제하여 메모리 누수 방지
         viewModel.tagFilteredHooks.removeObservers(this)
     }
+
+
 }

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
@@ -64,6 +65,7 @@ class LoginWebViewActivity : AppCompatActivity() {
                 val jsonObject = JSONObject(response)
                 val accessToken = jsonObject.getString("accessToken")
                 val refreshToken = jsonObject.getString("refreshToken")
+
 
                 saveToken(accessToken, refreshToken)
 

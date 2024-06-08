@@ -48,7 +48,8 @@ interface ApiService {
     suspend fun createTag(@Body request: TagRequest): Response<ApiResponse>
 
     @PUT("/api/tag/{id}")
-    suspend fun updateTagName(@Path("id") id: Int, @Body name: String) : Response<ApiResponse>
+//    suspend fun updateTagName(@Path("id") id: Int, @Body name: String) : Response<ApiResponse>
+    suspend fun updateTagName(@Path("id") id: Int, @Body body: Map<String, String>): Response<ApiResponse>
 
     @DELETE("/api/tag/{id}")
     suspend fun deleteTag(@Path("id") id: Int) : Response<ApiResponse>
