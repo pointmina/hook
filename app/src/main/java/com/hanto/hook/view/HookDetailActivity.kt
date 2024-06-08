@@ -107,7 +107,8 @@ class HookDetailActivity : AppCompatActivity() {
             val newDesc = binding.tvHandedDesc.text.toString()
             val newUrl = binding.tvHandedUrl.text.toString()
             val selectedTags = binding.tvTag.text.split("  ").map { it.trim().replace("#", "") }
-            val newTag = if (selectedTags.isEmpty() || selectedTags[0].isEmpty()) null else ArrayList(selectedTags)
+            val newTag = if (selectedTags.isEmpty() || selectedTags[0].isEmpty()) arrayListOf<String>() else ArrayList(selectedTags)
+            //val newTag = if (selectedTags.isEmpty() || selectedTags[0].isEmpty()) null else ArrayList(selectedTags)
 
             if (intId != null) {
                 viewModel.loadUpdateHook(intId, newTitle, newDesc, newUrl, newTag)
