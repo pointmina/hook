@@ -32,7 +32,12 @@ class HomeFragment : Fragment() {
     private lateinit var hookAdapter: HookAdapter
     private val apiServiceManager by lazy { ApiServiceManager() }
     private val viewModelFactory by lazy { ViewModelFactory(apiServiceManager) }
-    private val hookViewModel: MainViewModel by lazy { ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java) }
+    private val hookViewModel: MainViewModel by lazy {
+        ViewModelProvider(
+            this,
+            viewModelFactory
+        ).get(MainViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,14 +52,13 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val btSetting = view.findViewById<ImageButton>(R.id.bt_setting)
-        btSetting.setOnClickListener{
+        btSetting.setOnClickListener {
             findNavController().navigate(R.id.action_navigation_home_to_settingActivity)
         }  // 환경 설정 버튼
 
         binding.swipeLayout.setOnRefreshListener {
             hookViewModel.loadFindMyHooks()
             binding.swipeLayout.isRefreshing = false
-
         }  // 새로 고침
 
         // 60~82: 디폴트 어댑터 선언
@@ -100,7 +104,7 @@ class HomeFragment : Fragment() {
                 hookAdapter.updateData(hookData)
                 shimmerContainer.stopShimmer() // shimmer 는 원래 자동 시작 ... hookData 오면 stop
                 shimmerContainer.visibility = View.GONE
-                Toast.makeText(requireActivity(), "${hookData.count}개의 훅이 업데이트 됐어요.", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(requireActivity(), "${hookData.count}개의 훅이 업데이트 됐어요.", Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(requireActivity(), "불러오기 실패", Toast.LENGTH_SHORT).show()
             }
@@ -117,7 +121,7 @@ class HomeFragment : Fragment() {
         val btonWeb = view.findViewById<Button>(R.id.bt_onWeb)
         btonWeb.setOnClickListener {
             Intent(requireContext(), WebviewActivity::class.java).also { intent ->
-                intent.putExtra(WebviewActivity.EXTRA_URL, selectedItem?.url)
+                intent.putExtra(WebviewActivity.EXTRA_URL, selectedItem.url)
                 startActivity(intent)
             }
             dialog.dismiss()
@@ -127,7 +131,7 @@ class HomeFragment : Fragment() {
         btHookDelete.setOnClickListener {
             selectedItem.id?.let { it1 -> hookViewModel.loadDeleteHook(it1) }
             dialog.dismiss()
-            hookViewModel.loadFindMyHooks()
+            Toast.makeText(requireActivity(),"삭제 완료!", Toast.LENGTH_SHORT).show()
         }
         dialog.show()
     }

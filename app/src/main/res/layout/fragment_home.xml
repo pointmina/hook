@@ -24,7 +24,7 @@
             <TextView
                 android:id="@+id/tv_recent_hooks"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_marginStart="24dp"
                 android:fontFamily="@font/notosans_m"
                 android:paddingTop="10dp"

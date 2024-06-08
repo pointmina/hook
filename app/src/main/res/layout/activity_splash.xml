@@ -16,17 +16,21 @@
         app:layout_constraintVertical_chainStyle="packed"
         app:srcCompat="@drawable/ic_hook_black" />
 
+
     <!--    android:fontFamily="@font/futura_medium"-->
 
-    <ImageView
+    <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/title2"
-        android:layout_marginTop="130dp"
+        android:layout_marginTop="10dp"
+        android:text="H o o k !"
+        android:textColor="@color/black"
+        android:textSize="50sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/iv_splash_icon" />
+        app:layout_constraintTop_toBottomOf="@id/iv_splash_icon" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

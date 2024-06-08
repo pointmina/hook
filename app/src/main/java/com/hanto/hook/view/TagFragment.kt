@@ -40,7 +40,7 @@ class TagFragment : Fragment() {
         )
     }
 
-        private val dialog by lazy {
+    private val dialog by lazy {
         Dialog(requireContext()).apply {
             requestWindowFeature(Window.FEATURE_NO_TITLE)
             setContentView(R.layout.activity_add_tag)
@@ -120,18 +120,18 @@ class TagFragment : Fragment() {
         tagViewModel.tagData.observe(viewLifecycleOwner) { tagData ->
             if (tagData != null) {
                 tagAdapter.updateData(tagData.tag)
-                Toast.makeText(
-                    requireActivity(),
-                    "${tagData.count}개의 태그를 가져왔어요.",
-                    Toast.LENGTH_SHORT
-                ).show()
+//                Toast.makeText(
+//                    requireActivity(),
+//                    "${tagData.count}개의 태그를 가져왔어요.",
+//                    Toast.LENGTH_SHORT
+//                ).show()
             }
         }
-        tagViewModel.errorData.observe(viewLifecycleOwner) {errorData ->
-            if (errorData != null) {
-                Toast.makeText(requireContext(), "오류: ${errorData.message}", Toast.LENGTH_LONG).show()
-            }
-        }
+//        tagViewModel.errorData.observe(viewLifecycleOwner) {errorData ->
+//            if (errorData != null) {
+//                Toast.makeText(requireContext(), "오류: ${errorData.message}", Toast.LENGTH_LONG).show()
+//            }
+//        }
     }
 
     override fun onDestroyView() {

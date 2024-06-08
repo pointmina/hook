@@ -1,0 +1,78 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.ChangeTagFragment">
+
+
+    <View
+        android:id="@+id/view_delete_tag"
+        android:layout_width="375dp"
+        android:layout_height="221dp"
+        android:layout_gravity="center"
+        android:background="@drawable/rounded_background_little"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_link_info"
+        android:layout_width="wrap_content"
+        android:layout_height="28dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="27dp"
+        android:text=" 정말 삭제하시겠습니까? "
+        android:textSize="16dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/view_delete_tag"
+        app:layout_constraintTop_toTopOf="@id/view_delete_tag" />
+
+    <View
+        android:id="@+id/container_tag_name"
+        android:layout_width="327dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/textview_detail_border"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        app:layout_constraintBottom_toTopOf="@id/btn_delete_tag"
+        app:layout_constraintEnd_toEndOf="@id/view_delete_tag"
+        app:layout_constraintStart_toStartOf="@id/view_delete_tag"
+        app:layout_constraintTop_toBottomOf="@id/tv_link_info" />
+
+
+    <TextView
+        android:id="@+id/tv_change_tag_name"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:background="@color/transparent"
+        android:text="저장하신 태그가 삭제됩니다."
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/container_tag_name"
+        app:layout_constraintStart_toStartOf="@id/container_tag_name"
+        app:layout_constraintTop_toTopOf="@id/container_tag_name" />
+
+    <TextView
+        android:id="@+id/btn_delete_tag"
+        android:layout_width="327dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="27dp"
+        android:background="@drawable/rounded_background_little"
+        android:backgroundTint="@color/purple"
+        android:gravity="center"
+        android:text="태그 삭제하기"
+        android:textColor="@color/white"
+        android:textSize="14dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@id/container_tag_name"
+        app:layout_constraintStart_toStartOf="@id/container_tag_name"
+        app:layout_constraintTop_toBottomOf="@id/container_tag_name" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

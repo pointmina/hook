@@ -5,14 +5,14 @@ import com.google.gson.annotations.SerializedName
 
 open class ApiRequest()
 
-data class HookRequest (
+data class HookRequest(
 
-    @SerializedName("title"       ) var title       : String?           = null,
-    @SerializedName("description" ) var description : String?           = null,
-    @SerializedName("url"         ) var url         : String?           = null,
-    @SerializedName("tags"        ) var tags        : ArrayList<String> = arrayListOf(),
+    @SerializedName("title"       ) var title: String?           = null,
+    @SerializedName("description" ) var description: String?           = null,
+    @SerializedName("url"         ) var url: String?           = null,
+    @SerializedName("tags"        ) var tags: ArrayList<String>? = arrayListOf(),
 
-): ApiRequest()
+    ): ApiRequest()
 
 data class TagRequest (
 

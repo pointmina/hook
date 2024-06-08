@@ -52,7 +52,7 @@ class AddHookActivity : AppCompatActivity() {
         setContentView(view)
 
         binding.ivAppbarBackButton.setOnClickListener {
-            onBackPressed()
+            finish()
         } // 앱바 - 뒤로 가기 버튼
 
         // 59~80: 글자 수 확인
