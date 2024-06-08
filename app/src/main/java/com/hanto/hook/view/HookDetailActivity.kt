@@ -191,7 +191,7 @@ class HookDetailActivity : BaseActivity() {
     }
 
     private fun showTagSelectionDialog() {
-        val tags = multiChoiceList.keys.toTypedArray()
+        val tags = multiChoiceList.keys.sorted().toTypedArray()
         val selectedItems = BooleanArray(tags.size) { i -> multiChoiceList[tags[i]] == true }
 
         val builder = AlertDialog.Builder(this)
