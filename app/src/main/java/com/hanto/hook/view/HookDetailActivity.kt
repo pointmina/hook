@@ -10,7 +10,6 @@ import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.hanto.hook.BaseActivity
@@ -25,11 +24,10 @@ class HookDetailActivity : BaseActivity() {
 
     private val apiServiceManager by lazy { ApiServiceManager() }
     private val viewModelFactory by lazy { ViewModelFactory(apiServiceManager) }
-    private val viewModel: MainViewModel by lazy {
-        ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
-    }
-    private var isUrlValid = false
-    private var isTitleValid = false
+    private val viewModel: MainViewModel by lazy { ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java) }
+
+    private var isUrlValid = true
+    private var isTitleValid = true
     private val multiChoiceList = linkedMapOf<String, Boolean>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,18 +49,7 @@ class HookDetailActivity : BaseActivity() {
         })
         setContentView(view)
 
-        val id = intent.getStringExtra("item_id")
-        val title = intent.getStringExtra("item_title")
-        val url = intent.getStringExtra("item_url")
-        val description = intent.getStringExtra("item_description")
-        val tags = intent.getStringArrayListExtra("item_tag_list")
-
-        val backButton = binding.ivAppbarUrlHookDetailBackButton
-        val tvTag = binding.tvTag
-
-        tags?.forEach { tag ->
-            multiChoiceList[tag] = true
-        }
+        updateButtonState()
 
         binding.btPasteLink.setOnClickListener {
             val clipboard = getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
@@ -73,10 +60,7 @@ class HookDetailActivity : BaseActivity() {
                     val item = clipData.getItemAt(0)
                     val pasteData = item.text
 
-                    if (pasteData != null && (pasteData.startsWith("http://") || pasteData.startsWith(
-                            "https://"
-                        ))
-                    ) {
+                    if (pasteData != null && (pasteData.startsWith("http://") || pasteData.startsWith("https://"))) {
                         binding.tvHandedUrl.setText(pasteData)
                         Toast.makeText(this, "가장 최근에 복사한 URL을 가져왔어요!", Toast.LENGTH_SHORT).show()
                     } else {
@@ -86,18 +70,28 @@ class HookDetailActivity : BaseActivity() {
             } else {
                 Toast.makeText(this, "클립보드가 비어 있습니다.", Toast.LENGTH_SHORT).show()
             }
-        } // 클립보드에서 바로 붙여넣기
-
-        backButton.setOnClickListener {
-            onBackPressed()
         }
+
+        binding.ivAppbarUrlHookDetailBackButton.setOnClickListener {
+            finish()
+        }
+
+        val id = intent.getStringExtra("item_id")
+        val title = intent.getStringExtra("item_title")
+        val url = intent.getStringExtra("item_url")
+        val description = intent.getStringExtra("item_description")
+        val tags = intent.getStringArrayListExtra("item_tag_list")
 
         binding.tvHandedTitle.setText(title)
         binding.tvHandedUrl.setText(url)
         binding.tvHandedDesc.setText(description)
         binding.testId.text = id
 
-        // 태그 리스트를 문자열로 변환
+        tags?.forEach { tag ->
+            multiChoiceList[tag] = true
+        }
+
+        val tvTag = binding.tvTag
         val tagString = tags?.joinToString(" ") { "#$it " }
         binding.tvTag.text = tagString
 
@@ -109,15 +103,16 @@ class HookDetailActivity : BaseActivity() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 s?.let {
                     binding.tvLimit1.text = "${s.length} / 120"
+
+                    isTitleValid = s.toString().trim().isNotEmpty()
+                    if (!isTitleValid) {
+                        binding.tvGuideTitle.visibility = View.VISIBLE
+                    } else {
+                        binding.tvGuideTitle.visibility = View.GONE
+                    }
                 }
             }
             override fun afterTextChanged(s: Editable?) {
-                isTitleValid = s.toString().trim().isNotEmpty()
-                if (!isTitleValid) {
-                    binding.tvGuideTitle.visibility = View.VISIBLE
-                } else {
-                    binding.tvGuideTitle.visibility = View.GONE
-                }
                 updateButtonState()
             }
         })
@@ -148,27 +143,26 @@ class HookDetailActivity : BaseActivity() {
             }
         }
 
-        tvTag.setOnClickListener {
-            showTagSelectionDialog()
-        }
-
         binding.tvHandedUrl.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-            override fun afterTextChanged(s: Editable?) {
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val input = s.toString()
-                isUrlValid =
-                    input.isNotBlank() && (input.startsWith("http://") || input.startsWith("https://")) && !input.contains(
-                        " "
-                    )
+                isUrlValid = input.isNotBlank() && (input.startsWith("http://") || input.startsWith("https://")) && !input.contains(" ")
+
                 if (!isUrlValid) {
                     binding.tvGuideUrl.visibility = View.VISIBLE
                 } else {
                     binding.tvGuideUrl.visibility = View.GONE
                 }
-                updateButtonState() // 버튼 상태 업데이트
+            }
+            override fun afterTextChanged(s: Editable?) {
+                updateButtonState()
             }
         })
+
+        tvTag.setOnClickListener {
+            showTagSelectionDialog()
+        }
 
         binding.hookEdit.setOnClickListener {
             val intId = (binding.testId.text as String?)?.toInt()
@@ -177,26 +171,22 @@ class HookDetailActivity : BaseActivity() {
             val newUrl = binding.tvHandedUrl.text.toString()
             val selectedTags = binding.tvTag.text.split("  ").map { it.trim().replace("#", "") }
             val newTag = if (selectedTags.isEmpty() || selectedTags[0].isEmpty()) arrayListOf<String>() else ArrayList(selectedTags)
-            //val newTag = if (selectedTags.isEmpty() || selectedTags[0].isEmpty()) null else ArrayList(selectedTags)
 
             if (intId != null) {
                 viewModel.loadUpdateHook(intId, newTitle, newDesc, newUrl, newTag)
             }
             finish()
-            Log.d("tagUpdate", "$newTitle, $newDesc, $newUrl, $newTag")
         }
     }
+
     private fun updateButtonState() {
         val isValid = isUrlValid && isTitleValid
         val finishButton = binding.hookEdit
         finishButton.isEnabled = isValid
-
         if (isValid) {
-            finishButton.setBackgroundColor(getResources().getColor(R.color.purple))
-            /*finishButton.setBackgroundResource(R.drawable.button_border)*/
+            finishButton.setBackgroundColor(resources.getColor(R.color.purple))
         } else {
-            finishButton.setBackgroundColor(getResources().getColor(R.color.gray_100))
-//            finishButton.setBackgroundResource(R.drawable.button_border)
+            finishButton.setBackgroundColor(resources.getColor(R.color.gray_100))
         }
     }
 

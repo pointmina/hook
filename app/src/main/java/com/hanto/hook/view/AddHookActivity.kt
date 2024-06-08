@@ -57,6 +57,7 @@ class AddHookActivity : BaseActivity() {
             }
         })
         setContentView(view)
+        updateButtonState()
 
         binding.ivUrlLink.setOnClickListener {
             val clipboard = getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
@@ -89,23 +90,47 @@ class AddHookActivity : BaseActivity() {
         binding.tvLimit1.text = "${binding.tvUrlTitle.text.length} / 80"
         binding.tvLimit2.text = "${binding.tvUrlDescription.text.length} / 80"
 
+        binding.tvUrlLink.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val input = s.toString()
+                isUrlValid = input.isNotBlank() && (input.startsWith("http://") || input.startsWith("https://")) && !input.contains(" ")
+
+                if (!isUrlValid) {
+                    binding.tvGuide.visibility = View.VISIBLE
+                } else {
+                    binding.tvGuide.visibility = View.GONE
+                    updateButtonState() // 버튼 상태 업데이트
+                }
+            }
+            override fun afterTextChanged(s: Editable?) {
+            }
+        })
+        binding.tvUrlLink.setOnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_NEXT) {
+                binding.tvUrlTitle.requestFocus()
+                true
+            } else {
+                false
+            }
+        }
+
         binding.tvUrlTitle.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 s?.let {
                     binding.tvLimit1.text = "${s.length} / 120"
-                }
-            }
 
-            override fun afterTextChanged(s: Editable?) {
-                isTitleValid = s.toString().trim().isNotEmpty()
-                if (!isTitleValid) {
-                    binding.tvGuideTitle.visibility = View.VISIBLE
-                } else {
-                    binding.tvGuideTitle.visibility = View.GONE
+                    isTitleValid = s.toString().trim().isNotEmpty()
+                    if (!isTitleValid) {
+                        binding.tvGuideTitle.visibility = View.VISIBLE
+                    } else {
+                        binding.tvGuideTitle.visibility = View.GONE
+                        updateButtonState()
+                    }
                 }
-                updateButtonState()
             }
+            override fun afterTextChanged(s: Editable?) { }
         })
         binding.tvUrlTitle.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_NEXT && isExpanded) {
@@ -126,35 +151,9 @@ class AddHookActivity : BaseActivity() {
             override fun afterTextChanged(s: Editable?) {}
         })
 
-        binding.tvUrlLink.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-            override fun afterTextChanged(s: Editable?) {
-                val input = s.toString()
-                isUrlValid =
-                    input.isNotBlank() && (input.startsWith("http://") || input.startsWith("https://")) && !input.contains(
-                        " "
-                    )
-                if (!isUrlValid) {
-                    binding.tvGuide.visibility = View.VISIBLE
-                } else {
-                    binding.tvGuide.visibility = View.GONE
-                }
-                updateButtonState() // 버튼 상태 업데이트
-            }
-        })
-        binding.tvUrlLink.setOnEditorActionListener { v, actionId, event ->
-            if (actionId == EditorInfo.IME_ACTION_NEXT) {
-                binding.tvUrlTitle.requestFocus()
-                true
-            } else {
-                false
-            }
-        }
-
-        // 82~148: 태그 선택
+        // 태그 선택
         binding.containerTag.setOnClickListener {
-            val tags = multiChoiceList.keys.toTypedArray()
+            val tags = multiChoiceList.keys.sorted().toTypedArray()
             val tagArray = Array(tags.size) { i -> tags[i] }
 
             val builder = AlertDialog.Builder(this)
@@ -215,7 +214,6 @@ class AddHookActivity : BaseActivity() {
                 val dialog = dialogBuilder.create()
                 dialog.show()
             }
-
             val dialog = builder.create()
             dialog.show()
         }
@@ -231,11 +229,11 @@ class AddHookActivity : BaseActivity() {
         }
 
         binding.ivAddNewHook.setOnClickListener {
+            val tags = ArrayList(binding.containerTag.text.split("  ")
+                .map { it.trim().replace("#", "") })
             val title = binding.tvUrlTitle.text.toString()
             val description = binding.tvUrlDescription.text.toString()
             val url = binding.tvUrlLink.text.toString()
-            val tags = ArrayList(binding.containerTag.text.split("  ")
-                .map { it.trim().replace("#", "") })
 
             viewModel.loadCreateHook(title, description, url, tags)
             viewModel.createHookSuccessData.observe(this) { createHookSuccessData ->
