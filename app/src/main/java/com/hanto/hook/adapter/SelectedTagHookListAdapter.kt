@@ -1,5 +1,6 @@
 package com.hanto.hook.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -60,6 +61,18 @@ class SelectedTagHookListAdapter(
                 // ic_option 클릭 리스너 설정
                 icOption.setOnClickListener {
                     listener.onOptionButtonClick(adapterPosition)
+                }
+            }
+        }
+        init {
+            itemView.setOnClickListener {
+                val position = bindingAdapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    val selectedHook = hooks[position]
+                    Intent(Intent.ACTION_VIEW).apply {
+                        data = android.net.Uri.parse(selectedHook.url)
+                        binding.root.context.startActivity(this)
+                    }
                 }
             }
         }

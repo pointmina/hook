@@ -49,7 +49,7 @@ class SelectedTagActivity : AppCompatActivity() {
 //        ivTagChange.setOnClickListener {
 //            val changeTagFragment = ChangeTagFragment().apply {
 //                arguments = Bundle().apply {
-//                    putString("selectedTag", selectedTagName)
+//                    putString("selec`tedTag", selectedTagName)
 //                    putInt("selectedTagId", selectedTagId)
 //                }
 //            }
@@ -140,8 +140,14 @@ class SelectedTagActivity : AppCompatActivity() {
 
         val btonWeb = view.findViewById<Button>(R.id.bt_onWeb)
         btonWeb.setOnClickListener {
-            Intent(this, WebviewActivity::class.java).also { intent ->
-                intent.putExtra(WebviewActivity.EXTRA_URL, selectedItem.url)
+            Intent(this, HookDetailActivity::class.java).also { intent ->
+                intent.putExtra("item_id", selectedItem.id.toString())
+                intent.putExtra("item_title", selectedItem.title)
+                intent.putExtra("item_url", selectedItem.url)
+                intent.putExtra("item_description", selectedItem.description)
+                selectedItem.tags?.map { it.displayName }?.let {
+                    intent.putStringArrayListExtra("item_tag_list", ArrayList(it))
+                }
                 startActivity(intent)
             }
             dialog.dismiss()
