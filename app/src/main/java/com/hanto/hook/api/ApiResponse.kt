@@ -44,3 +44,11 @@ data class Result (
     @SerializedName("message" ) var message : String? = null
 
 )
+
+data class MultipleErrorResponse (
+
+    @SerializedName("statusCode" ) var statusCode : Int?              = null,
+    @SerializedName("message"    ) var message    : ArrayList<String> = arrayListOf(),
+    @SerializedName("error"      ) var error      : String?           = null
+
+) : ApiResponse()

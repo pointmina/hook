@@ -61,6 +61,22 @@
         app:layout_constraintTop_toBottomOf="@id/tv_link_info"
         tools:ignore="TextFields" />
 
+    <TextView
+        android:id="@+id/tvGuide"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginTop="5dp"
+        android:text="유효한 URL 주소가 아닙니다. 다시 확인해주세요."
+        android:textColor="@color/purple"
+        android:textSize="12dp"
+        android:padding="4dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_url_link"
+        app:layout_constraintBottom_toTopOf="@id/tv_url_title"
+        />
+
     <ImageView
         android:id="@+id/iv_url_link"
         android:layout_width="25dp"
@@ -98,7 +114,7 @@
         android:theme="@style/MyCheckBox"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_url_link" />
+        app:layout_constraintTop_toBottomOf="@id/tvGuide" />
 
     <TextView
         android:id="@+id/tv_limit_1"
@@ -204,16 +220,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_tag" />
 
-    <ImageView
+    <Button
         android:id="@+id/iv_add_new_hook"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
         android:layout_marginBottom="50dp"
         android:contentDescription="@string/description_save_changes"
-        android:src="@drawable/ic_add_tag_btn"
+        android:elevation="4dp"
+        android:backgroundTint="@color/purple"
+        android:background="@drawable/button_border"
+        android:text="추가하기"
+        android:textAppearance="@style/AppTexTitle.S14"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.444"
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--android:src="@drawable/ic_add_tag_btn"-->

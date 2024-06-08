@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hanto.hook.api.ApiServiceManager
 import com.hanto.hook.api.ErrorResponse
+import com.hanto.hook.api.MultipleErrorResponse
 import com.hanto.hook.api.SelectedTagAndHookResponse
 import com.hanto.hook.api.SuccessResponse
 import kotlinx.coroutines.launch
@@ -132,7 +133,13 @@ class MainViewModel(private val apiServiceManager: ApiServiceManager) : ViewMode
         }
     }
 
+    private val _createHookSuccessData = MutableLiveData<SuccessResponse?>()
+    val createHookSuccessData: LiveData<SuccessResponse?>
+        get() = _createHookSuccessData
 
+    private val _createFailData = MutableLiveData<MultipleErrorResponse?>()
+    val createFailData: LiveData<MultipleErrorResponse?>
+        get() = _createFailData
     fun loadCreateHook(title: String, description: String, url: String, tag: ArrayList<String>) {
         viewModelScope.launch {
             runCatching {
@@ -140,10 +147,10 @@ class MainViewModel(private val apiServiceManager: ApiServiceManager) : ViewMode
             }.onSuccess { result ->
                 when (result) {
                     is SuccessResponse -> {
-                        _successData.postValue(result)
+                        _createHookSuccessData.postValue(result)
                     }
-                    is ErrorResponse -> {
-                        _errorData.postValue(result)
+                    is MultipleErrorResponse -> {
+                        _createFailData.postValue(result)
                     }
                 }
             }.onFailure { exception ->
