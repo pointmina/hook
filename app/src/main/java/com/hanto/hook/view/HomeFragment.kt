@@ -43,7 +43,12 @@ class HomeFragment : Fragment() {
     private lateinit var hookAdapter: HookAdapter
     private val apiServiceManager by lazy { ApiServiceManager() }
     private val viewModelFactory by lazy { ViewModelFactory(apiServiceManager) }
-    private val hookViewModel: MainViewModel by lazy { ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java] }
+    private val hookViewModel: MainViewModel by lazy {
+        ViewModelProvider(
+            this,
+            viewModelFactory
+        )[MainViewModel::class.java]
+    }
 
     private var nickname: String = "Hook 사용자"
 
@@ -82,8 +87,10 @@ class HomeFragment : Fragment() {
                     loadNickName()
                     Handler(Looper.getMainLooper()).postDelayed({
                         val selectedHook = hookAdapter.getItem(position)
-                        val clipboard = requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                        val pasteText = "${nickname} 님이 훅을 공유했어요! \n\n${selectedHook.title} \n${selectedHook.url}"
+                        val clipboard =
+                            requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                        val pasteText =
+                            "${nickname} 님이 훅을 공유했어요! \n\n${selectedHook.title} \n${selectedHook.url}"
                         val clip = ClipData.newPlainText("label", pasteText)
                         clipboard.setPrimaryClip(clip)
                     }, 150) // Ripple 애니메이션이 대략 완료될 시간
@@ -109,9 +116,7 @@ class HomeFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        Handler(Looper.getMainLooper()).postDelayed({
-            loadData()
-        }, 300)
+        loadData()
     }
 
     // ============= 이하 ~ 끝까지 private fun 영역 ==============================
@@ -135,7 +140,11 @@ class HomeFragment : Fragment() {
             } else {
                 hookViewModel.hookData.observe(viewLifecycleOwner) { errorData ->
                     if (errorData != null) {
-                        Toast.makeText(requireActivity(), "${errorData.result?.message}", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            requireActivity(),
+                            "${errorData.result?.message}",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
             }
