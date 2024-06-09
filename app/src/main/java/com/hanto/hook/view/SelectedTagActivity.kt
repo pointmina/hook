@@ -6,8 +6,6 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.core.content.ContextCompat.startActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -70,7 +68,6 @@ class SelectedTagActivity : BaseActivity() {
             deleteDialog(selectedTagId)
         }
 
-        // 해당 태그와 관련된 항목 목록이어야 합니다.
         selectedTagHookListAdapter = SelectedTagHookListAdapter(
             hooks = ArrayList(),
             object : SelectedTagHookListAdapter.OnItemClickListener {
@@ -132,7 +129,11 @@ class SelectedTagActivity : BaseActivity() {
         dialogBuilder.setPositiveButton("예") { dialog, _ ->
             viewModel.loadDeleteTag(selectedTagId)
             viewModel.successData.observe(this@SelectedTagActivity) { successData ->
-                Toast.makeText(this@SelectedTagActivity, "${successData?.result?.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this@SelectedTagActivity,
+                    "${successData?.result?.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
                 dialog.dismiss()
                 finish()
             }

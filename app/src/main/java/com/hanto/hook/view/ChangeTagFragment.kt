@@ -5,14 +5,14 @@ import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
-import com.hanto.hook.databinding.FragmentChangeTagBinding
 import androidx.lifecycle.ViewModelProvider
 import com.hanto.hook.api.ApiServiceManager
+import com.hanto.hook.databinding.FragmentChangeTagBinding
 import com.hanto.hook.viewmodel.MainViewModel
 import com.hanto.hook.viewmodel.ViewModelFactory
 
@@ -41,7 +41,8 @@ class ChangeTagFragment(private val onTagUpdated: (String) -> Unit) : DialogFrag
 
         val apiServiceManager = ApiServiceManager()
         val viewModelFactory = ViewModelFactory(apiServiceManager)
-        viewModel = ViewModelProvider(requireActivity(), viewModelFactory)[MainViewModel::class.java]
+        viewModel =
+            ViewModelProvider(requireActivity(), viewModelFactory)[MainViewModel::class.java]
 
         val selectedTag = arguments?.getString("selectedTag")
         selectedTagId = arguments?.getInt("selectedTagId", -1) ?: -1

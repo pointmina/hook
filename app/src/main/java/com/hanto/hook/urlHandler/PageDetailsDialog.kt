@@ -3,7 +3,6 @@ package com.hanto.hook.urlHandler
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Dialog
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.Window
@@ -22,7 +21,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class PageDetailsDialog(val activity: AppCompatActivity, val title: String, val url: String) : Dialog(activity, R.style.DialogTheme) {
+class PageDetailsDialog(val activity: AppCompatActivity, val title: String, val url: String) :
+    Dialog(activity, R.style.DialogTheme) {
     private val multiChoiceList = linkedMapOf<String, Boolean>()
     private lateinit var viewModel: MainViewModel
     private lateinit var binding: ActivityUrlHandlingBinding
@@ -93,18 +93,24 @@ class PageDetailsDialog(val activity: AppCompatActivity, val title: String, val 
                 println("생성버튼클릭")
                 (context as? AppCompatActivity)?.finish()
 
-                viewModel.loadWebCreateHook(inputTitle, inputDescription, inputUrl, inputTags, inputSuggestTag)
+                viewModel.loadWebCreateHook(
+                    inputTitle,
+                    inputDescription,
+                    inputUrl,
+                    inputTags,
+                    inputSuggestTag
+                )
                 viewModel.successData.observe(activity) { successData ->
                     successData?.let {
                         Log.d("인브라우저 훅 생성 페이지", "요청완료,자동생성:${inputSuggestTag}")
                     }
                 }
-                    dismiss()
-                    (context as? Activity)?.finishAndRemoveTask()
-                }
                 dismiss()
+                (context as? Activity)?.finishAndRemoveTask()
             }
+            dismiss()
         }
+    }
 
 
     private fun showTagSelectionDialog(editTextTag: TextView) {

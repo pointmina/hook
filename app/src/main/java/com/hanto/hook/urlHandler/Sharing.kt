@@ -4,7 +4,6 @@ package com.hanto.hook.urlHandler
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider.NewInstanceFactory.Companion.instance
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -66,7 +65,7 @@ class Sharing : AppCompatActivity() {
     }
 
     private fun openPageDetailsDialog(title: String, url: String) {
-        val dialog = PageDetailsDialog(this,  title, url)
+        val dialog = PageDetailsDialog(this, title, url)
         dialog.setOnDismissListener {
             this.finish() // Sharing 액티비티 종료
         }

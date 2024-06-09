@@ -31,20 +31,40 @@ class ApiServiceManager {
         return handleApiResponse { apiService.findHookById(id) }
     }
 
-    suspend fun managerCreateHook(title: String, description: String, url: String, tag: ArrayList<String>, suggestTags: Boolean): ApiResponse {
+    suspend fun managerCreateHook(
+        title: String,
+        description: String,
+        url: String,
+        tag: ArrayList<String>,
+        suggestTags: Boolean
+    ): ApiResponse {
         val request = HookRequest(title, description, url, tag, suggestTags)
         return customHandleApiResponse2 { apiService.createHook(request) }
     }
 
-    suspend fun managerWebCreateHook(title: String, description: String, url: String, tag: ArrayList<String>, suggestTags: Boolean): ApiResponse {
+    suspend fun managerWebCreateHook(
+        title: String,
+        description: String,
+        url: String,
+        tag: ArrayList<String>,
+        suggestTags: Boolean
+    ): ApiResponse {
         val request = HookRequest(title, description, url, tag, suggestTags)
         return customHandleApiResponse2 { apiService.webCreateHook(request) }
     }
 
-    suspend fun managerUpdateHook(id: Int, title: String, description: String, url: String, tag: ArrayList<String>, suggestTags: Boolean): ApiResponse {
+    suspend fun managerUpdateHook(
+        id: Int,
+        title: String,
+        description: String,
+        url: String,
+        tag: ArrayList<String>,
+        suggestTags: Boolean
+    ): ApiResponse {
         val request = HookRequest(title, description, url, tag, suggestTags)
         return handleApiResponse { apiService.updateHook(id, request) }
     }
+
     suspend fun managerDeleteHook(id: Int): ApiResponse {
         return handleApiResponse { apiService.deleteHook(id) }
     }
@@ -55,7 +75,7 @@ class ApiServiceManager {
         return handleApiResponse { apiService.findMyTags() }
     }
 
-    suspend fun managerGetTagByName(name:String): ApiResponse {
+    suspend fun managerGetTagByName(name: String): ApiResponse {
         return handleApiResponse { apiService.getTagByName(name) }
     }
 
@@ -69,7 +89,7 @@ class ApiServiceManager {
         return handleApiResponse { apiService.updateTagName(id, requestBody) }
     }
 
-    suspend fun managerDeleteTag(id:Int): ApiResponse {
+    suspend fun managerDeleteTag(id: Int): ApiResponse {
         return handleApiResponse { apiService.deleteTag(id) }
     }
 
@@ -114,6 +134,7 @@ class ApiServiceManager {
             ErrorResponse(error = "예상치 못한 오류 발생: ${e.message}")
         }
     }
+
     private suspend fun customHandleApiResponse2(apiCall: suspend () -> Response<ApiResponse>): ApiResponse {
         return try {
             val response = apiCall()
@@ -124,9 +145,10 @@ class ApiServiceManager {
                     it as SuccessResponse
                 } ?: ErrorResponse()
             } else {
-                Gson().fromJson(response.errorBody()?.string(), MultipleErrorResponse::class.java).also {
-                    Log.d("ApiServiceManager", "에러 -- ${it.error}")
-                }
+                Gson().fromJson(response.errorBody()?.string(), MultipleErrorResponse::class.java)
+                    .also {
+                        Log.d("ApiServiceManager", "에러 -- ${it.error}")
+                    }
             }
         } catch (e: Exception) {
             Log.d("ApiServiceManager", "예상치 못한 오류", e)

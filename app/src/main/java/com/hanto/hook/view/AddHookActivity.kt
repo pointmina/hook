@@ -19,44 +19,39 @@ import androidx.lifecycle.ViewModelProvider
 import com.hanto.hook.BaseActivity
 import com.hanto.hook.R
 import com.hanto.hook.api.ApiServiceManager
+import com.hanto.hook.data.TagSelectionListener
 import com.hanto.hook.databinding.ActivityAddHookBinding
 import com.hanto.hook.viewmodel.MainViewModel
 import com.hanto.hook.viewmodel.ViewModelFactory
 
 @Suppress("DEPRECATION")
-class AddHookActivity : BaseActivity() {
+class AddHookActivity : BaseActivity(), TagSelectionListener {
     private lateinit var binding: ActivityAddHookBinding
 
     private val apiServiceManager by lazy { ApiServiceManager() }
     private val viewModelFactory by lazy { ViewModelFactory(apiServiceManager) }
-    private val viewModel: MainViewModel by lazy { ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java] }
+    private val viewModel: MainViewModel by lazy {
+        ViewModelProvider(
+            this,
+            viewModelFactory
+        )[MainViewModel::class.java]
+    }
 
     private var isUrlValid = false
     private var isTitleValid = false
     private var isExpanded = false
-    private val multiChoiceList = linkedMapOf<String, Boolean>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddHookBinding.inflate(layoutInflater)
         val view = binding.root
 
-        viewModel.loadFindMyTags()
-        viewModel.tagData.observe(this) { tagData ->
-            tagData?.let {
-                for (tag in tagData.tag) {
-                    tag.displayName?.let { displayName ->
-                        multiChoiceList[displayName] = false
-                    }
-                }
-            }
-        }
         setContentView(view)
         updateButtonState()
 
         binding.ivAppbarBackButton.setOnClickListener {
             finish()
-        } // 앱바 - 뒤로 가기 버튼
+        }
 
         binding.ivUrlLink.setOnClickListener {
             val clipboard = getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
@@ -100,6 +95,7 @@ class AddHookActivity : BaseActivity() {
                     updateButtonState() // 버튼 상태 업데이트
                 }
             }
+
             override fun afterTextChanged(s: Editable?) {
             }
         })
@@ -128,14 +124,16 @@ class AddHookActivity : BaseActivity() {
                     }
                 }
             }
-            override fun afterTextChanged(s: Editable?) { }
+
+            override fun afterTextChanged(s: Editable?) {}
         })
         binding.tvUrlTitle.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_NEXT && isExpanded) {
                 binding.tvUrlDescription.requestFocus()
                 true
             } else if (actionId == EditorInfo.IME_ACTION_NEXT && !isExpanded) {
-                val inputMethodManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+                val inputMethodManager =
+                    getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
                 inputMethodManager.hideSoftInputFromWindow(binding.tvUrlTitle.windowToken, 0)
                 true
             } else {
@@ -151,75 +149,17 @@ class AddHookActivity : BaseActivity() {
                     binding.tvLimit2.text = innerLimitString2
                 }
             }
+
             override fun afterTextChanged(s: Editable?) {}
         })
 
         // 태그 선택
         binding.containerTag.setOnClickListener {
-            val tags = multiChoiceList.keys.sorted().toTypedArray()
-            val checkedItems = BooleanArray(tags.size) { i -> multiChoiceList[tags[i]] ?: false }
-
-            val builder = AlertDialog.Builder(this)
-            builder.setTitle("태그 선택")
-
-            builder.setMultiChoiceItems(
-                tags,
-                checkedItems
-            ) { _: DialogInterface, which: Int, isChecked: Boolean ->
-                val selectedTag = tags[which]
-                multiChoiceList[selectedTag] = isChecked
-            }
-
-            builder.setPositiveButton("OK") { dialog, _ ->
-                val selectedTags = mutableListOf<String>()
-                for ((tag, selected) in multiChoiceList) {
-                    if (selected) {
-                        selectedTags.add(tag)
-                    }
-                }
-                val sortedSelectedTags = selectedTags.sorted().map { "#$it" }
-                // 추가: 선택된 태그를 containerTag에 표시
-                binding.containerTag.text = sortedSelectedTags.joinToString("  ")
-                dialog.dismiss()
-            }
-
-            builder.setNegativeButton("Cancel") { dialog, _ ->
-                dialog.dismiss()
-            }
-
-            //add버튼 누르면 태그 항목에 추가
-            builder.setNeutralButton("Add") { dialog, _ ->
-                // 추가: 새로운 항목 추가 기능 구현
-                val editText = EditText(this)
-                editText.hint = "태그 입력"
-                val dialogBuilder = AlertDialog.Builder(this)
-                    .setTitle("태그 추가")
-                    .setView(editText)
-                    .setPositiveButton("추가") { _, _ ->
-                        val newTag = editText.text.toString().trim()
-                        if (newTag.isNotEmpty()) {
-                            multiChoiceList[newTag] = true
-                            val selectedTags = mutableListOf<String>()
-                            for ((tag, selected) in multiChoiceList) {
-                                if (selected) {
-                                    selectedTags.add("#$tag") // #을 붙여 선택된 태그를 리스트에 추가합니다.
-                                }
-                            }
-                            // 추가: 선택된 태그를 containerTag에 표시
-                            binding.containerTag.text = selectedTags.joinToString("  ")
-                        } else {
-                            Toast.makeText(this, "태그를 입력하세요.", Toast.LENGTH_SHORT).show()
-                        }
-                        dialog.dismiss()
-                    }
-                    .setNegativeButton("취소") { _, _ ->
-                        dialog.dismiss()
-                    }
-                dialogBuilder.create().show()
-            }
-            val dialog = builder.create()
-            dialog.show()
+            val fragment = tagListFragment()
+            fragment.setTagSelectionListener(this)
+            fragment.show(supportFragmentManager, "TagListFragment")
         }
+
 
         // 더보기 뷰
         binding.containerLinkInfoEtc.setOnClickListener {
@@ -232,7 +172,7 @@ class AddHookActivity : BaseActivity() {
         }
 
         binding.ivAddNewHook.setOnClickListener {
-            val tags = ArrayList(binding.containerTag.text.split("  ")
+            val tags = ArrayList(binding.containerTag.text.split(" ")
                 .map { it.trim().replace("#", "") }
                 .filter { it.isNotEmpty() })
             val title = binding.tvUrlTitle.text.toString()
@@ -256,9 +196,7 @@ class AddHookActivity : BaseActivity() {
             }
         }
     }
-    /*        binding.tvUrlLink.setOnClickListener {
-    showKeyboardAndFocus()
-}*/
+
     private fun updateButtonState() {
         val isValid = isUrlValid && isTitleValid
         val finishButton = binding.ivAddNewHook
@@ -266,12 +204,11 @@ class AddHookActivity : BaseActivity() {
 
         if (isValid) {
             finishButton.setBackgroundColor(getResources().getColor(R.color.purple))
-            /*finishButton.setBackgroundResource(R.drawable.button_border)*/
         } else {
             finishButton.setBackgroundColor(getResources().getColor(R.color.gray_100))
-//            finishButton.setBackgroundResource(R.drawable.button_border)
         }
     }
+
     private fun toggleExpandCollapse(
         tvUrlDescription: TextView,
         tvTag: TextView,
@@ -296,9 +233,7 @@ class AddHookActivity : BaseActivity() {
         }
     }
 
-    /*    private fun showKeyboardAndFocus(editText: EditText) {
-            editText.requestFocus()
-            val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT)
-        }*/
+    override fun onTagsSelected(tags: String) {
+        binding.containerTag.text = tags
+    }
 }
