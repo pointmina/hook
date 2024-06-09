@@ -228,7 +228,8 @@ class AddHookActivity : BaseActivity() {
 
         binding.ivAddNewHook.setOnClickListener {
             val tags = ArrayList(binding.containerTag.text.split("  ")
-                .map { it.trim().replace("#", "") })
+                .map { it.trim().replace("#", "") }
+                .filter { it.isNotEmpty() })
             val title = binding.tvUrlTitle.text.toString()
             val description = binding.tvUrlDescription.text.toString()
             val url = binding.tvUrlLink.text.toString()
