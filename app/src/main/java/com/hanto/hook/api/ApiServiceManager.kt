@@ -33,7 +33,7 @@ class ApiServiceManager {
 
     suspend fun managerCreateHook(title: String, description: String, url: String, tag: ArrayList<String>): ApiResponse {
         val request = HookRequest(title, description, url, tag)
-        return customHandleApiResponse2 { apiService.createHook(request) }
+        return handleApiResponse { apiService.createHook(request) }
     }
 
     suspend fun managerUpdateHook(id: Int, title: String, description: String, url: String, tag: ArrayList<String>): ApiResponse {
@@ -101,25 +101,6 @@ class ApiServiceManager {
                 } ?: ErrorResponse()
             } else {
                 Gson().fromJson(response.errorBody()?.string(), ErrorResponse::class.java).also {
-                    Log.d("ApiServiceManager", "에러 -- ${it.error}")
-                }
-            }
-        } catch (e: Exception) {
-            Log.d("ApiServiceManager", "예상치 못한 오류", e)
-            ErrorResponse(error = "예상치 못한 오류 발생: ${e.message}")
-        }
-    }
-    private suspend fun customHandleApiResponse2(apiCall: suspend () -> Response<ApiResponse>): ApiResponse {
-        return try {
-            val response = apiCall()
-            if (response.isSuccessful) {
-                // Parse the successful response
-                response.body()?.let {
-                    Log.d("ApiServiceManager", "성공 -- $it")
-                    it as SuccessResponse
-                } ?: ErrorResponse()
-            } else {
-                Gson().fromJson(response.errorBody()?.string(), MultipleErrorResponse::class.java).also {
                     Log.d("ApiServiceManager", "에러 -- ${it.error}")
                 }
             }

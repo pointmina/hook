@@ -1,11 +1,16 @@
 package com.hanto.hook.urlHandler
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.ActivityManager
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.view.Window
+import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
@@ -14,68 +19,86 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.hanto.hook.R
 import com.hanto.hook.api.ApiServiceManager
-import com.hanto.hook.databinding.ActivityUrlHandlingBinding
+import com.hanto.hook.api.ErrorResponse
+import com.hanto.hook.api.SuccessResponse
 import com.hanto.hook.viewmodel.MainViewModel
 import com.hanto.hook.viewmodel.ViewModelFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class PageDetailsDialog(val activity: AppCompatActivity, val title: String, val url: String) : Dialog(activity, R.style.DialogTheme) {
+class PageDetailsDialog(val activity: AppCompatActivity, val sharingActivity: Sharing, val title: String, val url: String) : Dialog(activity, R.style.DialogTheme) {
     private val multiChoiceList = linkedMapOf<String, Boolean>()
     private lateinit var viewModel: MainViewModel
-    private lateinit var binding: ActivityUrlHandlingBinding
 
+    @SuppressLint("WrongViewCast")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        println("다이얼로그 실행")
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         window?.setBackgroundDrawableResource(android.R.color.transparent)
-
-        binding = ActivityUrlHandlingBinding.inflate(activity.layoutInflater)
-        val view = binding.root
+        val inflater = LayoutInflater.from(context)
+        val view = inflater.inflate(R.layout.activity_url_handling, null) as ViewGroup
         setContentView(view)
 
         val apiServiceManager = ApiServiceManager()
         val viewModelFactory = ViewModelFactory(apiServiceManager)
         viewModel = ViewModelProvider(activity, viewModelFactory).get(MainViewModel::class.java)
 
-        viewModel.loadFindMyTags()
+        reload()
 
-        val tagBox = binding.tvTag
+        val textViewBookmark = findViewById<TextView>(R.id.tv_bookmark)
+        textViewBookmark.text = " 훅 저장하기"
 
-        with(binding) {
-            tvBookmark.text = " 훅 저장하기"
-            editTextUrl.setText(url)
-            editTextTitle.setText(title)
-            editTextDescription.setText("")
+        val editTextUrl = findViewById<EditText>(R.id.editTextUrl)
+        editTextUrl.setText(url)
 
-            checkboxExpand.setOnCheckedChangeListener { _, isChecked ->
-                if (isChecked) {
-                    tagBox.visibility = android.view.View.VISIBLE
-                } else {
-                    tagBox.visibility = android.view.View.GONE
+        val editTextTitle = findViewById<EditText>(R.id.editTextTitle)
+        editTextTitle.setText(title)
+
+        val editTextDescription = findViewById<EditText>(R.id.editTextDescription)
+        editTextDescription.setText("")
+
+        val editTextTag = findViewById<TextView>(R.id.tv_tag)
+        val checkboxExpand = findViewById<CheckBox>(R.id.checkboxExpand)
+
+        checkboxExpand?.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                editTextTag?.visibility = View.VISIBLE
+            } else {
+                editTextTag?.visibility = View.GONE
+            }
+        }
+
+        editTextTag.setOnClickListener {
+            showTagSelectionDialog(editTextTag)
+        }
+
+        val buttonCancel: TextView? = findViewById(R.id.btn_cancel)
+        buttonCancel?.setOnClickListener {
+            println("취소버튼클릭")
+            dismiss()
+            (context as? Activity)?.finishAndRemoveTask()
+        }
+
+        val buttonCreate: TextView? = findViewById(R.id.btn_create)
+        buttonCreate?.setOnClickListener {
+            val inputUrl = editTextUrl.text.toString()
+            val inputTitle = editTextTitle.text.toString()
+            val inputTags = ArrayList(editTextTag.text.split("  ")
+                .map { it.trim().replace("#", "") })
+            val inputDescription = editTextDescription.text.toString()
+            println("생성버튼클릭")
+            (context as? AppCompatActivity)?.finish()
+
+            GlobalScope.launch(Dispatchers.Main) {
+                val apiServiceManager = ApiServiceManager()
+                val response = apiServiceManager.managerCreateHook(inputTitle, inputDescription, inputUrl, inputTags)
+                if (response is SuccessResponse) {
+                    println("생성 성공: ${response.result?.message}")
+                } else if (response is ErrorResponse) {
+                    println("생성 실패: ${response.message}")
                 }
-            }
-
-            tagBox.setOnClickListener {
-                showTagSelectionDialog(tagBox)
-            }
-
-            btnCancel.setOnClickListener {
-                dismiss()
-                (context as? Sharing)?.finishAffinity()
-                forceQuit()
-            }
-
-            btnCreate.setOnClickListener {
-                val inputUrl = editTextUrl.text.toString()
-                val inputTitle = editTextTitle.text.toString()
-                val inputTag = tagBox.text.toString()
-                val inputDescription = editTextDescription.text.toString()
-
-                val converter = DataToJsonConverter()
-
-                val jsonString = converter.convertToJson(inputTitle, inputDescription, inputUrl, inputTag)
 
                 dismiss()
                 (context as? Sharing)?.finishAffinity()

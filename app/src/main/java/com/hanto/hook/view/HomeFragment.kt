@@ -60,11 +60,6 @@ class HomeFragment : Fragment() {
             findNavController().navigate(R.id.action_navigation_home_to_settingActivity)
         }  // 환경 설정 버튼
 
-        binding.swipeLayout.setOnRefreshListener {
-            loadData()
-            binding.swipeLayout.isRefreshing = false
-        }  // 새로 고침
-
         hookAdapter = HookAdapter(
             hooks = ArrayList(),
             tag = ArrayList(),
@@ -179,16 +174,19 @@ class HomeFragment : Fragment() {
         dialog.show()
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
     override fun onResume() {
         super.onResume()
-        Handler(Looper.getMainLooper()).postDelayed({
-            loadData()
-        }, 500)
+        loadData()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        // RecyclerView Adapter 레퍼런스 해제
+        binding.rvHome.adapter = null
+        _binding = null
+
+        // ViewModel Observer 제거
+        hookViewModel.hookData.removeObservers(viewLifecycleOwner)
     }
 }
 
