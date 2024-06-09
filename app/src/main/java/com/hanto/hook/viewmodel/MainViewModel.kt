@@ -140,10 +140,10 @@ class MainViewModel(private val apiServiceManager: ApiServiceManager) : ViewMode
     private val _createFailData = MutableLiveData<MultipleErrorResponse?>()
     val createFailData: LiveData<MultipleErrorResponse?>
         get() = _createFailData
-    fun loadCreateHook(title: String, description: String, url: String, tag: ArrayList<String>) {
+    fun loadCreateHook(title: String, description: String, url: String, tag: ArrayList<String>, suggestTags: Boolean) {
         viewModelScope.launch {
             runCatching {
-                apiServiceManager.managerCreateHook(title,description,url,tag)
+                apiServiceManager.managerCreateHook(title,description,url,tag,suggestTags)
             }.onSuccess { result ->
                 when (result) {
                     is SuccessResponse -> {
@@ -159,10 +159,29 @@ class MainViewModel(private val apiServiceManager: ApiServiceManager) : ViewMode
         }
     }
 
-    fun loadUpdateHook(id:Int, title: String, description: String, url: String, tag: ArrayList<String>?) {
+    fun loadWebCreateHook(title: String, description: String, url: String, tag: ArrayList<String>, suggestTags: Boolean) {
         viewModelScope.launch {
             runCatching {
-                tag?.let { apiServiceManager.managerUpdateHook(id, title, description, url, it) }
+                tag.let { apiServiceManager.managerWebCreateHook(title, description, url, tag, suggestTags) }
+            }.onSuccess { result ->
+                when (result) {
+                    is SuccessResponse -> {
+                        _successData.postValue(result)
+                    }
+                    is ErrorResponse -> {
+                        _errorData.postValue(result)
+                    }
+                }
+            }.onFailure { exception ->
+                Log.e("Fail - loadWebCreateHook", "${exception.message}")
+            }
+        }
+    }
+
+    fun loadUpdateHook(id:Int, title: String, description: String, url: String, tag: ArrayList<String>, suggestTags: Boolean) {
+        viewModelScope.launch {
+            runCatching {
+                tag.let { apiServiceManager.managerUpdateHook(id, title, description, url,tag,suggestTags) }
             }.onSuccess { result ->
                 when (result) {
                     is SuccessResponse -> {
@@ -204,12 +223,8 @@ class MainViewModel(private val apiServiceManager: ApiServiceManager) : ViewMode
     // 태그 5개 ==========================================================================
     private val _tagData = MutableLiveData<SuccessResponse?>()
     val tagData : LiveData<SuccessResponse?>
-
         get() = _tagData
-    private val _tagDisplayNames = MutableLiveData<List<String?>>()
-    val tagDisplayNames : LiveData<List<String?>>
 
-        get() = _tagDisplayNames
     fun loadFindMyTags() {
         viewModelScope.launch {
             runCatching {
@@ -218,7 +233,6 @@ class MainViewModel(private val apiServiceManager: ApiServiceManager) : ViewMode
                 when (result) {
                     is SuccessResponse -> {
                         _tagData.postValue(result)
-                        _tagDisplayNames.postValue(result.tag.mapNotNull { it.displayName })
                     }
                     is ErrorResponse -> {
                         _errorData.postValue(result)

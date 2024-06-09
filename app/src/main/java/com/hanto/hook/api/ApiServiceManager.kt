@@ -31,18 +31,18 @@ class ApiServiceManager {
         return handleApiResponse { apiService.findHookById(id) }
     }
 
-    suspend fun managerCreateHook(title: String, description: String, url: String, tag: ArrayList<String>): ApiResponse {
-        val request = HookRequest(title, description, url, tag)
+    suspend fun managerCreateHook(title: String, description: String, url: String, tag: ArrayList<String>, suggestTags: Boolean): ApiResponse {
+        val request = HookRequest(title, description, url, tag, suggestTags)
         return customHandleApiResponse2 { apiService.createHook(request) }
     }
 
-    suspend fun webCreateHook(title: String, description: String, url: String, tag: ArrayList<String>): ApiResponse {
-        val request = WebHookRequest(title, description, url, tag)
-        return customHandleApiResponse2 { apiService.webcreateHook(request) }
+    suspend fun managerWebCreateHook(title: String, description: String, url: String, tag: ArrayList<String>, suggestTags: Boolean): ApiResponse {
+        val request = HookRequest(title, description, url, tag, suggestTags)
+        return customHandleApiResponse2 { apiService.webCreateHook(request) }
     }
 
-    suspend fun managerUpdateHook(id: Int, title: String, description: String, url: String, tag: ArrayList<String>): ApiResponse {
-        val request = HookRequest(title, description, url, tag)
+    suspend fun managerUpdateHook(id: Int, title: String, description: String, url: String, tag: ArrayList<String>, suggestTags: Boolean): ApiResponse {
+        val request = HookRequest(title, description, url, tag, suggestTags)
         return handleApiResponse { apiService.updateHook(id, request) }
     }
     suspend fun managerDeleteHook(id: Int): ApiResponse {
