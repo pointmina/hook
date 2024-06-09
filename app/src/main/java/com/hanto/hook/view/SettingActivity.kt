@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.hanto.hook.BaseActivity
@@ -29,24 +28,23 @@ class SettingActivity : BaseActivity() {
         setContentView(binding.root)
 
         binding.ivAppbarBackButton.setOnClickListener{
-            onBackPressed()
+            finish()
         }
 
         viewModel.loadGetMyInfo()
-        viewModel.userData.observe(this, Observer { user ->
+        viewModel.userData.observe(this) { user ->
             val nickname = user?.user?.nickname ?: "종합설계"
             val email = user?.user?.email ?: "이메일 정보 없음"
             binding.tvUserName.setText(nickname)
             binding.tvEmail.text = email
-        })
+        }
 
         binding.btnSaveChange.setOnClickListener{
             val newNickname = binding.tvUserName.text.toString()
             viewModel.loadUpdateNickName(nickname = newNickname)
-            viewModel.successData.observe(this, Observer { successData ->
+            viewModel.successData.observe(this)  { successData ->
                 Toast.makeText(this, "${successData?.result?.message}", Toast.LENGTH_SHORT).show()
-            })
-            finish()
+            }
         }
 
         binding.kakaoLogoutButton.setOnClickListener {

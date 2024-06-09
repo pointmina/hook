@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.hanto.hook.api.SelectedTagAndHookResponse
 import com.hanto.hook.databinding.ItemSelectedTagHookListBinding
 import com.hanto.hook.model.Hook
+import okhttp3.internal.notify
 
 class SelectedTagHookListAdapter(
     private var hooks: ArrayList<Hook>,
@@ -14,6 +15,7 @@ class SelectedTagHookListAdapter(
 ) : RecyclerView.Adapter<SelectedTagHookListAdapter.SelectedTagHookViewHolder>() {
 
     interface OnItemClickListener {
+        fun onClick(position: Int)
         fun onOptionButtonClick(position: Int)
     }
 
@@ -33,7 +35,9 @@ class SelectedTagHookListAdapter(
     override fun getItemCount(): Int = hooks.size
 
     fun updateData(response: SelectedTagAndHookResponse) {
-        this.hooks = response.hooks
+        hooks.clear()
+        hooks.addAll(response.hooks)
+        //this.hooks = response.hooks
         notifyDataSetChanged() // 데이터셋 변경을 알림
     }
 
@@ -57,6 +61,9 @@ class SelectedTagHookListAdapter(
                     binding.tvTagDescription.visibility = View.GONE
                 }
 
+                root.setOnClickListener {
+                    listener.onClick(adapterPosition)
+                }
                 // ic_option 클릭 리스너 설정
                 icOption.setOnClickListener {
                     listener.onOptionButtonClick(adapterPosition)

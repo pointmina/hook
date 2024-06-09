@@ -56,9 +56,6 @@ class HookAdapter(
             } ?: run {
                 binding.rvTagContainer.visibility = View.GONE
             }
-
-
-
         }
 
         init {
@@ -70,6 +67,9 @@ class HookAdapter(
                 }
             }
 
+            itemView.setOnLongClickListener {
+                true
+            }
             // 옵션 버튼 클릭했을 때
             binding.btOption.setOnClickListener {
                 val position = bindingAdapterPosition

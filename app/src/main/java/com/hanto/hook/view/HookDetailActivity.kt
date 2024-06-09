@@ -95,8 +95,10 @@ class HookDetailActivity : BaseActivity() {
         val tagString = tags?.joinToString(" ") { "#$it " }
         binding.tvTag.text = tagString
 
-        binding.tvLimit1.text = "${binding.tvHandedTitle.text.length} / 120"
-        binding.tvLimit2.text = "${binding.tvHandedDesc.text.length} / 80"
+        val limitString1 = "${binding.tvHandedTitle.text.length} / 120"
+        val limitString2 = "${binding.tvHandedDesc.text.length} / 80"
+        binding.tvLimit1.text = limitString1
+        binding.tvLimit2.text = limitString2
 
         binding.tvHandedTitle.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -147,7 +149,7 @@ class HookDetailActivity : BaseActivity() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val input = s.toString()
-                isUrlValid = input.isNotBlank() && (input.startsWith("http://") || input.startsWith("https://")) && !input.contains(" ")
+                isUrlValid = input.isNotBlank() && !input.contains(" ")
 
                 if (!isUrlValid) {
                     binding.tvGuideUrl.visibility = View.VISIBLE
@@ -247,9 +249,10 @@ class HookDetailActivity : BaseActivity() {
         val selectedTags = mutableListOf<String>()
         for ((tag, selected) in multiChoiceList) {
             if (selected) {
-                selectedTags.add("#$tag")
+                selectedTags.add(tag)
             }
         }
-        binding.tvTag.text = selectedTags.joinToString("  ")
+        val sortedSelectedTags = selectedTags.sorted().map { "#$it" }
+        binding.tvTag.text = sortedSelectedTags.joinToString("  ")
     }
 }

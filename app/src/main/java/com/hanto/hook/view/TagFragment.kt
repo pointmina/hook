@@ -13,8 +13,6 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.flexbox.FlexDirection
@@ -24,7 +22,6 @@ import com.hanto.hook.R
 import com.hanto.hook.adapter.TagAdapter
 import com.hanto.hook.api.ApiServiceManager
 import com.hanto.hook.databinding.FragmentTagBinding
-import com.hanto.hook.model.Tag
 import com.hanto.hook.viewmodel.MainViewModel
 import com.hanto.hook.viewmodel.ViewModelFactory
 import java.util.ArrayList
@@ -36,11 +33,10 @@ class TagFragment : Fragment() {
     private val apiServiceManager by lazy { ApiServiceManager() }
     private val viewModelFactory by lazy { ViewModelFactory(apiServiceManager) }
     private val tagViewModel: MainViewModel by lazy {
-        ViewModelProvider(this, viewModelFactory).get(
-            MainViewModel::class.java
-        )
+        ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
     }
 
+    // 태그 추가 다이알로그
     private val dialog by lazy {
         Dialog(requireContext()).apply {
             requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -55,7 +51,7 @@ class TagFragment : Fragment() {
                     tagViewModel.loadCreateTag(name)
                     clearEditText(tvChangeTagName)
                     this.dismiss()
-                    refreshTagList()
+                    setTagData()
                 } else {
                     Toast.makeText(requireContext(), "태그 이름을 입력하세요.", Toast.LENGTH_SHORT).show()
                 }
@@ -103,9 +99,8 @@ class TagFragment : Fragment() {
                         val intent = Intent(requireContext(), SelectedTagActivity::class.java).apply {
                             putExtra("selectedTagName", selectedTag.displayName)
                             putExtra("selectedTagId", selectedTag.id)
-                            startActivity(this)
                         }
-                        startActivityForResult(intent, 1) // Activity 시작
+                        startActivity(intent)
                     }
                 }
             })
@@ -119,8 +114,6 @@ class TagFragment : Fragment() {
             layoutManager = flexboxLayoutManager
             adapter = tagAdapter
         }
-
-        setTagData()
     }
 
     private fun setTagData() {
@@ -128,11 +121,7 @@ class TagFragment : Fragment() {
         tagViewModel.tagData.observe(viewLifecycleOwner) { tagData ->
             if (tagData != null) {
                 tagAdapter.updateData(tagData.tag)
-//                Toast.makeText(
-//                    requireActivity(),
-//                    "${tagData.count}개의 태그를 가져왔어요.",
-//                    Toast.LENGTH_SHORT
-//                ).show()
+                //Toast.makeText( requireActivity(),"${tagData.count}개의 태그를 가져왔어요.", Toast.LENGTH_SHORT).show()
             }
         }
 //        tagViewModel.errorData.observe(viewLifecycleOwner) {errorData ->
@@ -141,22 +130,18 @@ class TagFragment : Fragment() {
 //            }
 //        }
     }
+
     private fun clearEditText(editText: EditText) {
         editText.text.clear()
     }
 
-    private fun refreshTagList() {
-        tagViewModel.loadFindMyTags()
-    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 1 && resultCode == AppCompatActivity.RESULT_OK) {
-            // SelectedTagActivity 종료 후 태그 목록 새로고침zz
-            refreshTagList()
-        }
+
+    override fun onResume() {
+        super.onResume()
+        setTagData()
     }
 }
