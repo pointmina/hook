@@ -51,7 +51,12 @@ class AddHookActivity : BaseActivity() {
             }
         }
         setContentView(view)
+
         updateButtonState()
+
+        binding.ivAppbarBackButton.setOnClickListener {
+            finish()
+        } // 앱바 - 뒤로 가기 버튼
 
         binding.ivUrlLink.setOnClickListener {
             val clipboard = getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
@@ -77,11 +82,7 @@ class AddHookActivity : BaseActivity() {
             }
         } // 클립보드에서 바로 붙여넣기
 
-        binding.ivAppbarBackButton.setOnClickListener {
-            finish()
-        } // 앱바 - 뒤로 가기 버튼
-
-        val limitString1 = "${binding.tvUrlTitle.text.length} / 80"
+        val limitString1 = "${binding.tvUrlTitle.text.length} / 120"
         val limitString2 = "${binding.tvUrlDescription.text.length} / 80"
         binding.tvLimit1.text = limitString1
         binding.tvLimit2.text = limitString2
@@ -152,16 +153,16 @@ class AddHookActivity : BaseActivity() {
         // 태그 선택
         binding.containerTag.setOnClickListener {
             val tags = multiChoiceList.keys.sorted().toTypedArray()
-            val tagArray = Array(tags.size) { i -> tags[i] }
+            val checkedItems = BooleanArray(tags.size) { i -> multiChoiceList[tags[i]] ?: false }
 
             val builder = AlertDialog.Builder(this)
             builder.setTitle("태그 선택")
 
             builder.setMultiChoiceItems(
-                tagArray,
-                multiChoiceList.values.toBooleanArray()
+                tags,
+                checkedItems
             ) { _: DialogInterface, which: Int, isChecked: Boolean ->
-                val selectedTag = multiChoiceList.keys.toTypedArray()[which]
+                val selectedTag = tags[which]
                 multiChoiceList[selectedTag] = isChecked
             }
 
@@ -169,11 +170,12 @@ class AddHookActivity : BaseActivity() {
                 val selectedTags = mutableListOf<String>()
                 for ((tag, selected) in multiChoiceList) {
                     if (selected) {
-                        selectedTags.add("#$tag") // #을 붙여 선택된 태그를 리스트에 추가합니다.
+                        selectedTags.add(tag)
                     }
                 }
+                val sortedSelectedTags = selectedTags.sorted().map { "#$it" }
                 // 추가: 선택된 태그를 containerTag에 표시
-                binding.containerTag.text = selectedTags.joinToString("  ")
+                binding.containerTag.text = sortedSelectedTags.joinToString("  ")
                 dialog.dismiss()
             }
 
@@ -238,7 +240,7 @@ class AddHookActivity : BaseActivity() {
                     Toast.makeText(this, "훅이 추가됐어요!", Toast.LENGTH_SHORT).show()
                     Handler(Looper.getMainLooper()).postDelayed({
                         finish()
-                    }, 500)
+                    }, 300)
                 }
             }
             viewModel.createFailData.observe(this) { createFailData ->
