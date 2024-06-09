@@ -31,6 +31,9 @@ interface ApiService {
     @POST("/api/hook")
     suspend fun createHook(@Body request: HookRequest): Response<ApiResponse>
 
+    @POST("/api/hook")
+    suspend fun webcreateHook(@Body request: WebHookRequest): Response<ApiResponse>
+
     @PUT("/api/hook/{id}")
     suspend fun updateHook(@Path("id") id: Int, @Body request: HookRequest) : Response<ApiResponse>
 

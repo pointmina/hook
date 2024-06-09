@@ -36,6 +36,11 @@ class ApiServiceManager {
         return customHandleApiResponse2 { apiService.createHook(request) }
     }
 
+    suspend fun webCreateHook(title: String, description: String, url: String, tag: ArrayList<String>): ApiResponse {
+        val request = WebHookRequest(title, description, url, tag)
+        return customHandleApiResponse2 { apiService.webcreateHook(request) }
+    }
+
     suspend fun managerUpdateHook(id: Int, title: String, description: String, url: String, tag: ArrayList<String>): ApiResponse {
         val request = HookRequest(title, description, url, tag)
         return handleApiResponse { apiService.updateHook(id, request) }

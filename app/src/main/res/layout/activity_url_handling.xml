@@ -23,6 +23,7 @@
 
 
     <EditText
+        android:inputType="text"
         android:id="@+id/editTextTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -37,7 +38,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_bookmark" />
 
-    <EditText
+    <TextView
         android:id="@+id/editTextUrl"
         android:layout_width="0dp"
         android:layout_height="50dp"
