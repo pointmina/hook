@@ -5,7 +5,6 @@ import com.google.gson.annotations.SerializedName
 
 open class ApiRequest
 
-<<<<<<< HEAD
 data class HookRequest (
 
     @SerializedName("title"       ) var title: String?           = null,
@@ -14,15 +13,6 @@ data class HookRequest (
     @SerializedName("tags"        ) var tags: List<String>? = arrayListOf(),
 
 ): ApiRequest()
-=======
-data class HookRequest(
-    @SerializedName("title") var title: String?,
-    @SerializedName("description") var description: String?,
-    @SerializedName("url") var url: String?,
-    @SerializedName("tags") var tags: ArrayList<String>?,
-    @SerializedName("suggestTags") var suggestTags: Boolean = true
-    ): ApiRequest()
->>>>>>> ac08e78431b0c55b0d9a4965df466ed97cdbc5e6
 
 data class TagRequest (
 

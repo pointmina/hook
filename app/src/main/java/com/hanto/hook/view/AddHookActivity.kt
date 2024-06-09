@@ -51,7 +51,6 @@ class AddHookActivity : BaseActivity() {
             }
         }
         setContentView(view)
-
         updateButtonState()
 
         binding.ivAppbarBackButton.setOnClickListener {
@@ -235,7 +234,6 @@ class AddHookActivity : BaseActivity() {
             val url = binding.tvUrlLink.text.toString()
 
             viewModel.loadCreateHook(title, description, url, tags)
-<<<<<<< HEAD
             viewModel.createHookSuccessData.observe(this) { createHookSuccessData ->
                 if (createHookSuccessData != null) {
                     Toast.makeText(this, "훅이 추가됐어요!", Toast.LENGTH_SHORT).show()
@@ -250,9 +248,6 @@ class AddHookActivity : BaseActivity() {
                     Toast.makeText(this@AddHookActivity, errorMessage, Toast.LENGTH_SHORT).show()
                 }
             }
-=======
-            finish()
->>>>>>> ac08e78431b0c55b0d9a4965df466ed97cdbc5e6
         }
     }
     /*        binding.tvUrlLink.setOnClickListener {
