@@ -1,5 +1,8 @@
 package com.hanto.hook.view
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -19,6 +22,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -27,6 +32,7 @@ import com.hanto.hook.R
 import com.hanto.hook.databinding.FragmentHomeBinding
 import com.hanto.hook.adapter.HookAdapter
 import com.hanto.hook.api.ApiServiceManager
+import com.hanto.hook.api.SuccessResponse
 import com.hanto.hook.model.Hook
 import com.hanto.hook.viewmodel.MainViewModel
 import com.hanto.hook.viewmodel.ViewModelFactory
@@ -38,6 +44,8 @@ class HomeFragment : Fragment() {
     private val apiServiceManager by lazy { ApiServiceManager() }
     private val viewModelFactory by lazy { ViewModelFactory(apiServiceManager) }
     private val hookViewModel: MainViewModel by lazy { ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java] }
+
+    private var nickname: String = "Hook 사용자"
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -69,6 +77,17 @@ class HomeFragment : Fragment() {
                     val selectedHook = hookAdapter.getItem(position)
                     showBottomSheetDialog(selectedHook)
                 } // 점 세 개 버튼 -> dialog 열기
+
+                override fun onLongClick(position: Int) {
+                    loadNickName()
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        val selectedHook = hookAdapter.getItem(position)
+                        val clipboard = requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                        val pasteText = "${nickname} 님이 훅을 공유했어요! \n\n${selectedHook.title} \n${selectedHook.url}"
+                        val clip = ClipData.newPlainText("label", pasteText)
+                        clipboard.setPrimaryClip(clip)
+                    }, 150) // Ripple 애니메이션이 대략 완료될 시간
+                }
             })
 
         val dividerItemDecoration =
@@ -86,8 +105,6 @@ class HomeFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        hookViewModel.hookData.removeObservers(this)
-        hookViewModel.deleteSuccessData.removeObservers(this)
     }
 
     override fun onResume() {
@@ -98,6 +115,14 @@ class HomeFragment : Fragment() {
     }
 
     // ============= 이하 ~ 끝까지 private fun 영역 ==============================
+
+    private fun loadNickName() {
+        hookViewModel.loadGetMyInfo()
+        hookViewModel.userData.observe(this) { user ->
+            nickname = user?.user?.nickname!!
+        }
+        hookViewModel.userData.removeObservers(this)
+    }
 
     private fun loadData() {
         hookViewModel.loadFindMyHooks()
@@ -114,6 +139,8 @@ class HomeFragment : Fragment() {
                     }
                 }
             }
+            hookViewModel.hookData.removeObservers(this)
+            hookViewModel.errorData.removeObservers(this)
         }
     }
 
@@ -237,6 +264,8 @@ class HomeFragment : Fragment() {
                         }
                     }
                 }
+                hookViewModel.deleteSuccessData.removeObservers(this)
+                hookViewModel.errorData.removeObservers(this)
             }
             dialog.dismiss()
         }

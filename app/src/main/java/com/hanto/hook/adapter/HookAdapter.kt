@@ -1,9 +1,15 @@
 package com.hanto.hook.adapter
 
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
@@ -21,6 +27,7 @@ class HookAdapter(
 
     interface OnItemClickListener {
         fun onClick(position: Int)
+        fun onLongClick(position: Int)
         fun onOptionButtonClick(position: Int)
     }
 
@@ -59,7 +66,6 @@ class HookAdapter(
         }
 
         init {
-            // 항목 전체를 클릭했을 때
             itemView.setOnClickListener {
                 val position = bindingAdapterPosition
                 if (position != RecyclerView.NO_POSITION) {
@@ -68,6 +74,10 @@ class HookAdapter(
             }
 
             itemView.setOnLongClickListener {
+                val position = bindingAdapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    listener.onLongClick(position)
+                }
                 true
             }
             // 옵션 버튼 클릭했을 때
