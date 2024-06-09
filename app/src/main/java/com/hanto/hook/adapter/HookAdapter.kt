@@ -38,27 +38,18 @@ class HookAdapter(
                 binding.tvTagDescription.visibility = View.GONE
             }
 
-            //tags에 값이 있는 경우에만 RecyclerView에 어댑터 설정
+            //tags가 null이 아닌 경우에만 RecyclerView에 어댑터 설정
             hook.tags?.let { tags ->
-                val validTags = tags.filter { !it.displayName.isNullOrEmpty() }
-                if (validTags.isNotEmpty()) {
-                    binding.rvTagContainer.apply {
-                        layoutManager = FlexboxLayoutManager(binding.root.context).apply {
-                            flexDirection = FlexDirection.ROW
-                            justifyContent = JustifyContent.FLEX_START
-                        }
-                        adapter = TagHomeAdapter(validTags.map { it.displayName!! }, hook)
-                        visibility = View.VISIBLE
-                    }
-                } else {
-                    binding.rvTagContainer.visibility = View.GONE
-                }
+                val flexboxLayoutManager = FlexboxLayoutManager(binding.root.context)
+                flexboxLayoutManager.flexDirection = FlexDirection.ROW
+                flexboxLayoutManager.justifyContent = JustifyContent.FLEX_START
+                binding.rvTagContainer.layoutManager = flexboxLayoutManager
+                // TagHomeAdapter 초기화 시 selectedHook도 함께 전달
+                binding.rvTagContainer.adapter = TagHomeAdapter(tags.map { it.displayName }, hook)
+                binding.rvTagContainer.visibility = View.VISIBLE
             } ?: run {
                 binding.rvTagContainer.visibility = View.GONE
             }
-
-
-
         }
 
         init {

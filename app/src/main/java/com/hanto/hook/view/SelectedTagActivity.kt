@@ -3,9 +3,16 @@ package com.hanto.hook.view
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
+<<<<<<< HEAD
 import androidx.appcompat.app.AlertDialog
+=======
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
+>>>>>>> ac08e78431b0c55b0d9a4965df466ed97cdbc5e6
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -46,6 +53,16 @@ class SelectedTagActivity : BaseActivity() {
         val selectedTagId = intent.getIntExtra("selectedTagId", -1) // 아이디 (기본값 -1으로 설정)
         binding.tvSelectedTag.text = selectedTagName
 
+//        val ivTagChange = binding.ivTagChange
+//        ivTagChange.setOnClickListener {
+//            val changeTagFragment = ChangeTagFragment().apply {
+//                arguments = Bundle().apply {
+//                    putString("selec`tedTag", selectedTagName)
+//                    putInt("selectedTagId", selectedTagId)
+//                }
+//            }
+//            changeTagFragment.show(supportFragmentManager, "ChangeTagFragment")
+//        }
         val ivTagChange = binding.ivTagChange
         ivTagChange.setOnClickListener {
             val changeTagFragment = ChangeTagFragment { newTagName ->
@@ -63,7 +80,23 @@ class SelectedTagActivity : BaseActivity() {
 
         val ivTagDelete = binding.ivTagDelete
         ivTagDelete.setOnClickListener {
+<<<<<<< HEAD
             deleteDialog(selectedTagId)
+=======
+            val deleteTagFragment = DeleteTagFragment {
+                Log.d("SelectedTagActivity", "태그 삭제 후 태그 목록 새로고침")
+                viewModel.loadFindMyTags() // 태그 목록 새로고침
+                setResult(RESULT_OK) // 결과 설정
+                finish() // 태그가 삭제된 후 액티비티를 종료
+
+            }.apply {
+                arguments = Bundle().apply {
+                    putInt("selectedTagId", selectedTagId)
+                }
+            }
+            deleteTagFragment.show(supportFragmentManager, "DeleteTagFragment")
+
+>>>>>>> ac08e78431b0c55b0d9a4965df466ed97cdbc5e6
         }
 
         // 해당 태그와 관련된 항목 목록이어야 합니다.
@@ -135,8 +168,14 @@ class SelectedTagActivity : BaseActivity() {
 
         val btonWeb = view.findViewById<Button>(R.id.bt_onWeb)
         btonWeb.setOnClickListener {
-            Intent(this, WebviewActivity::class.java).also { intent ->
-                intent.putExtra(WebviewActivity.EXTRA_URL, selectedItem.url)
+            Intent(this, HookDetailActivity::class.java).also { intent ->
+                intent.putExtra("item_id", selectedItem.id.toString())
+                intent.putExtra("item_title", selectedItem.title)
+                intent.putExtra("item_url", selectedItem.url)
+                intent.putExtra("item_description", selectedItem.description)
+                selectedItem.tags?.map { it.displayName }?.let {
+                    intent.putStringArrayListExtra("item_tag_list", ArrayList(it))
+                }
                 startActivity(intent)
             }
             dialog.dismiss()
@@ -150,4 +189,16 @@ class SelectedTagActivity : BaseActivity() {
         }
         dialog.show()
     }
+<<<<<<< HEAD
+=======
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        // ViewModel의 관찰자를 해제하여 메모리 누수 방지
+        viewModel.tagFilteredHooks.removeObservers(this)
+    }
+
+
+>>>>>>> ac08e78431b0c55b0d9a4965df466ed97cdbc5e6
 }

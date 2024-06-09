@@ -13,6 +13,11 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Toast
+<<<<<<< HEAD
+=======
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
+>>>>>>> ac08e78431b0c55b0d9a4965df466ed97cdbc5e6
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.flexbox.FlexDirection
@@ -51,9 +56,16 @@ class TagFragment : Fragment() {
                     tagViewModel.loadCreateTag(name)
                     clearEditText(tvChangeTagName)
                     this.dismiss()
+<<<<<<< HEAD
                     setTagData()
                 } else {
                     Toast.makeText(requireContext(), "태그 이름을 입력하세요.", Toast.LENGTH_SHORT).show()
+=======
+                    refreshTagList()
+                } else {
+                    Toast.makeText(requireContext(), "태그 이름을 입력하세요.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "태그 이름을 입력하세요.", Toast.LENGTH_SHORT).show()
+>>>>>>> ac08e78431b0c55b0d9a4965df466ed97cdbc5e6
                 }
             }
 
@@ -100,7 +112,11 @@ class TagFragment : Fragment() {
                             putExtra("selectedTagName", selectedTag.displayName)
                             putExtra("selectedTagId", selectedTag.id)
                         }
+<<<<<<< HEAD
                         startActivity(intent)
+=======
+                        startActivityForResult(intent, 1) // Activity 시작
+>>>>>>> ac08e78431b0c55b0d9a4965df466ed97cdbc5e6
                     }
                 }
             })
@@ -130,18 +146,36 @@ class TagFragment : Fragment() {
 //            }
 //        }
     }
-
     private fun clearEditText(editText: EditText) {
         editText.text.clear()
     }
 
+<<<<<<< HEAD
+    private fun clearEditText(editText: EditText) {
+        editText.text.clear()
+    }
+
+=======
+    private fun refreshTagList() {
+        tagViewModel.loadFindMyTags()
+    }
+>>>>>>> ac08e78431b0c55b0d9a4965df466ed97cdbc5e6
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+<<<<<<< HEAD
 
     override fun onResume() {
         super.onResume()
         setTagData()
+=======
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 1 && resultCode == AppCompatActivity.RESULT_OK) {
+            // SelectedTagActivity 종료 후 태그 목록 새로고침zz
+            refreshTagList()
+        }
+>>>>>>> ac08e78431b0c55b0d9a4965df466ed97cdbc5e6
     }
 }
