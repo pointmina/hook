@@ -66,7 +66,7 @@ class Sharing : AppCompatActivity() {
     }
 
     private fun openPageDetailsDialog(title: String, url: String) {
-        val dialog = PageDetailsDialog(this, this, title, url)
+        val dialog = PageDetailsDialog(this, title, url)
         dialog.show()
 
     }
