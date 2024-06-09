@@ -45,12 +45,12 @@
 
 
     <EditText
+        android:inputType="text"
         android:id="@+id/tv_change_tag_name"
         android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:background="@color/transparent"
-        android:inputType="textMultiLine"
         android:hint="태그를 입력하세요"
         android:theme="@style/MyCheckBox"
         android:textSize="24dp"

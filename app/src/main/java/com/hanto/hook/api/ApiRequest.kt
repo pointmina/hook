@@ -26,10 +26,10 @@ data class NicknameRequest (
 
 ): ApiRequest()
 
-/*data class WebHookRequest (
+data class WebHookRequest (
     @SerializedName("title"       ) var title: String?         = null,
     @SerializedName("description" ) var description: String?   = null,
     @SerializedName("url"         ) var url: String?           = null,
     @SerializedName("tags"        ) var tags: List<String>?    = arrayListOf(),
-    @SerializedName("suggestTags" ) var suggestTags: Boolean?  = false,
-): ApiRequest() */
+    @SerializedName("suggestTags" ) var suggestTags: Boolean?  = true,
+): ApiRequest()

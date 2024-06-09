@@ -67,6 +67,9 @@ class Sharing : AppCompatActivity() {
 
     private fun openPageDetailsDialog(title: String, url: String) {
         val dialog = PageDetailsDialog(this,  title, url)
+        dialog.setOnDismissListener {
+            this.finish() // Sharing 액티비티 종료
+        }
         dialog.show()
 
     }
