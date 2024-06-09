@@ -86,7 +86,8 @@ class PageDetailsDialog(val activity: AppCompatActivity, val title: String, val 
                 val inputUrl = editTextUrl.text.toString()
                 val inputTitle = editTextTitle.text.toString()
                 val inputTags = ArrayList(tvTag.text.split("  ")
-                    .map { it.trim().replace("#", "") })
+                    .map { it.trim().replace("#", "") }
+                    .filter { it.isNotEmpty() })
                 val inputDescription = editTextDescription.text.toString()
                 val inputSuggestTag = isAutoTagTure
                 println("생성버튼클릭")
