@@ -1,31 +1,28 @@
 package com.hanto.hook.view
 
-import android.app.ProgressDialog.show
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
 import android.os.Looper
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.res.ResourcesCompat
-import androidx.databinding.adapters.ViewBindingAdapter.setPadding
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.hanto.hook.R
 import com.hanto.hook.databinding.FragmentHomeBinding
 import com.hanto.hook.adapter.HookAdapter
@@ -33,7 +30,6 @@ import com.hanto.hook.api.ApiServiceManager
 import com.hanto.hook.model.Hook
 import com.hanto.hook.viewmodel.MainViewModel
 import com.hanto.hook.viewmodel.ViewModelFactory
-import okhttp3.internal.notify
 
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
@@ -41,12 +37,7 @@ class HomeFragment : Fragment() {
     private lateinit var hookAdapter: HookAdapter
     private val apiServiceManager by lazy { ApiServiceManager() }
     private val viewModelFactory by lazy { ViewModelFactory(apiServiceManager) }
-    private val hookViewModel: MainViewModel by lazy {
-        ViewModelProvider(
-            this,
-            viewModelFactory
-        ).get(MainViewModel::class.java)
-    }
+    private val hookViewModel: MainViewModel by lazy { ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java] }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -65,61 +56,13 @@ class HomeFragment : Fragment() {
             findNavController().navigate(R.id.action_navigation_home_to_settingActivity)
         }  // 환경 설정 버튼
 
- /*       binding.swipeLayout.setOnRefreshListener {
-            loadData()
-            binding.swipeLayout.isRefreshing = false
-        }*/
-
         hookAdapter = HookAdapter(
             hooks = ArrayList(),
             tag = ArrayList(),
             object : HookAdapter.OnItemClickListener {
                 override fun onClick(position: Int) {
                     val selectedHook = hookAdapter.getItem(position)
-
-                    val messageTextView = TextView(requireContext()).apply {
-                        text = "3초 후에 자동으로 ${selectedHook.url} 주소로 이동합니다..."
-                        setPadding(20, 20, 20, 20)
-                    }
-
-                    var countDownTimer : CountDownTimer? = null
-
-                    // AlertDialog 설정
-                    val dialogBuilder = AlertDialog.Builder(requireContext()).apply {
-                        setTitle("Web Browser에서 열기")
-                        setView(messageTextView)
-                        // "Cancel" 버튼을 누르면 타이머 취소 및 다이얼로그 닫기
-                        setNegativeButton("Cancel") { dialog, _ ->
-                            countDownTimer?.cancel()
-                            dialog.dismiss()
-                        }
-                        setPositiveButton("바로 이동") { dialog, _ ->
-                            countDownTimer?.cancel()
-                            dialog.dismiss()
-                            selectedHook.url?.let { webIntent(it) }
-                        }
-                    }
-
-                    val dialog = dialogBuilder.create()
-
-                    dialog.setOnDismissListener {
-                        countDownTimer?.cancel()
-                    }
-
-                    // CountDownTimer 시작
-                    countDownTimer = object : CountDownTimer(3000, 1000) {
-                        override fun onTick(millisUntilFinished: Long) {
-                            val secondsRemaining = millisUntilFinished / 1000
-                            messageTextView.text = "${secondsRemaining + 1}초 후에 자동으로 ${selectedHook.url} 주소로 이동합니다..."
-                        }
-
-                        override fun onFinish() {
-                            dialog.dismiss()
-                            selectedHook.url?.let { webIntent(it) }
-                        }
-                    }.start()
-
-                    dialog.show()
+                    showCountDownDialog(selectedHook)
                 }
 
                 override fun onOptionButtonClick(position: Int) {
@@ -137,12 +80,26 @@ class HomeFragment : Fragment() {
         // 아이템 사이에 구분선 넣는 데코
 
         binding.rvHome.adapter = hookAdapter // rv 에 어댑터 붙이기
-
-        // loadData()
     }
 
+    // ============== 이하 override fun 영역 ============================
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+        hookViewModel.hookData.removeObservers(this)
+        hookViewModel.deleteSuccessData.removeObservers(this)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Handler(Looper.getMainLooper()).postDelayed({
+            loadData()
+        }, 300)
+    }
+
+    // ============= 이하 ~ 끝까지 private fun 영역 ==============================
+
     private fun loadData() {
-        /*binding.sfLoading.startShimmer() 자동 시작 */
         hookViewModel.loadFindMyHooks()
         hookViewModel.hookData.observe(viewLifecycleOwner) { hookData ->
             if (hookData != null) {
@@ -150,13 +107,6 @@ class HomeFragment : Fragment() {
                 val shimmerContainer = binding.sfLoading
                 shimmerContainer.stopShimmer()
                 shimmerContainer.visibility = View.GONE
-
-/*                val successToast = Toast.makeText(requireActivity(),"${hookData.count}개의 훅을 불러왔습니다.",Toast.LENGTH_SHORT)
-                successToast.show()
-                Handler(Looper.getMainLooper()).postDelayed({
-                    successToast.cancel()
-                }, 500)*/
-
             } else {
                 hookViewModel.hookData.observe(viewLifecycleOwner) { errorData ->
                     if (errorData != null) {
@@ -165,6 +115,68 @@ class HomeFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun showCountDownDialog(selectedHook: Hook) {
+
+        val inflater = LayoutInflater.from(requireContext())
+        val dialogView = inflater.inflate(R.layout.design_alert_dialog, null)
+
+        // 메시지 텍스트 뷰 설정
+        val messageTextView = dialogView.findViewById<TextView>(R.id.alertMessage)
+
+        fun createSpannableMessage(secondsRemaining: Long): SpannableString {
+            val message = "${secondsRemaining + 1}초 후에 자동으로 \n${selectedHook.url} \n주소로 이동합니다..."
+            val spannable = SpannableString(message)
+
+            val start = selectedHook.url?.let { message.indexOf(it) }
+            val end = start?.plus(selectedHook.url!!.length)
+
+            spannable.setSpan(
+                ForegroundColorSpan(Color.parseColor("#6230F2")),
+                start!!,
+                end!!,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+
+            return spannable
+        }
+
+        // 초기 메시지 설정
+        messageTextView.text = createSpannableMessage(3)
+
+        var countDownTimer: CountDownTimer? = null
+
+        // AlertDialog 설정
+        val dialogBuilder = AlertDialog.Builder(requireContext()).apply {
+            setView(dialogView)
+            setPositiveButton("바로 이동") { dialog, _ ->
+                countDownTimer?.cancel()
+                dialog.dismiss()
+                selectedHook.url?.let { webIntent(it) }
+            }
+        }
+
+        val dialog = dialogBuilder.create()
+
+        dialog.setOnDismissListener {
+            countDownTimer?.cancel()
+        }
+
+        // CountDownTimer 시작
+        countDownTimer = object : CountDownTimer(3000, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                val secondsRemaining = millisUntilFinished / 1000
+                messageTextView.text = createSpannableMessage(secondsRemaining)
+            }
+
+            override fun onFinish() {
+                dialog.dismiss()
+                selectedHook.url?.let { webIntent(it) }
+            }
+        }.start()
+
+        dialog.show()
     }
 
     private fun webIntent(url: String) {
@@ -182,7 +194,7 @@ class HomeFragment : Fragment() {
 
         val btonWeb = view.findViewById<Button>(R.id.bt_onWeb)
         btonWeb.setOnClickListener {
-            Intent(requireContext(), HookDetailActivity::class.java).also {intent ->
+            Intent(requireContext(), HookDetailActivity::class.java).also { intent ->
                 intent.putExtra("item_id", selectedItem.id.toString())
                 intent.putExtra("item_title", selectedItem.title)
                 intent.putExtra("item_url", selectedItem.url)
@@ -230,23 +242,4 @@ class HomeFragment : Fragment() {
         }
         dialog.show()
     }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-        hookViewModel.hookData.removeObservers(this)
-        hookViewModel.deleteSuccessData.removeObservers(this)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Handler(Looper.getMainLooper()).postDelayed({
-            loadData()
-        }, 300)
-        /*
-        api 요청/응답 메소드가 비동기라서 항상 새로고침 데이터가 제시간에 오리라는 보장이 없음. (사실상 랜덤)
-        swipe 제거하면서 수동 업데이트를 할 수 없기 때문에 시간 안정성 보장 때문에 delay 핸들러 필요함.
-         */
-    }
 }
-

@@ -21,7 +21,6 @@ class HookAdapter(
 
     interface OnItemClickListener {
         fun onClick(position: Int)
-        fun onLongClick(position: Int)
         fun onOptionButtonClick(position: Int)
     }
 
