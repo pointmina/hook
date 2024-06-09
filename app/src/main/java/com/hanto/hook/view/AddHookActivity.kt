@@ -90,7 +90,7 @@ class AddHookActivity : BaseActivity() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val input = s.toString()
-                isUrlValid = input.isNotBlank() && (input.startsWith("http://") || input.startsWith("https://")) && !input.contains(" ")
+                isUrlValid = input.isNotBlank() && !input.contains(" ")
 
                 if (!isUrlValid) {
                     binding.tvGuide.visibility = View.VISIBLE

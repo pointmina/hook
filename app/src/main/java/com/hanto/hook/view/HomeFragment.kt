@@ -1,7 +1,9 @@
 package com.hanto.hook.view
 
+import android.app.ProgressDialog.show
 import android.content.Intent
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.os.Handler
 import android.os.Looper
 import android.view.LayoutInflater
@@ -10,8 +12,11 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.res.ResourcesCompat
+import androidx.databinding.adapters.ViewBindingAdapter.setPadding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
@@ -71,17 +76,51 @@ class HomeFragment : Fragment() {
             object : HookAdapter.OnItemClickListener {
                 override fun onClick(position: Int) {
                     val selectedHook = hookAdapter.getItem(position)
-                    Intent(requireContext(), HookDetailActivity::class.java).apply {
-                        putExtra("item_id", selectedHook.id.toString())
-                        putExtra("item_title", selectedHook.title)
-                        putExtra("item_url", selectedHook.url)
-                        putExtra("item_description", selectedHook.description)
-                        selectedHook.tags?.map { it.displayName }?.let {
-                            putStringArrayListExtra("item_tag_list", ArrayList(it))
-                        }
-                        startActivity(this)
+
+                    val messageTextView = TextView(requireContext()).apply {
+                        text = "3초 후에 자동으로 ${selectedHook.url} 주소로 이동합니다..."
+                        setPadding(20, 20, 20, 20)
                     }
-                } // 디폴트 어댑터 선언, 아이템 누르면 디테일 뷰로 이동
+
+                    var countDownTimer : CountDownTimer? = null
+
+                    // AlertDialog 설정
+                    val dialogBuilder = AlertDialog.Builder(requireContext()).apply {
+                        setTitle("Web Browser에서 열기")
+                        setView(messageTextView)
+                        // "Cancel" 버튼을 누르면 타이머 취소 및 다이얼로그 닫기
+                        setNegativeButton("Cancel") { dialog, _ ->
+                            countDownTimer?.cancel()
+                            dialog.dismiss()
+                        }
+                        setPositiveButton("바로 이동") { dialog, _ ->
+                            countDownTimer?.cancel()
+                            dialog.dismiss()
+                            selectedHook.url?.let { webIntent(it) }
+                        }
+                    }
+
+                    val dialog = dialogBuilder.create()
+
+                    dialog.setOnDismissListener {
+                        countDownTimer?.cancel()
+                    }
+
+                    // CountDownTimer 시작
+                    countDownTimer = object : CountDownTimer(3000, 1000) {
+                        override fun onTick(millisUntilFinished: Long) {
+                            val secondsRemaining = millisUntilFinished / 1000
+                            messageTextView.text = "${secondsRemaining + 1}초 후에 자동으로 ${selectedHook.url} 주소로 이동합니다..."
+                        }
+
+                        override fun onFinish() {
+                            dialog.dismiss()
+                            selectedHook.url?.let { webIntent(it) }
+                        }
+                    }.start()
+
+                    dialog.show()
+                }
 
                 override fun onOptionButtonClick(position: Int) {
                     val selectedHook = hookAdapter.getItem(position)
@@ -128,6 +167,13 @@ class HomeFragment : Fragment() {
         }
     }
 
+    private fun webIntent(url: String) {
+        Intent(requireContext(), WebviewActivity::class.java).also { intent ->
+            intent.putExtra(WebviewActivity.EXTRA_URL, url)
+            startActivity(intent)
+        }
+    }
+
     private fun showBottomSheetDialog(selectedItem: Hook) {
         val dialog = BottomSheetDialog(requireContext(), R.style.CustomBottomSheetDialogTheme)
         val view = layoutInflater.inflate(R.layout.bottom_dialog_home, null)
@@ -136,8 +182,14 @@ class HomeFragment : Fragment() {
 
         val btonWeb = view.findViewById<Button>(R.id.bt_onWeb)
         btonWeb.setOnClickListener {
-            Intent(requireContext(), WebviewActivity::class.java).also { intent ->
-                intent.putExtra(WebviewActivity.EXTRA_URL, selectedItem.url)
+            Intent(requireContext(), HookDetailActivity::class.java).also {intent ->
+                intent.putExtra("item_id", selectedItem.id.toString())
+                intent.putExtra("item_title", selectedItem.title)
+                intent.putExtra("item_url", selectedItem.url)
+                intent.putExtra("item_description", selectedItem.description)
+                selectedItem.tags?.map { it.displayName }?.let {
+                    intent.putStringArrayListExtra("item_tag_list", ArrayList(it))
+                }
                 startActivity(intent)
             }
             dialog.dismiss()
@@ -188,7 +240,13 @@ class HomeFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        loadData()
+        Handler(Looper.getMainLooper()).postDelayed({
+            loadData()
+        }, 300)
+        /*
+        api 요청/응답 메소드가 비동기라서 항상 새로고침 데이터가 제시간에 오리라는 보장이 없음. (사실상 랜덤)
+        swipe 제거하면서 수동 업데이트를 할 수 없기 때문에 시간 안정성 보장 때문에 delay 핸들러 필요함.
+         */
     }
 }
 
