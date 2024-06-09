@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.content.ContextCompat.startActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -31,6 +33,8 @@ class SelectedTagActivity : BaseActivity() {
         ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
     }
 
+    private var selectedTagId: Int = -1
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -43,7 +47,7 @@ class SelectedTagActivity : BaseActivity() {
 
         // Intent 로부터 데이터 받기
         val selectedTagName = intent.getStringExtra("selectedTagName")
-        val selectedTagId = intent.getIntExtra("selectedTagId", -1) // 아이디 (기본값 -1으로 설정)
+        selectedTagId = intent.getIntExtra("selectedTagId", -1) // 아이디 (기본값 -1으로 설정)
         binding.tvSelectedTag.text = selectedTagName
 
         val ivTagChange = binding.ivTagChange
@@ -70,6 +74,14 @@ class SelectedTagActivity : BaseActivity() {
         selectedTagHookListAdapter = SelectedTagHookListAdapter(
             hooks = ArrayList(),
             object : SelectedTagHookListAdapter.OnItemClickListener {
+                override fun onClick(position: Int) {
+                    val selectedHook = selectedTagHookListAdapter.getItem(position)
+                    Intent(this@SelectedTagActivity, WebviewActivity::class.java).also { intent ->
+                        intent.putExtra(WebviewActivity.EXTRA_URL, selectedHook.url)
+                        startActivity(intent)
+                    }
+                }
+
                 override fun onOptionButtonClick(position: Int) {
                     val selectedHook = selectedTagHookListAdapter.getItem(position)
                     showBottomSheetDialog(selectedHook)
@@ -87,25 +99,30 @@ class SelectedTagActivity : BaseActivity() {
 
         binding.rvUrlHookList.addItemDecoration(dividerItemDecoration)
 
-        fun loadMyHook() {
-            if (selectedTagId != -1) {
-                viewModel.loadFindMyHookByTag(tagID = selectedTagId)
-            }
-            viewModel.tagFilteredHooks.observe(this) { tagFilteredHooks ->
-                if (tagFilteredHooks != null) {
-                    selectedTagHookListAdapter.updateData(tagFilteredHooks)
-                    val countString = "${tagFilteredHooks.count}개의 훅"
-                    binding.tvTagCount.text = countString
-                } else {
-                    Toast.makeText(this, "불러오기 실패", Toast.LENGTH_SHORT).show()
-                }
+        // Observing LiveData in onCreate
+        observeViewModel()
+        loadMyHook()
+    }
+
+    private fun observeViewModel() {
+        viewModel.tagFilteredHooks.observe(this) { tagFilteredHooks ->
+            if (tagFilteredHooks != null) {
+                selectedTagHookListAdapter.updateData(tagFilteredHooks)
+                val countString = "${tagFilteredHooks.count}개의 훅"
+                binding.tvTagCount.text = countString
+            } else {
+                selectedTagHookListAdapter.notifyDataSetChanged()
+                binding.tvTagCount.text = "0개의 훅"
+                Toast.makeText(this, "불러오기 실패", Toast.LENGTH_SHORT).show()
             }
         }
-        loadMyHook()
-//        binding.swipeLayout.setOnRefreshListener {
-//            viewModel.loadFindMyHookByTag(tagID = selectedTagId)
-//            binding.swipeLayout.isRefreshing = false
-//        }
+    }
+
+    private fun loadMyHook() {
+        if (selectedTagId != -1) {
+            viewModel.loadFindMyHookByTag(tagID = selectedTagId)
+            selectedTagHookListAdapter.notifyDataSetChanged()
+        }
     }
 
     private fun deleteDialog(selectedTagId: Int) {
@@ -135,8 +152,14 @@ class SelectedTagActivity : BaseActivity() {
 
         val btonWeb = view.findViewById<Button>(R.id.bt_onWeb)
         btonWeb.setOnClickListener {
-            Intent(this, WebviewActivity::class.java).also { intent ->
-                intent.putExtra(WebviewActivity.EXTRA_URL, selectedItem.url)
+            Intent(this, HookDetailActivity::class.java).also { intent ->
+                intent.putExtra("item_id", selectedItem.id.toString())
+                intent.putExtra("item_title", selectedItem.title)
+                intent.putExtra("item_url", selectedItem.url)
+                intent.putExtra("item_description", selectedItem.description)
+                selectedItem.tags?.map { it.displayName }?.let {
+                    intent.putStringArrayListExtra("item_tag_list", ArrayList(it))
+                }
                 startActivity(intent)
             }
             dialog.dismiss()
@@ -146,13 +169,20 @@ class SelectedTagActivity : BaseActivity() {
         btHookDelete.setOnClickListener {
             selectedItem.id?.let { it1 -> viewModel.loadDeleteHook(it1) }
             dialog.dismiss()
+            loadMyHook()
             Toast.makeText(this, "삭제 완료!", Toast.LENGTH_SHORT).show()
         }
         dialog.show()
     }
+
     override fun onDestroy() {
         super.onDestroy()
         // ViewModel의 관찰자를 해제하여 메모리 누수 방지
         viewModel.tagFilteredHooks.removeObservers(this)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        loadMyHook()
     }
 }
