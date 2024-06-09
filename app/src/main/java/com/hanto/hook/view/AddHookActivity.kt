@@ -9,6 +9,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
@@ -132,6 +133,10 @@ class AddHookActivity : BaseActivity() {
         binding.tvUrlTitle.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_NEXT && isExpanded) {
                 binding.tvUrlDescription.requestFocus()
+                true
+            } else if (actionId == EditorInfo.IME_ACTION_NEXT && !isExpanded) {
+                val inputMethodManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+                inputMethodManager.hideSoftInputFromWindow(binding.tvUrlTitle.windowToken, 0)
                 true
             } else {
                 false
@@ -291,9 +296,9 @@ class AddHookActivity : BaseActivity() {
         }
     }
 
-/*    private fun showKeyboardAndFocus(editText: EditText) {
-        editText.requestFocus()
-        val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT)
-    }*/
+    /*    private fun showKeyboardAndFocus(editText: EditText) {
+            editText.requestFocus()
+            val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT)
+        }*/
 }

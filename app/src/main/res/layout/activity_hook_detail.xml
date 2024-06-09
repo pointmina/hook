@@ -11,219 +11,219 @@
     tools:context=".view.HookDetailActivity"
     tools:ignore="MissingDefaultResource">
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/toolbar_detail"
-        android:layout_width="0dp"
-        android:layout_height="68dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:title="상세보기"
-        app:titleCentered="true"
-        app:titleTextAppearance="@style/AppTexTitle.S16" />
-
-    <TextView
-        android:id="@+id/testId"
-        android:text="1223"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/toolbar_detail"
-        app:layout_constraintEnd_toEndOf="@id/toolbar_detail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="테스트 전용으로 아이디값만 띄웠어요"
-        android:visibility="gone"
-        />
-
-    <ImageView
-        android:id="@+id/iv_appbar_url_hook_detail_back_button"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:src="@drawable/ic_arrow_back"
-        app:layout_constraintBottom_toBottomOf="@id/toolbar_detail"
-        app:layout_constraintStart_toStartOf="@id/toolbar_detail"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tv_link_info"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="28dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="4dp"
-        android:text="링크 정보"
-        android:textSize="14dp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/tv_handed_title"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_detail" />
+        android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/tv_handed_title"
-        android:imeOptions="actionNext"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/textview_detail_border"
-        android:hint="제목을 입력해주세요"
-        android:inputType="textMultiLine"
-        android:maxLength="120"
-        android:padding="20dp"
-        android:textAppearance="@style/AppTextPrimary.S16"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:theme="@style/MyCheckBox"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_link_info" />
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar_detail"
+            android:layout_width="0dp"
+            android:layout_height="68dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="상세보기"
+            app:titleCentered="true"
+            app:titleTextAppearance="@style/AppTexTitle.S16" />
 
-    <TextView
-        android:id="@+id/tvGuideTitle"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:layout_marginTop="5dp"
-        android:text="제목의 첫 글자는 공백 문자가 허용되지 않습니다."
-        android:textColor="@color/purple"
-        android:textSize="12dp"
-        android:padding="4dp"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_handed_title"
-        app:layout_constraintBottom_toTopOf="@id/tv_handed_desc"
-        />
+        <TextView
+            android:id="@+id/testId"
+            android:text="1223"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/toolbar_detail"
+            app:layout_constraintEnd_toEndOf="@id/toolbar_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="테스트 전용으로 아이디값만 띄웠어요"
+            android:visibility="gone"
+            />
 
-    <TextView
-        android:id="@+id/tv_limit_1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint=""
-        android:padding="5dp"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_handed_title"
-        app:layout_constraintRight_toRightOf="@+id/tv_handed_title" />
+        <ImageView
+            android:id="@+id/iv_appbar_url_hook_detail_back_button"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/ic_arrow_back"
+            app:layout_constraintBottom_toBottomOf="@id/toolbar_detail"
+            app:layout_constraintStart_toStartOf="@id/toolbar_detail"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/tv_handed_desc"
-        android:imeOptions="actionNext"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:background="@drawable/textview_detail_border"
-        android:hint="설명을 입력해주세요"
-        android:inputType="textMultiLine"
-        android:maxLength="80"
-        android:padding="20dp"
-        android:textAppearance="@style/AppTextPrimary.S16"
-        android:textColor="@color/black"
-        android:theme="@style/MyCheckBox"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvGuideTitle" />
+        <TextView
+            android:id="@+id/tv_link_info"
+            android:layout_width="match_parent"
+            android:layout_height="28dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="4dp"
+            android:text="링크 정보"
+            android:textSize="14dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/tv_handed_title"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_detail" />
 
-    <TextView
-        android:id="@+id/tv_limit_2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint=""
-        android:padding="5dp"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_handed_desc"
-        app:layout_constraintRight_toRightOf="@+id/tv_handed_desc" />
+        <EditText
+            android:id="@+id/tv_handed_title"
+            android:imeOptions="actionNext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/textview_detail_border"
+            android:hint="제목을 입력해주세요"
+            android:inputType="text"
+            android:maxLength="120"
+            android:padding="20dp"
+            android:textAppearance="@style/AppTextPrimary.S16"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:theme="@style/MyCheckBox"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_link_info" />
 
-    <EditText
-        android:id="@+id/tv_handed_url"
-        android:imeOptions="actionNext"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="40dp"
-        android:layout_marginTop="12dp"
-        android:background="@drawable/textview_detail_border"
-        android:hint="@string/hint_url_link"
-        android:inputType="textMultiLine"
-        android:paddingLeft="40dp"
-        android:paddingTop="20dp"
-        android:paddingRight="20dp"
-        android:paddingBottom="20dp"
-        android:textAppearance="@style/AppTextPrimary.S16"
-        android:textColor="@color/purple"
-        android:theme="@style/MyCheckBox"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_handed_desc" />
+        <TextView
+            android:id="@+id/tvGuideTitle"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_marginTop="5dp"
+            android:text="제목의 첫 글자는 공백 문자가 허용되지 않습니다."
+            android:textColor="@color/purple"
+            android:textSize="12dp"
+            android:padding="4dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_handed_title"
+            app:layout_constraintBottom_toTopOf="@id/tv_handed_desc"
+            />
 
-    <TextView
-        android:id="@+id/tvGuideUrl"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:layout_marginTop="5dp"
-        android:text="유효한 URL 주소가 아닙니다. 다시 확인해주세요."
-        android:textColor="@color/purple"
-        android:textSize="12dp"
-        android:padding="4dp"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_handed_url"
-        />
+        <TextView
+            android:id="@+id/tv_limit_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint=""
+            android:padding="5dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_handed_title"
+            app:layout_constraintRight_toRightOf="@+id/tv_handed_title" />
 
-    <ImageButton
-        android:id="@+id/bt_paste_link"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/bg_button_transparent_round"
-        android:src="@drawable/ic_link"
-        app:layout_constraintLeft_toLeftOf="@+id/tv_handed_url"
-        app:layout_constraintTop_toTopOf="@+id/tv_handed_url" />
+        <EditText
+            android:id="@+id/tv_handed_desc"
+            android:imeOptions="actionNext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/textview_detail_border"
+            android:hint="설명을 입력해주세요"
+            android:inputType="textMultiLine"
+            android:maxLength="80"
+            android:padding="20dp"
+            android:textAppearance="@style/AppTextPrimary.S16"
+            android:textColor="@color/black"
+            android:theme="@style/MyCheckBox"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvGuideTitle" />
 
-    <TextView
-        android:id="@+id/txt_tag"
-        android:layout_width="wrap_content"
-        android:layout_height="28dp"
-        android:layout_marginTop="20dp"
-        android:text="태그"
-        android:textSize="14dp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@id/tv_link_info"
-        app:layout_constraintTop_toBottomOf="@id/tvGuideUrl" />
+        <TextView
+            android:id="@+id/tv_limit_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint=""
+            android:padding="5dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_handed_desc"
+            app:layout_constraintRight_toRightOf="@+id/tv_handed_desc" />
 
-    <TextView
-        android:id="@+id/tv_tag"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/textview_detail_border"
-        android:hint="#"
-        android:paddingStart="16dp"
-        android:paddingTop="15dp"
-        android:paddingEnd="16dp"
-        android:paddingBottom="15dp"
-        android:text="#"
-        android:textAppearance="@style/AppTexTitle.S16"
-        android:textColor="@color/gray_300"
-        android:theme="@style/MyCheckBox"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txt_tag" />
+        <EditText
+            android:id="@+id/tv_handed_url"
+            android:imeOptions="actionNext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="40dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/textview_detail_border"
+            android:hint="@string/hint_url_link"
+            android:inputType="text"
+            android:paddingLeft="40dp"
+            android:paddingTop="20dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="20dp"
+            android:textAppearance="@style/AppTextPrimary.S16"
+            android:textColor="@color/purple"
+            android:theme="@style/MyCheckBox"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_handed_desc" />
 
-    <Button
-        android:id="@+id/hook_edit"
-        android:layout_width="300dp"
-        android:layout_height="52dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="50dp"
-        android:background="@drawable/button_border"
-        android:backgroundTint="@color/purple"
-        android:gravity="center"
-        android:text="수정하기"
-        android:textAlignment="center"
-        android:textAppearance="@style/AppTextPrimary.S14.bold"
-        android:textColor="@color/white"
-        app:layout_constraintTop_toBottomOf="@+id/tv_tag"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        <TextView
+            android:id="@+id/tvGuideUrl"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_marginTop="5dp"
+            android:text="유효한 URL 주소가 아닙니다. 다시 확인해주세요."
+            android:textColor="@color/purple"
+            android:textSize="12dp"
+            android:padding="4dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_handed_url"
+            />
+
+        <ImageButton
+            android:id="@+id/bt_paste_link"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/bg_button_transparent_round"
+            android:src="@drawable/ic_link"
+            app:layout_constraintLeft_toLeftOf="@+id/tv_handed_url"
+            app:layout_constraintTop_toTopOf="@+id/tv_handed_url" />
+
+        <TextView
+            android:id="@+id/txt_tag"
+            android:layout_width="wrap_content"
+            android:layout_height="28dp"
+            android:layout_marginTop="20dp"
+            android:text="태그"
+            android:textSize="14dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/tv_link_info"
+            app:layout_constraintTop_toBottomOf="@id/tvGuideUrl" />
+
+        <TextView
+            android:id="@+id/tv_tag"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/textview_detail_border"
+            android:hint="#"
+            android:paddingStart="16dp"
+            android:paddingTop="15dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="15dp"
+            android:text="#"
+            android:textAppearance="@style/AppTexTitle.S16"
+            android:textColor="@color/gray_300"
+            android:theme="@style/MyCheckBox"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_tag" />
+
+        <Button
+            android:id="@+id/hook_edit"
+            android:layout_width="300dp"
+            android:layout_height="52dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="50dp"
+            android:background="@drawable/button_border"
+            android:backgroundTint="@color/purple"
+            android:gravity="center"
+            android:text="수정하기"
+            android:textAlignment="center"
+            android:textAppearance="@style/AppTextPrimary.S14.bold"
+            android:textColor="@color/white"
+            app:layout_constraintTop_toBottomOf="@+id/tv_tag"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

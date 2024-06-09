@@ -7,6 +7,7 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -136,14 +137,6 @@ class HookDetailActivity : BaseActivity() {
             }
             override fun afterTextChanged(s: Editable?) {}
         })
-        binding.tvHandedDesc.setOnEditorActionListener { v, actionId, event ->
-            if (actionId == EditorInfo.IME_ACTION_NEXT) {
-                binding.tvHandedUrl.requestFocus()
-                true
-            } else {
-                false
-            }
-        }
 
         binding.tvHandedUrl.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -161,6 +154,15 @@ class HookDetailActivity : BaseActivity() {
                 updateButtonState()
             }
         })
+        binding.tvHandedUrl.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_NEXT) {
+                val inputMethodManager =
+                    getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+                inputMethodManager.hideSoftInputFromWindow(binding.tvHandedUrl.windowToken, 0)
+            } else {
+                false
+            }
+        }
 
         tvTag.setOnClickListener {
             showTagSelectionDialog()

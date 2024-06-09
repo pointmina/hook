@@ -104,7 +104,7 @@
         android:background="@drawable/textview_detail_border"
         android:gravity="top|start"
         android:hint="제목"
-        android:inputType="textMultiLine"
+        android:inputType="text"
         android:maxLength="120"
         android:paddingStart="16dp"
         android:paddingTop="15dp"
