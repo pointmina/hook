@@ -4,14 +4,12 @@ import android.content.ClipboardManager
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.hanto.hook.BaseActivity
 import com.hanto.hook.R
@@ -25,7 +23,7 @@ class HookDetailActivity : BaseActivity() {
 
     private val apiServiceManager by lazy { ApiServiceManager() }
     private val viewModelFactory by lazy { ViewModelFactory(apiServiceManager) }
-    private val viewModel: MainViewModel by lazy { ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java) }
+    private val viewModel: MainViewModel by lazy { ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java] }
 
     private var isUrlValid = true
     private var isTitleValid = true
@@ -37,7 +35,7 @@ class HookDetailActivity : BaseActivity() {
         val view = binding.root
 
         viewModel.loadFindMyTags()
-        viewModel.tagData.observe(this, Observer { tagData ->
+        viewModel.tagData.observe(this) { tagData ->
             tagData?.let {
                 for (tag in tagData.tag) {
                     tag.displayName?.let { displayName ->
@@ -47,7 +45,7 @@ class HookDetailActivity : BaseActivity() {
                     }
                 }
             }
-        })
+        }
         setContentView(view)
 
         updateButtonState()
@@ -119,7 +117,7 @@ class HookDetailActivity : BaseActivity() {
                 updateButtonState()
             }
         })
-        binding.tvHandedTitle.setOnEditorActionListener { v, actionId, event ->
+        binding.tvHandedTitle.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_NEXT) {
                 binding.tvHandedDesc.requestFocus()
                 true
@@ -177,7 +175,7 @@ class HookDetailActivity : BaseActivity() {
             val newTag = if (selectedTags.isEmpty() || selectedTags[0].isEmpty()) arrayListOf<String>() else ArrayList(selectedTags)
 
             if (intId != null) {
-                viewModel.loadUpdateHook(intId, newTitle, newDesc, newUrl, newTag)
+                viewModel.loadUpdateHook(intId, newTitle, newDesc, newUrl, newTag, suggestTags = false)
             }
             finish()
         }

@@ -239,7 +239,7 @@ class AddHookActivity : BaseActivity() {
             val description = binding.tvUrlDescription.text.toString()
             val url = binding.tvUrlLink.text.toString()
 
-            viewModel.loadCreateHook(title, description, url, tags)
+            viewModel.loadCreateHook(title, description, url, tags, suggestTags = false)
             viewModel.createHookSuccessData.observe(this) { createHookSuccessData ->
                 if (createHookSuccessData != null) {
                     Toast.makeText(this, "훅이 추가됐어요!", Toast.LENGTH_SHORT).show()
