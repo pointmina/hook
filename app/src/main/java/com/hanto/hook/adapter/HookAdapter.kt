@@ -21,6 +21,7 @@ class HookAdapter(
 
     interface OnItemClickListener {
         fun onClick(position: Int)
+        fun onLongClick(position: Int)
         fun onOptionButtonClick(position: Int)
     }
 
@@ -67,6 +68,9 @@ class HookAdapter(
                 }
             }
 
+            itemView.setOnLongClickListener {
+                true
+            }
             // 옵션 버튼 클릭했을 때
             binding.btOption.setOnClickListener {
                 val position = bindingAdapterPosition
