@@ -34,9 +34,7 @@ class SettingActivity : BaseActivity() {
         viewModel.loadGetMyInfo()
         viewModel.userData.observe(this) { user ->
             val nickname = user?.user?.nickname ?: "종합설계"
-            val email = user?.user?.email ?: "이메일 정보 없음"
             binding.tvUserName.setText(nickname)
-            binding.tvEmail.text = email
         }
 
         binding.btnSaveChange.setOnClickListener{

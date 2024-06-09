@@ -58,43 +58,20 @@
             android:textSize="16dp"
             android:maxLength="18"
             android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@id/txt_userName" />
-
-
-        <TextView
-            android:id="@+id/txt_email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text=" 이메일"
-            android:textColor="@color/gray_300"
-            android:textSize="14dp"
-            android:textStyle="bold"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_userName" />
-
-        <TextView
-            android:id="@+id/tv_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="1dp"
-            android:background="@drawable/textview_detail_border"
-            android:padding="15dp"
-            android:textColor="@color/black"
-            android:textSize="14sp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txt_email" />
+            app:layout_constraintTop_toBottomOf="@id/txt_userName"
+            android:inputType="text" />
 
         <TextView
             android:id="@+id/txt_service_center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="80dp"
             android:padding="16dp"
             android:text="고객센터"
             android:textStyle="bold"
+            android:layout_marginTop="100dp"
+            app:layout_constraintTop_toBottomOf="@+id/tv_userName"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_email" />
+            tools:layout_editor_absoluteY="326dp" />
 
         <TextView
             android:id="@+id/tv_privacy_policy"
