@@ -74,7 +74,19 @@
         android:layout_marginTop="16dp"
         android:background="@color/white"
         android:padding="8dp"
-        android:text="추가 옵션"
+        android:text="직접 태그 선택하기"
+        android:theme="@style/MyCheckBox"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/checkBoxAutoTag" />
+
+    <CheckBox
+        android:id="@+id/checkBoxAutoTag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@color/white"
+        android:padding="8dp"
+        android:text="자동 태그 생성"
         android:theme="@style/MyCheckBox"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextDescription" />

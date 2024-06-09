@@ -5,6 +5,7 @@ import android.app.Activity
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.Window
 import android.widget.EditText
 import android.widget.TextView
@@ -14,8 +15,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.hanto.hook.R
 import com.hanto.hook.api.ApiServiceManager
-import com.hanto.hook.api.ErrorResponse
-import com.hanto.hook.api.SuccessResponse
 import com.hanto.hook.databinding.ActivityUrlHandlingBinding
 import com.hanto.hook.viewmodel.MainViewModel
 import com.hanto.hook.viewmodel.ViewModelFactory
@@ -40,7 +39,7 @@ class PageDetailsDialog(val activity: AppCompatActivity, val title: String, val 
 
         val apiServiceManager = ApiServiceManager()
         val viewModelFactory = ViewModelFactory(apiServiceManager)
-        viewModel = ViewModelProvider(activity, viewModelFactory).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(activity, viewModelFactory)[MainViewModel::class.java]
 
         viewModel.loadFindMyTags()
         viewModel.tagData.observe(activity) { tagData ->
@@ -52,6 +51,8 @@ class PageDetailsDialog(val activity: AppCompatActivity, val title: String, val 
                 }
             }
         }
+
+        var isAutoTagTure = false
 
         with(binding) {
             tvBookmark.text = " 훅 저장하기"
@@ -65,6 +66,10 @@ class PageDetailsDialog(val activity: AppCompatActivity, val title: String, val 
                 } else {
                     tvTag.visibility = android.view.View.GONE
                 }
+            }
+
+            checkBoxAutoTag.setOnCheckedChangeListener { _, isChecked ->
+                isAutoTagTure = isChecked
             }
 
             tvTag.setOnClickListener {
@@ -83,28 +88,26 @@ class PageDetailsDialog(val activity: AppCompatActivity, val title: String, val 
                 val inputTags = ArrayList(tvTag.text.split("  ")
                     .map { it.trim().replace("#", "") })
                 val inputDescription = editTextDescription.text.toString()
+                val inputSuggestTag = isAutoTagTure
                 println("생성버튼클릭")
                 (context as? AppCompatActivity)?.finish()
 
-                GlobalScope.launch(Dispatchers.Main) {
-                    val apiServiceManager = ApiServiceManager()
-                    val response = apiServiceManager.managerCreateHook(inputTitle, inputDescription, inputUrl, inputTags)
-                    if (response is SuccessResponse) {
-                        println("생성 성공: ${response.result?.message}")
-                    } else if (response is ErrorResponse) {
-                        println("생성 실패: ${response.message}")
+                viewModel.loadWebCreateHook(inputTitle, inputDescription, inputUrl, inputTags, inputSuggestTag)
+                viewModel.successData.observe(activity) { successData ->
+                    successData?.let {
+                        Log.d("인브라우저 훅 생성 페이지", "요청완료,자동생성:${inputSuggestTag}")
                     }
-
+                }
                     dismiss()
                     (context as? Activity)?.finishAndRemoveTask()
                 }
                 dismiss()
             }
         }
-    }
+
 
     private fun showTagSelectionDialog(editTextTag: TextView) {
-        val tags = multiChoiceList.keys.toTypedArray()
+        val tags = multiChoiceList.keys.sorted().toTypedArray()
         val checkedItems = BooleanArray(tags.size) { i -> multiChoiceList[tags[i]] == true }
 
         val builder = AlertDialog.Builder(context)
