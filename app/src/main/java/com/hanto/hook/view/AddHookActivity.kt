@@ -190,7 +190,7 @@ class AddHookActivity : BaseActivity(), TagSelectionListener {
             val containerTag = binding.containerTag
             val downArrow = binding.ivDownArrow
             val tvLimit2 = binding.tvLimit2
-//            toggleExpandCollapse(tvUrlDescription, tvTag, containerTag, downArrow, tvLimit2)
+            toggleExpandCollapse(tvUrlDescription, tvTag, containerTag, downArrow, tvLimit2)
         }
 
         binding.ivAddNewHook.setOnClickListener {
@@ -205,9 +205,6 @@ class AddHookActivity : BaseActivity(), TagSelectionListener {
             viewModel.createHookSuccessData.observe(this) { createHookSuccessData ->
                 if (createHookSuccessData != null) {
                     Toast.makeText(this, "훅이 추가됐어요!", Toast.LENGTH_SHORT).show()
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        finish()
-                    }, 300)
                 }
             }
             viewModel.createFailData.observe(this) { createFailData ->
@@ -242,17 +239,17 @@ class AddHookActivity : BaseActivity(), TagSelectionListener {
         isExpanded = !isExpanded
 
         if (isExpanded) {
-            tvUrlDescription.visibility = View.VISIBLE
-            tvTag.visibility = View.VISIBLE
-            containerTag.visibility = View.VISIBLE
-            downArrow.setImageResource(R.drawable.ic_up_arrow)
-            tvLimit2.visibility = View.VISIBLE
-        } else {
             tvUrlDescription.visibility = View.INVISIBLE
             tvTag.visibility = View.INVISIBLE
             containerTag.visibility = View.INVISIBLE
-            downArrow.setImageResource(R.drawable.ic_down_arrow)
+            downArrow.setImageResource(R.drawable.ic_up_arrow)
             tvLimit2.visibility = View.INVISIBLE
+        } else {
+            tvUrlDescription.visibility = View.VISIBLE
+            tvTag.visibility = View.VISIBLE
+            containerTag.visibility = View.VISIBLE
+            downArrow.setImageResource(R.drawable.ic_down_arrow)
+            tvLimit2.visibility = View.VISIBLE
         }
     }
 

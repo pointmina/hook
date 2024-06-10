@@ -69,6 +69,11 @@ class HomeFragment : Fragment() {
             findNavController().navigate(R.id.action_navigation_home_to_settingActivity)
         }  // 환경 설정 버튼
 
+        binding.swipeLayout.setOnRefreshListener {
+            hookViewModel.loadFindMyHooks()
+            binding.swipeLayout.isRefreshing = false
+        }  // 새로 고침
+
         hookAdapter = HookAdapter(
             hooks = ArrayList(),
             tag = ArrayList(),
