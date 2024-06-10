@@ -75,7 +75,8 @@ class HomeFragment : Fragment() {
             object : HookAdapter.OnItemClickListener {
                 override fun onClick(position: Int) {
                     val selectedHook = hookAdapter.getItem(position)
-                    showCountDownDialog(selectedHook)
+                    webIntent(selectedHook.url!!)
+                    //showCountDownDialog(selectedHook)
                 }
 
                 override fun onOptionButtonClick(position: Int) {
