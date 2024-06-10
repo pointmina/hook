@@ -21,17 +21,35 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class PageDetailsDialog(val activity: AppCompatActivity, val title: String, val url: String) :
-    Dialog(activity, R.style.DialogTheme) {
+class PageDetailsDialog : Dialog {
+
+    private lateinit var activity: AppCompatActivity
+    private lateinit var title: String
+    private lateinit var url: String
     private val multiChoiceList = linkedMapOf<String, Boolean>()
     private lateinit var viewModel: MainViewModel
     private lateinit var binding: ActivityUrlHandlingBinding
+
+    constructor(context: AppCompatActivity) : super(context, R.style.DialogTheme)
+
+    constructor(context: AppCompatActivity, title: String, url: String) : super(
+        context,
+        R.style.DialogTheme
+    ) {
+        this.activity = context
+        this.title = title
+        this.url = url
+    }
 
     @SuppressLint("WrongViewCast")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         window?.setBackgroundDrawableResource(android.R.color.transparent)
+
+        if (!::activity.isInitialized || !::title.isInitialized || !::url.isInitialized) {
+            return
+        }
 
         binding = ActivityUrlHandlingBinding.inflate(activity.layoutInflater)
         val view = binding.root
@@ -89,9 +107,9 @@ class PageDetailsDialog(val activity: AppCompatActivity, val title: String, val 
                     .map { it.trim().replace("#", "") }
                     .filter { it.isNotEmpty() })
                 val inputDescription = editTextDescription.text.toString()
+
                 val inputSuggestTag = isAutoTagTure
                 println("생성버튼클릭")
-                (context as? AppCompatActivity)?.finish()
 
                 viewModel.loadWebCreateHook(
                     inputTitle,
@@ -108,10 +126,8 @@ class PageDetailsDialog(val activity: AppCompatActivity, val title: String, val 
                 dismiss()
                 (context as? Activity)?.finishAndRemoveTask()
             }
-            dismiss()
         }
     }
-
 
     private fun showTagSelectionDialog(editTextTag: TextView) {
         val tags = multiChoiceList.keys.sorted().toTypedArray()
@@ -153,10 +169,8 @@ class PageDetailsDialog(val activity: AppCompatActivity, val title: String, val 
                     if (newTag.isNotEmpty()) {
                         GlobalScope.launch(Dispatchers.Main) {
                             val response = viewModel.loadCreateTag(newTag)
-
                             multiChoiceList[newTag] = true
                             showTagSelectionDialog(editTextTag)
-
                         }
                     } else {
                         Toast.makeText(context, "태그를 입력하세요.", Toast.LENGTH_SHORT).show()

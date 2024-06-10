@@ -66,6 +66,7 @@ class TagListFragment : DialogFragment() {
             dismiss()
         }
 
+
         // OK 버튼에 클릭 리스너 설정
         binding.btnOk.setOnClickListener {
             // 선택된 태그들을 리스트로 변환
