@@ -1,11 +1,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:background="@drawable/rounded_background_little"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".view.AddTagActivity">
+    android:background="@drawable/rounded_background_little">
 
 
     <View
@@ -52,10 +51,10 @@
         android:layout_marginStart="24dp"
         android:background="@color/transparent"
         android:hint="태그를 입력하세요"
-        android:theme="@style/MyCheckBox"
-        android:inputType="textMultiLine"
+        android:inputType="text"
         android:textSize="24dp"
         android:textStyle="bold"
+        android:theme="@style/MyCheckBox"
         app:layout_constraintBottom_toBottomOf="@id/container_tag_name"
         app:layout_constraintStart_toStartOf="@id/container_tag_name"
         app:layout_constraintTop_toTopOf="@id/container_tag_name" />
@@ -68,12 +67,12 @@
         android:layout_marginBottom="27dp"
         android:background="@drawable/rounded_background_little"
         android:backgroundTint="@color/purple"
+        android:elevation="4dp"
         android:gravity="center"
         android:text="태그 추가하기"
         android:textColor="@color/white"
         android:textSize="14dp"
         android:textStyle="bold"
-        android:elevation="4dp"
         app:layout_constraintEnd_toEndOf="@id/container_tag_name"
         app:layout_constraintStart_toStartOf="@id/container_tag_name"
         app:layout_constraintTop_toBottomOf="@id/container_tag_name" />

@@ -14,16 +14,22 @@ import androidx.lifecycle.ViewModelProvider
 import com.hanto.hook.BaseActivity
 import com.hanto.hook.R
 import com.hanto.hook.api.ApiServiceManager
+import com.hanto.hook.data.TagSelectionListener
 import com.hanto.hook.databinding.ActivityHookDetailBinding
 import com.hanto.hook.viewmodel.MainViewModel
 import com.hanto.hook.viewmodel.ViewModelFactory
 
-class HookDetailActivity : BaseActivity() {
+class HookDetailActivity : BaseActivity(), TagSelectionListener {
     private lateinit var binding: ActivityHookDetailBinding
 
     private val apiServiceManager by lazy { ApiServiceManager() }
     private val viewModelFactory by lazy { ViewModelFactory(apiServiceManager) }
-    private val viewModel: MainViewModel by lazy { ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java] }
+    private val viewModel: MainViewModel by lazy {
+        ViewModelProvider(
+            this,
+            viewModelFactory
+        )[MainViewModel::class.java]
+    }
 
     private var isUrlValid = true
     private var isTitleValid = true
@@ -59,7 +65,10 @@ class HookDetailActivity : BaseActivity() {
                     val item = clipData.getItemAt(0)
                     val pasteData = item.text
 
-                    if (pasteData != null && (pasteData.startsWith("http://") || pasteData.startsWith("https://"))) {
+                    if (pasteData != null && (pasteData.startsWith("http://") || pasteData.startsWith(
+                            "https://"
+                        ))
+                    ) {
                         binding.tvHandedUrl.setText(pasteData)
                         Toast.makeText(this, "가장 최근에 복사한 URL을 가져왔어요!", Toast.LENGTH_SHORT).show()
                     } else {
@@ -90,7 +99,7 @@ class HookDetailActivity : BaseActivity() {
             multiChoiceList[tag] = true
         }
 
-        val tvTag = binding.tvTag
+        val containerTag = binding.tvTag
         val tagString = tags?.joinToString(" ") { "#$it " }
         binding.tvTag.text = tagString
 
@@ -113,6 +122,7 @@ class HookDetailActivity : BaseActivity() {
                     }
                 }
             }
+
             override fun afterTextChanged(s: Editable?) {
                 updateButtonState()
             }
@@ -133,6 +143,7 @@ class HookDetailActivity : BaseActivity() {
                     binding.tvLimit2.text = "${s.length} / 80"
                 }
             }
+
             override fun afterTextChanged(s: Editable?) {}
         })
 
@@ -148,6 +159,7 @@ class HookDetailActivity : BaseActivity() {
                     binding.tvGuideUrl.visibility = View.GONE
                 }
             }
+
             override fun afterTextChanged(s: Editable?) {
                 updateButtonState()
             }
@@ -162,8 +174,10 @@ class HookDetailActivity : BaseActivity() {
             }
         }
 
-        tvTag.setOnClickListener {
-            showTagSelectionDialog()
+        containerTag.setOnClickListener {
+            val fragment = TagListFragment.newInstance(multiChoiceList)
+            fragment.setTagSelectionListener(this)
+            fragment.show(supportFragmentManager, "TagListFragment")
         }
 
         binding.hookEdit.setOnClickListener {
@@ -171,11 +185,20 @@ class HookDetailActivity : BaseActivity() {
             val newTitle = binding.tvHandedTitle.text.toString()
             val newDesc = binding.tvHandedDesc.text.toString()
             val newUrl = binding.tvHandedUrl.text.toString()
-            val selectedTags = binding.tvTag.text.split("  ").map { it.trim().replace("#", "") }
-            val newTag = if (selectedTags.isEmpty() || selectedTags[0].isEmpty()) arrayListOf<String>() else ArrayList(selectedTags)
+            val newTag =
+                ArrayList(containerTag.text.split(" ")
+                    .map { it.trim().replace("#", "") }
+                    .filter { it.isNotEmpty() })
 
             if (intId != null) {
-                viewModel.loadUpdateHook(intId, newTitle, newDesc, newUrl, newTag, suggestTags = false)
+                viewModel.loadUpdateHook(
+                    intId,
+                    newTitle,
+                    newDesc,
+                    newUrl,
+                    newTag,
+                    suggestTags = false
+                )
             }
             finish()
         }
@@ -192,34 +215,6 @@ class HookDetailActivity : BaseActivity() {
         }
     }
 
-    private fun showTagSelectionDialog() {
-        val tags = multiChoiceList.keys.sorted().toTypedArray()
-        val selectedItems = BooleanArray(tags.size) { i -> multiChoiceList[tags[i]] == true }
-
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("태그 선택")
-
-        builder.setMultiChoiceItems(tags, selectedItems) { _, which, isChecked ->
-            val selectedTag = tags[which]
-            multiChoiceList[selectedTag] = isChecked
-        }
-
-        builder.setPositiveButton("OK") { dialog, _ ->
-            updateTagsInView()
-            dialog.dismiss()
-        }
-
-        builder.setNegativeButton("Cancel") { dialog, _ ->
-            dialog.dismiss()
-        }
-
-        builder.setNeutralButton("Add") { dialog, _ ->
-            dialog.dismiss()
-            showAddTagDialog()
-        }
-
-        builder.create().show()
-    }
 
     private fun showAddTagDialog() {
         val editText = EditText(this)
@@ -254,5 +249,9 @@ class HookDetailActivity : BaseActivity() {
         }
         val sortedSelectedTags = selectedTags.sorted().map { "#$it" }
         binding.tvTag.text = sortedSelectedTags.joinToString("  ")
+    }
+
+    override fun onTagsSelected(tags: List<String>) {
+        binding.tvTag.text = tags.joinToString("  ") { "#$it" }
     }
 }

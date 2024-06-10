@@ -84,9 +84,9 @@
 
     <TextView
         android:id="@+id/iv_tag_change"
-        android:layout_width="250dp"
+        android:layout_width="0dp"
         android:layout_height="36dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginEnd="7dp"
         android:layout_marginBottom="8dp"
         android:background="@color/gray_100"
         android:gravity="center"
@@ -94,20 +94,21 @@
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@id/view_tag_area"
+        app:layout_constraintEnd_toStartOf="@id/iv_tag_delete"
         app:layout_constraintStart_toStartOf="@id/sharp" />
 
     <TextView
         android:id="@+id/iv_tag_delete"
         android:layout_width="0dp"
         android:layout_height="36dp"
+        android:layout_marginStart="7dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginStart="10dp"
         android:background="@color/gray_100"
         android:gravity="center"
-        app:layout_constraintEnd_toEndOf="parent"
         android:text="삭제하기"
         android:textSize="14sp"
         android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/iv_tag_change"
         app:layout_constraintTop_toTopOf="@id/iv_tag_change" />
 
