@@ -32,10 +32,6 @@
                 <data android:mimeType="image/*" />
             </intent-filter>
         </activity>
-
-        <activity
-            android:name=".urlHandler.PageDetailsDialog"
-            android:exported="true" />
         <activity
             android:name=".view.WebviewActivity"
             android:exported="false" />
