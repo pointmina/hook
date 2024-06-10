@@ -121,6 +121,7 @@ class PageDetailsDialog : Dialog {
                 viewModel.successData.observe(activity) { successData ->
                     successData?.let {
                         Log.d("인브라우저 훅 생성 페이지", "요청완료,자동생성:${inputSuggestTag}")
+                        Toast.makeText(activity, "저장 완료!", Toast.LENGTH_SHORT).show()
                     }
                 }
                 dismiss()
