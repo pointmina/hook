@@ -56,6 +56,7 @@ class Sharing : AppCompatActivity() {
                     pageTitle?.let { title ->
                         toast?.cancel() // 토스트 메시지 취소
                         openPageDetailsDialog(title, originUrl)
+                        cancelAutoCloseTimer()
 //                        Toast.makeText(this@Sharing, "현재 페이지로 훅을 만들었어요!", Toast.LENGTH_SHORT).show()
                     }
                 }
@@ -87,6 +88,12 @@ class Sharing : AppCompatActivity() {
                 }
             }
         }, timeout)
+    }
+
+    private fun cancelAutoCloseTimer() {
+        if (::timer.isInitialized) {
+            timer.cancel()
+        }
     }
 
     private fun openPageDetailsDialog(title: String, url: String) {
