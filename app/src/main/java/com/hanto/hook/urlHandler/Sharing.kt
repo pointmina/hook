@@ -13,9 +13,15 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
+import java.util.Timer
+import java.util.TimerTask
 import kotlin.coroutines.cancellation.CancellationException
 
 class Sharing : AppCompatActivity() {
+
+    private lateinit var timer: Timer
+    private val timeout = 5000L
+
     private val _pageTitle = MutableLiveData<String?>()
     private val pageTitle: LiveData<String?>
         get() = _pageTitle
@@ -25,6 +31,11 @@ class Sharing : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         webCrawlingHandler()
+
+    }
+
+    private fun extractUrl(sharedText: String?): String? {
+        return sharedText?.substringAfter("http")?.substringBefore(" ")?.let { "http$it" }
     }
 
     private fun webCrawlingHandler() {
@@ -35,6 +46,7 @@ class Sharing : AppCompatActivity() {
         if (receivedAction == Intent.ACTION_SEND && receivedType == "text/plain") {
             val sharedText: String? = receivedIntent.getStringExtra(Intent.EXTRA_TEXT)
             sharedText?.let { originUrl ->
+                startAutoCloseTimer()
                 lifecycleScope.launch {
                     loadWebTitle(originUrl)
 
@@ -47,7 +59,13 @@ class Sharing : AppCompatActivity() {
 //                        Toast.makeText(this@Sharing, "현재 페이지로 훅을 만들었어요!", Toast.LENGTH_SHORT).show()
                     }
                 }
+            }?: run {
+                println("Received URL is null")
+                finish()
             }
+        }else {
+            println("Unexpected intent received")
+            finish()
         }
     }
 
@@ -55,6 +73,20 @@ class Sharing : AppCompatActivity() {
         toast?.cancel() // 이전 토스트 메시지 취소
         toast = Toast.makeText(this@Sharing, message, Toast.LENGTH_LONG)
         toast?.show()
+    }
+
+    private fun startAutoCloseTimer() {
+        timer = Timer()
+        timer.schedule(object : TimerTask() {
+            override fun run() {
+                runOnUiThread {
+                    if (!isFinishing) {
+                        println("Dialog not opened in time, closing Sharing activity")
+                        finish()
+                    }
+                }
+            }
+        }, timeout)
     }
 
     private fun openPageDetailsDialog(title: String, url: String) {
@@ -72,7 +104,7 @@ class Sharing : AppCompatActivity() {
                     .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3")
                     .get()
                 val titleElement = document.select("meta[property=og:title]").first()
-                val title = titleElement?.attr("content")
+                val title = titleElement?.attr("content") ?: document.title()
                 val limitedUrl = if (url.length > 30) url.substring(0, 30) + "..." else url
                 if (isLoginPage(document)) {
                     _pageTitle.postValue(limitedUrl)
