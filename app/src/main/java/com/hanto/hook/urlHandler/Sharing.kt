@@ -1,19 +1,14 @@
 package com.hanto.hook.urlHandler
 
-
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.activity.viewModels
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.lifecycleScope
-import com.hanto.hook.api.ApiServiceManager
-import com.hanto.hook.viewmodel.MainViewModel
-import com.hanto.hook.viewmodel.ViewModelFactory
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.jsoup.Jsoup
@@ -21,12 +16,11 @@ import org.jsoup.nodes.Document
 import kotlin.coroutines.cancellation.CancellationException
 
 class Sharing : AppCompatActivity() {
-    private val apiServiceManager by lazy { ApiServiceManager() }
-    private val viewModelFactory by lazy { ViewModelFactory(apiServiceManager) }
-    private val viewModel: MainViewModel by viewModels { viewModelFactory }
     private val _pageTitle = MutableLiveData<String?>()
     private val pageTitle: LiveData<String?>
         get() = _pageTitle
+
+    private var toast: Toast? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,15 +37,26 @@ class Sharing : AppCompatActivity() {
             sharedText?.let { originUrl ->
                 lifecycleScope.launch {
                     loadWebTitle(originUrl)
+
                 }
+                showToastMessage("자동 훅 생성 시작!")
                 pageTitle.observe(this) { pageTitle ->
                     pageTitle?.let { title ->
+                        toast?.cancel() // 토스트 메시지 취소
                         openPageDetailsDialog(title, originUrl)
+                        Toast.makeText(this@Sharing, "현재 페이지로 훅을 만들었어요!", Toast.LENGTH_SHORT).show()
                     }
                 }
             }
         }
     }
+
+    private fun showToastMessage(message: String) {
+        toast?.cancel() // 이전 토스트 메시지 취소
+        toast = Toast.makeText(this@Sharing, message, Toast.LENGTH_LONG)
+        toast?.show()
+    }
+
     private fun openPageDetailsDialog(title: String, url: String) {
         val dialog = PageDetailsDialog(this, title, url)
         dialog.setOnDismissListener {
