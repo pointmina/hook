@@ -194,6 +194,8 @@ class AddHookActivity : BaseActivity(), TagSelectionListener {
         }
 
         binding.ivAddNewHook.setOnClickListener {
+            //여러번 추가 방지
+            binding.ivAddNewHook.isEnabled = false
             val tags = ArrayList(binding.containerTag.text.split(" ")
                 .map { it.trim().replace("#", "") }
                 .filter { it.isNotEmpty() })
@@ -206,12 +208,15 @@ class AddHookActivity : BaseActivity(), TagSelectionListener {
                 if (createHookSuccessData != null) {
                     Toast.makeText(this, "훅이 추가됐어요!", Toast.LENGTH_SHORT).show()
                 }
+                finish()
+                binding.ivAddNewHook.isEnabled = true
             }
             viewModel.createFailData.observe(this) { createFailData ->
                 if (createFailData != null) {
                     val errorMessage = createFailData.message.joinToString(separator = "\n")
                     Toast.makeText(this@AddHookActivity, errorMessage, Toast.LENGTH_SHORT).show()
                 }
+                binding.ivAddNewHook.isEnabled = true
             }
         }
     }
