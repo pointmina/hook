@@ -98,11 +98,13 @@
 
     <TextView
         android:id="@+id/iv_tag_delete"
-        android:layout_width="100dp"
+        android:layout_width="0dp"
         android:layout_height="36dp"
+        android:layout_marginEnd="20dp"
         android:layout_marginStart="10dp"
         android:background="@color/gray_100"
         android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
         android:text="삭제하기"
         android:textSize="14sp"
         android:textStyle="bold"

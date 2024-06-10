@@ -1,5 +1,5 @@
 package com.hanto.hook.data
 
 interface TagSelectionListener {
-    fun onTagsSelected(tags: String)
+    fun onTagsSelected(tags: List<String>)
 }

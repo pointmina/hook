@@ -1,20 +1,18 @@
 package com.hanto.hook.view
 
 import android.content.ClipboardManager
-import android.content.DialogInterface
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import com.hanto.hook.BaseActivity
 import com.hanto.hook.R
@@ -41,10 +39,31 @@ class AddHookActivity : BaseActivity(), TagSelectionListener {
     private var isTitleValid = false
     private var isExpanded = false
 
+    private var selectedTags: List<String> = emptyList()
+    private val multiChoiceList = linkedMapOf<String, Boolean>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddHookBinding.inflate(layoutInflater)
         val view = binding.root
+
+        viewModel.loadFindMyTags()
+        viewModel.tagData.observe(this) { tagData ->
+            tagData?.let {
+                for (tag in tagData.tag) {
+                    tag.displayName?.let { displayName ->
+                        if (!multiChoiceList.containsKey(displayName)) {
+                            multiChoiceList[displayName] = false
+                        }
+                    }
+                }
+            }
+        }
+
+        val tags = intent.getStringArrayListExtra("item_tag_list")
+        tags?.forEach { tag ->
+            multiChoiceList[tag] = true
+        }
 
         setContentView(view)
         updateButtonState()
@@ -53,6 +72,7 @@ class AddHookActivity : BaseActivity(), TagSelectionListener {
             finish()
         }
 
+        // 클립보드에서 바로 붙여넣기
         binding.ivUrlLink.setOnClickListener {
             val clipboard = getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
             if (clipboard.hasPrimaryClip()) {
@@ -75,13 +95,14 @@ class AddHookActivity : BaseActivity(), TagSelectionListener {
             } else {
                 Toast.makeText(this, "클립보드가 비어 있습니다.", Toast.LENGTH_SHORT).show()
             }
-        } // 클립보드에서 바로 붙여넣기
+        }
 
         val limitString1 = "${binding.tvUrlTitle.text.length} / 120"
         val limitString2 = "${binding.tvUrlDescription.text.length} / 80"
         binding.tvLimit1.text = limitString1
         binding.tvLimit2.text = limitString2
 
+        //content에 따라 버튼 active
         binding.tvUrlLink.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -155,8 +176,9 @@ class AddHookActivity : BaseActivity(), TagSelectionListener {
 
         // 태그 선택
         binding.containerTag.setOnClickListener {
-            val fragment = tagListFragment()
+            val fragment = TagListFragment.newInstance(multiChoiceList)
             fragment.setTagSelectionListener(this)
+            Log.d("minamina", "Sending tags to TagListFragment: $multiChoiceList")
             fragment.show(supportFragmentManager, "TagListFragment")
         }
 
@@ -168,7 +190,7 @@ class AddHookActivity : BaseActivity(), TagSelectionListener {
             val containerTag = binding.containerTag
             val downArrow = binding.ivDownArrow
             val tvLimit2 = binding.tvLimit2
-            toggleExpandCollapse(tvUrlDescription, tvTag, containerTag, downArrow, tvLimit2)
+//            toggleExpandCollapse(tvUrlDescription, tvTag, containerTag, downArrow, tvLimit2)
         }
 
         binding.ivAddNewHook.setOnClickListener {
@@ -209,6 +231,7 @@ class AddHookActivity : BaseActivity(), TagSelectionListener {
         }
     }
 
+    //펼쳐져있는게 낫다는 피드백이 있어서 일단 주석처리해놈
     private fun toggleExpandCollapse(
         tvUrlDescription: TextView,
         tvTag: TextView,
@@ -233,7 +256,8 @@ class AddHookActivity : BaseActivity(), TagSelectionListener {
         }
     }
 
-    override fun onTagsSelected(tags: String) {
-        binding.containerTag.text = tags
+    override fun onTagsSelected(tags: List<String>) {
+        binding.containerTag.text = tags.joinToString(" ") { "#$it" }
+        Log.d("minamina", "Received tags from TagListFragment: $tags")
     }
 }

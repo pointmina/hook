@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.hanto.hook.databinding.ItemTagBinding
 
 @Suppress("DEPRECATION")
-class TagListAdapter(private val context: Context, private val tagMap: LinkedHashMap<String, Boolean>) :
+class TagListAdapter(private val context: Context, private val tagMap: MutableMap<String, Boolean>) :
     RecyclerView.Adapter<TagListAdapter.TagViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TagViewHolder {

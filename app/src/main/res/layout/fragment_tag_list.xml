@@ -38,10 +38,10 @@
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/tv_add_newTag"
-        android:layout_width="300dp"
+        android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:hint="태그 입력"
-        android:layout_marginStart="3dp"
+        android:layout_marginStart="10dp"
         android:padding="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/lv_Tags" />
@@ -54,6 +54,7 @@
         android:backgroundTint="@color/purple"
         android:gravity="center"
         android:text="태그 추가"
+        app:layout_constraintEnd_toEndOf="parent"
         android:textColor="@color/white"
         app:layout_constraintStart_toEndOf="@id/tv_add_newTag"
         app:layout_constraintTop_toTopOf="@id/tv_add_newTag" />
