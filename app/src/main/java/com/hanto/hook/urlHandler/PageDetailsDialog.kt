@@ -108,24 +108,33 @@ class PageDetailsDialog : Dialog {
                     .filter { it.isNotEmpty() })
                 val inputDescription = editTextDescription.text.toString()
 
-                val inputSuggestTag = isAutoTagTure
-                println("생성버튼클릭")
-
-                viewModel.loadWebCreateHook(
-                    inputTitle,
-                    inputDescription,
-                    inputUrl,
-                    inputTags,
-                    inputSuggestTag
-                )
-                viewModel.successData.observe(activity) { successData ->
-                    successData?.let {
-                        Log.d("인브라우저 훅 생성 페이지", "요청완료,자동생성:${inputSuggestTag}")
-                        Toast.makeText(activity, "저장 완료!", Toast.LENGTH_SHORT).show()
-                    }
+                if (inputTitle.isBlank()) {
+                    Toast.makeText(context, "페이지 제목을 입력하세요.", Toast.LENGTH_SHORT).show()
+                    editTextTitle.requestFocus()
                 }
-                dismiss()
-                (context as? Activity)?.finishAndRemoveTask()
+                else if (inputTitle.firstOrNull()?.isWhitespace() == true)  {
+                    Toast.makeText(context, "페이지 제목 첫 글자에는 공백이 올 수 없습니다.", Toast.LENGTH_SHORT).show()
+                    editTextTitle.requestFocus()
+                }else {
+                    val inputSuggestTag = isAutoTagTure
+                    println("생성버튼클릭")
+
+                    viewModel.loadWebCreateHook(
+                        inputTitle,
+                        inputDescription,
+                        inputUrl,
+                        inputTags,
+                        inputSuggestTag
+                    )
+                    viewModel.successData.observe(activity) { successData ->
+                        successData?.let {
+                            Log.d("인브라우저 훅 생성 페이지", "요청완료,자동생성:${inputSuggestTag}")
+                            Toast.makeText(activity, "저장 완료!", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                    dismiss()
+                    (context as? Activity)?.finishAndRemoveTask()
+                }
             }
         }
     }
