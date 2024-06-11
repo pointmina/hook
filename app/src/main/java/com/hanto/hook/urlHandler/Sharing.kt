@@ -51,7 +51,7 @@ class Sharing : AppCompatActivity() {
                     loadWebTitle(originUrl)
 
                 }
-                showToastMessage("훅 생성 시작!")
+                showToastMessage("훅 생성 시작!", Toast.LENGTH_SHORT)
                 pageTitle.observe(this) { pageTitle ->
                     pageTitle?.let { title ->
                         toast?.cancel() // 토스트 메시지 취소
@@ -70,7 +70,7 @@ class Sharing : AppCompatActivity() {
         }
     }
 
-    private fun showToastMessage(message: String) {
+    private fun showToastMessage(message: String, lengthShort: Int) {
         toast?.cancel() // 이전 토스트 메시지 취소
         toast = Toast.makeText(this@Sharing, message, Toast.LENGTH_LONG)
         toast?.show()
