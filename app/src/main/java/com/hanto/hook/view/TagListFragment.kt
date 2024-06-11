@@ -69,10 +69,8 @@ class TagListFragment : DialogFragment() {
 
         // OK 버튼에 클릭 리스너 설정
         binding.btnOk.setOnClickListener {
-            // 선택된 태그들을 리스트로 변환
             val selectedTags = multiChoiceList.filterValues { it }.keys.toList()
             Log.d("minaminamina", "Selected tags: $selectedTags")
-            // 인터페이스를 통해 선택된 태그들을 전달
             tagSelectionListener?.onTagsSelected(selectedTags)
             dismiss()
         }

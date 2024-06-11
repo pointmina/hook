@@ -28,12 +28,9 @@ class TagListAdapter(private val context: Context, private val tagMap: MutableMa
         RecyclerView.ViewHolder(binding.root) {
 
         init {
-            // 아이템 뷰 클릭 시 체크 상태를 변경
-            binding.root.setOnClickListener {
+            binding.checkbox.setOnCheckedChangeListener { _, isChecked ->
                 val tag = tagMap.keys.elementAt(adapterPosition)
-                val currentCheckedState = tagMap[tag] ?: false
-                tagMap[tag] = !currentCheckedState
-                notifyItemChanged(adapterPosition)
+                tagMap[tag] = isChecked
             }
         }
 
