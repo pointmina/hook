@@ -31,7 +31,6 @@ class Sharing : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         webCrawlingHandler()
-
     }
 
     private fun extractUrl(sharedText: String?): String? {
@@ -45,11 +44,11 @@ class Sharing : AppCompatActivity() {
 
         if (receivedAction == Intent.ACTION_SEND && receivedType == "text/plain") {
             val sharedText: String? = receivedIntent.getStringExtra(Intent.EXTRA_TEXT)
-            sharedText?.let { originUrl ->
+            val url = extractUrl(sharedText)
+            url?.let { originUrl ->
                 startAutoCloseTimer()
                 lifecycleScope.launch {
                     loadWebTitle(originUrl)
-
                 }
                 showToastMessage("훅 생성 시작!")
                 pageTitle.observe(this) { pageTitle ->
@@ -57,23 +56,29 @@ class Sharing : AppCompatActivity() {
                         toast?.cancel() // 토스트 메시지 취소
                         openPageDetailsDialog(title, originUrl)
                         cancelAutoCloseTimer()
-//                        Toast.makeText(this@Sharing, "현재 페이지로 훅을 만들었어요!", Toast.LENGTH_SHORT).show()
+                    } ?: run {
+                        toast?.cancel()
+                        showToastMessage("페이지 제목을 불러올 수 없습니다.")
+                        openPageDetailsDialog(null, originUrl)
+                        cancelAutoCloseTimer()
                     }
                 }
-            }?: run {
+            } ?: run {
                 println("Received URL is null")
                 finish()
             }
-        }else {
+        } else {
             println("Unexpected intent received")
             finish()
         }
     }
 
     private fun showToastMessage(message: String) {
-        toast?.cancel() // 이전 토스트 메시지 취소
-        toast = Toast.makeText(this@Sharing, message, Toast.LENGTH_LONG)
-        toast?.show()
+        runOnUiThread {
+            toast?.cancel() // 이전 토스트 메시지 취소
+            toast = Toast.makeText(this@Sharing, message, Toast.LENGTH_LONG)
+            toast?.show()
+        }
     }
 
     private fun startAutoCloseTimer() {
@@ -96,8 +101,8 @@ class Sharing : AppCompatActivity() {
         }
     }
 
-    private fun openPageDetailsDialog(title: String, url: String) {
-        val dialog = PageDetailsDialog(this, title, url)
+    private fun openPageDetailsDialog(title: String?, url: String) {
+        val dialog = PageDetailsDialog(this, title ?: "", url) // "default_title"을 기본값으로 설정
         dialog.setOnDismissListener {
             this.finish()
         }
@@ -106,9 +111,11 @@ class Sharing : AppCompatActivity() {
 
     private suspend fun loadWebTitle(url: String) {
         withContext(Dispatchers.IO) {
+            println("loadWebtitle시작")
             try {
                 val document: Document = Jsoup.connect(url)
                     .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3")
+                    .timeout(3000) // 10초 타임아웃 설정
                     .get()
                 val titleElement = document.select("meta[property=og:title]").first()
                 val title = titleElement?.attr("content") ?: document.title()
@@ -120,8 +127,16 @@ class Sharing : AppCompatActivity() {
                 }
             } catch (e: CancellationException) {
                 Log.e("SharingHassan", "Coroutine 캔슬 오류", e)
+                withContext(Dispatchers.Main) {
+                    showToastMessage("페이지 제목을 불러올 수 없습니다.")
+                }
+                _pageTitle.postValue(null)
             } catch (e: Exception) {
                 Log.e("SharingHassan", "예상치 못한 오류", e)
+                withContext(Dispatchers.Main) {
+                    showToastMessage("페이지 제목을 불러올 수 없습니다.")
+                }
+                _pageTitle.postValue(null)
             }
         }
     }
