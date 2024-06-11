@@ -32,6 +32,12 @@ class TagListAdapter(private val context: Context, private val tagMap: MutableMa
                 val tag = tagMap.keys.elementAt(adapterPosition)
                 tagMap[tag] = isChecked
             }
+
+            //사용자 편의를 위해 체크 선택 범위를 넓힘
+            binding.tvTagName.setOnClickListener {
+                val currentCheckState = binding.checkbox.isChecked
+                binding.checkbox.isChecked = !currentCheckState
+            }
         }
 
         fun bind(tag: String, isChecked: Boolean) {

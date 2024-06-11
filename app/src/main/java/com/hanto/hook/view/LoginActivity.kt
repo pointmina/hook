@@ -22,12 +22,12 @@ class LoginActivity : BaseActivity() {
             }
         }
 
-        binding.btWithoutlogin.setOnClickListener {
-            RetroServer.accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIyIiwiaWF0IjoxNzE1NTg0Nzc2fQ.ll_sGqvG9CiOXvNBlX6LaOJ63hp1jrCH6ebiejL5emI"
-            val intent = Intent(this, HomeActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
+//        binding.btWithoutlogin.setOnClickListener {
+//            RetroServer.accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIyIiwiaWF0IjoxNzE1NTg0Nzc2fQ.ll_sGqvG9CiOXvNBlX6LaOJ63hp1jrCH6ebiejL5emI"
+//            val intent = Intent(this, HomeActivity::class.java)
+//            startActivity(intent)
+//            finish()
+//        }
     }
 
     override fun onBackPressed() {
