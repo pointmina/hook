@@ -5,11 +5,20 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.lifecycleScope
+import com.hanto.hook.api.RetroServer
+import com.hanto.hook.view.LoginActivity
+import com.hanto.hook.view.dataStore
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
@@ -30,7 +39,28 @@ class Sharing : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val dataStore = applicationContext.dataStore
+        val accessToken = loadAccessToken(dataStore)
+
+        if (accessToken.isNotEmpty()) {
+            RetroServer.accessToken = accessToken
+        } else {
+            val intent = Intent(this@Sharing, LoginActivity::class.java)
+            startActivity(intent)
+            Toast.makeText(this, "로그인이 필요한 서비스 입니다.", Toast.LENGTH_SHORT).show()
+            finish()
+        }
         webCrawlingHandler()
+    }
+
+    private fun loadAccessToken(dataStore: DataStore<Preferences>): String {
+        val accessTokenKey = stringPreferencesKey("access_token")
+        return runBlocking {
+            dataStore.data.map { preferences ->
+                preferences[accessTokenKey] ?: ""
+            }.first()
+        }
     }
 
     private fun extractUrl(sharedText: String?): String? {
@@ -104,7 +134,7 @@ class Sharing : AppCompatActivity() {
     private fun openPageDetailsDialog(title: String?, url: String) {
         val dialog = PageDetailsDialog(this, title ?: "", url) // "default_title"을 기본값으로 설정
         dialog.setOnDismissListener {
-            this.finish()
+            this.finishAffinity()
         }
         dialog.show()
     }
