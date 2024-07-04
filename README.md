@@ -31,7 +31,7 @@ Features
 Tech Stacks
 -
 - MVVM
-- Jetpack Compose
+- XML
 - Android App Architecture
 - App Modularization
 - Material 3
