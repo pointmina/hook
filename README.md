@@ -39,7 +39,7 @@ Tech Stacks
 Members
 -
 
-|<a href="https://github.com/ktodw98">이동원|<a href="https://github.com/imeugeneco">고유진|<a href="https://github.com/Chaeyoung714">이채영|<a href="https://github.com/pointmina">김민아|<a href="https://github.com/metalmixx">이예진|<a href="https://github.com/whduddn">조영우|
+|<a href="https://github.com/ktodw98">이동원|<a href="https://github.com/imeugeneco">고유진|<a href="https://github.com/Chaeyoung714">이채영|<a href="https://github.com/pointmina">김민아|<a href="https://github.com/xstarmax">이예진|<a href="https://github.com/whduddn">조영우|
 |:---:|:---:|:---:|:---:|:---:|:---:|
 |<img src="https://github.com/pointmina/hook/assets/68779817/1cdbef47-5608-4685-b7de-37779093762c" width="100">|<img src="https://github.com/pointmina/hook/assets/68779817/c6dbac4b-c060-4ad5-8f5b-f7ae2efeb60c" width="100">|<img src="https://github.com/pointmina/hook/assets/68779817/ef5d3d14-4f32-423e-8a0e-da1615a1123d" width="100">|<img src="https://github.com/pointmina/hook/assets/68779817/11f73b42-4f6b-40b5-8bdd-27aeab4bfa4c" width="100">|<img src="https://github.com/pointmina/hook/assets/68779817/6cb72fef-45f6-4c51-b9b2-877b9efc0911" width="100">|<img src="https://github.com/pointmina/hook/assets/68779817/7c500406-f577-41af-a094-e0cc1d482433" width="100">|
 |PM|Backend|Backend|Frontend|Frontend|Frontend|
